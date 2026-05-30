@@ -526,6 +526,162 @@
     font-weight: 500;
   }
 
+  /* ============ TYPE SYSTEM SPECTRUM ============ */
+  .types-section {
+    padding: 100px 6vw;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .types-wrap { max-width: 1300px; margin: 0 auto; }
+  .types-stage {
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 50px 40px;
+    margin-top: 30px;
+    overflow: hidden;
+    position: relative;
+  }
+  .types-svg {
+    display: block;
+    width: 100%;
+    height: 480px;
+    min-width: 700px;
+  }
+  .types-svg .axis-line { stroke: var(--ink); stroke-width: 1.5; }
+  .types-svg .axis-arrow { fill: var(--ink); }
+  .types-svg .quad-bg { fill: rgba(0,0,0,0.02); }
+  .types-svg .axis-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    fill: var(--ink-dim);
+  }
+  .types-svg .quad-title {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 14px;
+    fill: var(--ink-dim);
+  }
+  .types-svg .lang-dot { cursor: pointer; transition: r 0.2s; stroke: var(--bg-paper); stroke-width: 2.5; }
+  .types-svg .lang-dot:hover { r: 12; }
+  .types-svg .lang-text {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    fill: var(--ink);
+    pointer-events: none;
+  }
+
+  /* ============ SALARY CHART ============ */
+  .salary-section {
+    padding: 100px 6vw;
+    background: var(--bg-paper);
+    border-top: 1px solid var(--line);
+  }
+  .salary-wrap { max-width: 1300px; margin: 0 auto; }
+  .salary-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .salary-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 110px;
+    gap: 18px;
+    align-items: center;
+    padding: 12px 0;
+  }
+  .salary-row .lname {
+    font-size: 0.92rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .salary-row .lname::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--c, #999);
+  }
+  .salary-row .strack {
+    height: 28px;
+    background: var(--bg);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+  .salary-row .sfill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--c, var(--p-procedural)), color-mix(in srgb, var(--c) 70%, #000));
+    border-radius: 6px;
+    transition: width 1s cubic-bezier(.2,.8,.2,1);
+  }
+  .salary-row .svalue {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    text-align: right;
+    color: var(--p-procedural);
+  }
+
+  /* ============ SAME ALGORITHM ============ */
+  .algo-section {
+    padding: 100px 6vw;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .algo-wrap { max-width: 1300px; margin: 0 auto; }
+  .algo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-top: 40px;
+  }
+  .algo-card {
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #333;
+  }
+  .algo-card .ahead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid #333;
+  }
+  .algo-card .aname {
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+    color: #ededed;
+    font-weight: 500;
+  }
+  .algo-card .ayear {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--c, #999);
+    text-transform: uppercase;
+  }
+  .algo-card pre {
+    margin: 0;
+    padding: 18px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: #ededed;
+    overflow-x: auto;
+  }
+  .algo-card pre .kw { color: #ff8a8a; }
+  .algo-card pre .str { color: #b8e986; }
+  .algo-card pre .com { color: #6e6e6e; font-style: italic; }
+  .algo-card pre .num { color: #ffd166; }
+  .algo-card pre .fn { color: #79e0ff; }
+
   /* ============ CREATORS ============ */
   .creators-section {
     padding: 100px 6vw;
@@ -681,6 +837,38 @@
     <h2 class="section-title">Different problems, <em>different languages.</em></h2>
     <p class="section-sub">There is no single "best" language — only languages that fit certain shapes of problem better than others. The ecosystem you adopt usually matters more than the syntax.</p>
     <div class="domains-grid" id="domainsGrid"></div>
+  </div>
+</section>
+
+<!-- ============ TYPE SYSTEM SPECTRUM ============ -->
+<section class="types-section">
+  <div class="types-wrap">
+    <div class="section-eyebrow">A Map of Strictness</div>
+    <h2 class="section-title">Where each language sits on the <em>type spectrum.</em></h2>
+    <p class="section-sub">Two axes that explain a lot of fights between programmers. <strong>Static vs Dynamic</strong>: when does the language check types — at compile time, or at runtime? <strong>Strong vs Weak</strong>: how willing is the language to silently convert one type into another? Hover over any language to read more.</p>
+    <div class="types-stage">
+      <svg class="types-svg" id="typesSvg" viewBox="0 0 1100 480" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SALARY ============ -->
+<section class="salary-section">
+  <div class="salary-wrap">
+    <div class="section-eyebrow">What People Get Paid</div>
+    <h2 class="section-title">Average global salary, <em>by primary language.</em></h2>
+    <p class="section-sub">Median annual compensation from the 2024 Stack Overflow Developer Survey, in USD. Big variance by location and seniority — the numbers below are the global median for full-time developers. The really interesting story is the gap: niche languages with strong demand pay better than ubiquitous ones.</p>
+    <div class="salary-list" id="salaryList"></div>
+  </div>
+</section>
+
+<!-- ============ SAME ALGORITHM ============ -->
+<section class="algo-section">
+  <div class="algo-wrap">
+    <div class="section-eyebrow">One Problem, Six Translations</div>
+    <h2 class="section-title">The same recursive Fibonacci, in <em>six languages.</em></h2>
+    <p class="section-sub">A canonical exercise: compute the n-th Fibonacci number recursively. Functionally identical, syntactically wildly different. Notice how Python and Haskell collapse to almost a single line, while Java and C++ require ceremony before any logic appears.</p>
+    <div class="algo-grid" id="algoGrid"></div>
   </div>
 </section>
 
@@ -1116,6 +1304,127 @@ document.getElementById('creatorsGrid').innerHTML = CREATORS.map(c => `
     <div class="role">${c.lang}</div>
     <div class="name">${c.name}</div>
     <div class="quote">${c.quote}</div>
+  </div>
+`).join('');
+
+// ============ TYPE SYSTEM SPECTRUM ============
+(function renderTypes() {
+  const W = 1100, H = 480;
+  const PAD = { l: 90, r: 60, t: 60, b: 80 };
+  const innerW = W - PAD.l - PAD.r;
+  const innerH = H - PAD.t - PAD.b;
+  // X axis: Dynamic (left) → Static (right)
+  // Y axis: Weak (top) → Strong (bottom)... actually let's invert: Strong (top) → Weak (bottom) for clarity
+  // Use -1 to 1 coordinates per axis
+  const xS = v => PAD.l + ((v + 1) / 2) * innerW;
+  const yS = v => PAD.t + ((1 - v) / 2) * innerH;
+
+  // (x, y, color, name) — x: -1 dynamic, +1 static. y: -1 weak, +1 strong
+  const TLANGS = [
+    { name: "JavaScript", x: -0.85, y: -0.7, color: "#c89b3c" },
+    { name: "PHP",        x: -0.7,  y: -0.85, color: "#7a73a3" },
+    { name: "Perl",       x: -0.85, y: -0.6,  color: "#c89b3c" },
+    { name: "Python",     x: -0.7,  y:  0.5,  color: "#5a8fbf" },
+    { name: "Ruby",       x: -0.6,  y:  0.4,  color: "#a64d6c" },
+    { name: "Lua",        x: -0.8,  y: -0.2,  color: "#c89b3c" },
+    { name: "C",          x:  0.6,  y: -0.5,  color: "#d97757" },
+    { name: "C++",        x:  0.7,  y: -0.4,  color: "#4a90a4" },
+    { name: "Java",       x:  0.65, y:  0.6,  color: "#a3672a" },
+    { name: "C#",         x:  0.55, y:  0.55, color: "#5a4a8a" },
+    { name: "Go",         x:  0.55, y:  0.65, color: "#7a9c5e" },
+    { name: "Swift",      x:  0.7,  y:  0.7,  color: "#a64d6c" },
+    { name: "Kotlin",     x:  0.7,  y:  0.7,  color: "#4a90a4" },
+    { name: "Rust",       x:  0.85, y:  0.95, color: "#5a4a8a" },
+    { name: "Haskell",    x:  0.95, y:  0.95, color: "#7a9c5e" },
+    { name: "TypeScript", x:  0.5,  y:  0.4,  color: "#1a4060" },
+    { name: "Scala",      x:  0.8,  y:  0.85, color: "#a64d6c" }
+  ];
+  // Resolve overlaps by tiny x/y nudges
+  let html = "";
+
+  // Quadrant labels
+  html += `<rect class="quad-bg" x="${PAD.l}" y="${PAD.t}" width="${innerW/2}" height="${innerH/2}"/>`;
+  html += `<rect class="quad-bg" x="${PAD.l + innerW/2}" y="${PAD.t + innerH/2}" width="${innerW/2}" height="${innerH/2}"/>`;
+  html += `<text class="quad-title" x="${xS(-0.5)}" y="${yS(0.85)}" text-anchor="middle">Dynamic + Strong</text>`;
+  html += `<text class="quad-title" x="${xS(0.5)}" y="${yS(0.85)}" text-anchor="middle">Static + Strong</text>`;
+  html += `<text class="quad-title" x="${xS(-0.5)}" y="${yS(-0.85)}" text-anchor="middle">Dynamic + Weak</text>`;
+  html += `<text class="quad-title" x="${xS(0.5)}" y="${yS(-0.85)}" text-anchor="middle">Static + Weak</text>`;
+
+  // Axes
+  html += `<line class="axis-line" x1="${PAD.l + innerW/2}" y1="${PAD.t}" x2="${PAD.l + innerW/2}" y2="${H - PAD.b}"/>`;
+  html += `<line class="axis-line" x1="${PAD.l}" y1="${PAD.t + innerH/2}" x2="${W - PAD.r}" y2="${PAD.t + innerH/2}"/>`;
+
+  // Axis labels
+  html += `<text class="axis-label" x="${PAD.l - 14}" y="${PAD.t + innerH/2 + 4}" text-anchor="end">Dynamic ←</text>`;
+  html += `<text class="axis-label" x="${W - PAD.r + 14}" y="${PAD.t + innerH/2 + 4}" text-anchor="start">→ Static</text>`;
+  html += `<text class="axis-label" x="${PAD.l + innerW/2}" y="${PAD.t - 18}" text-anchor="middle">↑ Strong typing</text>`;
+  html += `<text class="axis-label" x="${PAD.l + innerW/2}" y="${H - PAD.b + 26}" text-anchor="middle">↓ Weak typing</text>`;
+
+  // Plot dots, with collision dodge (deterministic)
+  const placed = [];
+  TLANGS.forEach(l => {
+    let cx = xS(l.x), cy = yS(l.y);
+    // Try small offsets if too close to a placed dot
+    let nudge = 0;
+    while (placed.some(p => Math.hypot(p.cx - cx, p.cy - cy) < 36) && nudge < 6) {
+      nudge++;
+      cy -= 18;
+    }
+    placed.push({ cx, cy });
+    html += `<circle class="lang-dot" cx="${cx}" cy="${cy}" r="9" fill="${l.color}"/>`;
+    html += `<text class="lang-text" x="${cx + 14}" y="${cy + 4}">${l.name}</text>`;
+  });
+
+  document.getElementById('typesSvg').innerHTML = html;
+})();
+
+// ============ SALARY ============
+const SALARY = [
+  { name: "Erlang",      sal: 92000, c: "#7a9c5e" },
+  { name: "Clojure",     sal: 96000, c: "#7a9c5e" },
+  { name: "Rust",        sal: 88000, c: "#5a4a8a" },
+  { name: "Elixir",      sal: 85000, c: "#a64d6c" },
+  { name: "Scala",       sal: 86000, c: "#a64d6c" },
+  { name: "Go",          sal: 83000, c: "#7a9c5e" },
+  { name: "Ruby",        sal: 80000, c: "#a64d6c" },
+  { name: "Swift",       sal: 76000, c: "#a64d6c" },
+  { name: "Kotlin",      sal: 75000, c: "#4a90a4" },
+  { name: "TypeScript",  sal: 74000, c: "#1a4060" },
+  { name: "Python",      sal: 71000, c: "#5a8fbf" },
+  { name: "Java",        sal: 68000, c: "#a3672a" },
+  { name: "C#",          sal: 68000, c: "#5a4a8a" },
+  { name: "JavaScript",  sal: 65000, c: "#c89b3c" },
+  { name: "C++",         sal: 64000, c: "#4a90a4" },
+  { name: "PHP",         sal: 53000, c: "#7a73a3" }
+];
+const salMax = 100000;
+document.getElementById('salaryList').innerHTML = SALARY.map(s => `
+  <div class="salary-row" style="--c:${s.c}">
+    <div class="lname">${s.name}</div>
+    <div class="strack"><div class="sfill" style="width:${(s.sal/salMax)*100}%"></div></div>
+    <div class="svalue">$${(s.sal/1000).toFixed(0)}k</div>
+  </div>
+`).join('');
+
+// ============ SAME ALGORITHM (Fibonacci) ============
+const FIBS = [
+  { name: "Python", year: 1991, c: "#5a8fbf", code: `<span class="kw">def</span> <span class="fn">fib</span>(n):\n    <span class="kw">if</span> n &lt; 2:\n        <span class="kw">return</span> n\n    <span class="kw">return</span> <span class="fn">fib</span>(n - <span class="num">1</span>) + <span class="fn">fib</span>(n - <span class="num">2</span>)` },
+  { name: "Haskell", year: 1990, c: "#7a9c5e", code: `<span class="fn">fib</span> <span class="num">0</span> = <span class="num">0</span>\n<span class="fn">fib</span> <span class="num">1</span> = <span class="num">1</span>\n<span class="fn">fib</span> n = <span class="fn">fib</span> (n - <span class="num">1</span>) + <span class="fn">fib</span> (n - <span class="num">2</span>)` },
+  { name: "JavaScript", year: 1995, c: "#c89b3c", code: `<span class="kw">const</span> <span class="fn">fib</span> = (n) =&gt; {\n  <span class="kw">if</span> (n &lt; <span class="num">2</span>) <span class="kw">return</span> n;\n  <span class="kw">return</span> <span class="fn">fib</span>(n - <span class="num">1</span>) + <span class="fn">fib</span>(n - <span class="num">2</span>);\n};` },
+  { name: "Rust", year: 2010, c: "#5a4a8a", code: `<span class="kw">fn</span> <span class="fn">fib</span>(n: <span class="kw">u32</span>) -&gt; <span class="kw">u32</span> {\n    <span class="kw">match</span> n {\n        <span class="num">0</span> | <span class="num">1</span> =&gt; n,\n        _ =&gt; <span class="fn">fib</span>(n - <span class="num">1</span>) + <span class="fn">fib</span>(n - <span class="num">2</span>),\n    }\n}` },
+  { name: "Java", year: 1995, c: "#a3672a", code: `<span class="kw">public static int</span> <span class="fn">fib</span>(<span class="kw">int</span> n) {\n    <span class="kw">if</span> (n &lt; <span class="num">2</span>) <span class="kw">return</span> n;\n    <span class="kw">return</span> <span class="fn">fib</span>(n - <span class="num">1</span>)\n         + <span class="fn">fib</span>(n - <span class="num">2</span>);\n}` },
+  { name: "C", year: 1972, c: "#d97757", code: `<span class="kw">int</span> <span class="fn">fib</span>(<span class="kw">int</span> n) {\n    <span class="kw">if</span> (n &lt; <span class="num">2</span>) <span class="kw">return</span> n;\n    <span class="kw">return</span> <span class="fn">fib</span>(n - <span class="num">1</span>)\n         + <span class="fn">fib</span>(n - <span class="num">2</span>);\n}` },
+  { name: "Go", year: 2009, c: "#7a9c5e", code: `<span class="kw">func</span> <span class="fn">fib</span>(n <span class="kw">int</span>) <span class="kw">int</span> {\n    <span class="kw">if</span> n &lt; <span class="num">2</span> {\n        <span class="kw">return</span> n\n    }\n    <span class="kw">return</span> <span class="fn">fib</span>(n-<span class="num">1</span>) + <span class="fn">fib</span>(n-<span class="num">2</span>)\n}` },
+  { name: "Lisp", year: 1958, c: "#7a9c5e", code: `(<span class="kw">defun</span> <span class="fn">fib</span> (n)\n  (<span class="kw">if</span> (&lt; n <span class="num">2</span>)\n      n\n      (+ (<span class="fn">fib</span> (- n <span class="num">1</span>))\n         (<span class="fn">fib</span> (- n <span class="num">2</span>)))))` },
+  { name: "Ruby", year: 1995, c: "#a64d6c", code: `<span class="kw">def</span> <span class="fn">fib</span>(n)\n  <span class="kw">return</span> n <span class="kw">if</span> n &lt; <span class="num">2</span>\n  <span class="fn">fib</span>(n - <span class="num">1</span>) + <span class="fn">fib</span>(n - <span class="num">2</span>)\n<span class="kw">end</span>` }
+];
+document.getElementById('algoGrid').innerHTML = FIBS.map(f => `
+  <div class="algo-card" style="--c:${f.c}">
+    <div class="ahead">
+      <div class="aname">${f.name}</div>
+      <div class="ayear">${f.year}</div>
+    </div>
+    <pre>${f.code}</pre>
   </div>
 `).join('');
 </script>

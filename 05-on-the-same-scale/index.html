@@ -485,7 +485,7 @@
 <header>
   <div class="eyebrow">A Visual Atlas of Scale</div>
   <h1>On the Same <em>Scale.</em></h1>
-  <p class="lede">Numbers don't help. Saying "the Burj Khalifa is 828 metres" tells you very little. Drawing it next to a person, a blue whale, and the Eiffel Tower — at the same scale — is how the brain actually understands size. Seven categories below. Pick a tab and see for yourself.</p>
+  <p class="lede">Numbers don't help. Saying "the Burj Khalifa is 828 metres" tells you very little. Drawing it next to a person, a blue whale, and the Eiffel Tower — at the same scale — is how the brain actually understands size. Ten categories below. Pick a tab and see for yourself.</p>
 
   <div class="tabs" id="tabs">
     <button class="tab active" data-cat="land">Land</button>
@@ -495,6 +495,9 @@
     <button class="tab" data-cat="mass">Mass</button>
     <button class="tab" data-cat="speed">Speed</button>
     <button class="tab" data-cat="time">Time</button>
+    <button class="tab" data-cat="money">Money</button>
+    <button class="tab" data-cat="energy">Energy</button>
+    <button class="tab" data-cat="temp">Temperature</button>
   </div>
 </header>
 
@@ -797,6 +800,68 @@ const DATA = {
       { id: "earth",      name: "Age of Earth",          height: 1.45e17,    shape: "planet", color: "#5b8def", blurb: "4.54 billion years. Roughly a third the age of the universe." },
       { id: "universe",   name: "Age of universe",       height: 4.35e17,    shape: "planet", color: "#ffd166", blurb: "13.8 billion years since the Big Bang. So far, all we've ever measured." }
     ]
+  },
+  money: {
+    title: "Money — net worth on a logarithmic scale",
+    unitLabel: "Logarithmic — each step is roughly 100× larger (USD)",
+    max: 8.5e15,
+    isLog: true,
+    items: [
+      { id: "rupee",     name: "Single rupee",         height: 0.012,    shape: "drop",   blurb: "About 1.2 US cents. The smallest commonly-used unit of currency in India today. Not even bus-fare anywhere." },
+      { id: "minwage",   name: "Daily min. wage",      height: 5,        shape: "human",  blurb: "Around $5 — minimum wage in India for unskilled labour, roughly. About $200 monthly." },
+      { id: "global",    name: "Median global income", height: 2400,     shape: "human",  blurb: "Annual median income worldwide. Half of all humans earn less than this in a year." },
+      { id: "us-house",  name: "US household income",  height: 75000,    shape: "tower",  blurb: "Median annual household income in the United States, 2023. About 30× the global median." },
+      { id: "house",     name: "House (US, average)",  height: 420000,   shape: "empire", blurb: "Median single-family home price in the United States, 2024. About 5× the median household income." },
+      { id: "millionaire",name: "Millionaire",         height: 1e6,      shape: "burj",   blurb: "$1,000,000. Roughly 1 in 50 adults globally has this much wealth. The line where compound interest starts to do meaningful work." },
+      { id: "topfilm",   name: "Avengers Endgame box office", height: 2.8e9, shape: "burj", blurb: "$2.8 billion in worldwide gross. The most successful movie ever made, by ticket sales." },
+      { id: "billionaire",name: "Average billionaire", height: 4.7e9,    shape: "burj",   blurb: "There are roughly 2,800 billionaires globally. Their average net worth is about $4.7 billion." },
+      { id: "rich1",     name: "Elon Musk (peak)",     height: 4.4e11,   shape: "burj",   blurb: "$440 billion peak net worth, late 2024. The first individual to plausibly cross half-a-trillion." },
+      { id: "apple",     name: "Apple market cap",     height: 3.5e12,   shape: "burj",   blurb: "$3.5 trillion as of 2024. The first publicly traded company to cross $3 trillion. Larger than the GDP of every country except the US, China, Germany, and Japan." },
+      { id: "us-debt",   name: "US national debt",     height: 3.5e13,   shape: "burj",   blurb: "$35 trillion. Roughly $100,000 of debt for every man, woman, and child in America." },
+      { id: "world-gdp", name: "World GDP",            height: 1.05e14,  shape: "burj",   blurb: "$105 trillion annually. The combined economic output of every country on Earth." },
+      { id: "world-wealth",name: "Total global wealth",height: 4.55e14,  shape: "burj",   blurb: "$455 trillion. Everything everyone owns, added up. Half of it is owned by 1% of adults." },
+      { id: "world-derivatives",name: "Global derivatives", height: 8.5e15, shape: "burj", blurb: "Notional value of outstanding global derivatives — about $8.5 quadrillion. A number so large it's barely meaningful in the real economy." }
+    ]
+  },
+  energy: {
+    title: "Energy — from a moving fly to the Sun",
+    unitLabel: "Logarithmic — each step is roughly 1,000× more energy (joules)",
+    max: 3.85e26,
+    isLog: true,
+    items: [
+      { id: "fly",      name: "Flying fly",            height: 0.001,    shape: "ant",    blurb: "About 1 millijoule — the kinetic energy of a fruit fly cruising your kitchen at 1.5 m/s." },
+      { id: "step",     name: "One human step",        height: 100,      shape: "human",  blurb: "Roughly 100 joules. The brain alone uses 20% of your daily energy budget — about 2 million joules a day." },
+      { id: "battery",  name: "AA battery",            height: 9000,     shape: "tower",  blurb: "An alkaline AA stores about 9 kilojoules — enough to run a small toy for hours, or a clock for a year." },
+      { id: "phone",    name: "Smartphone full charge",height: 50000,    shape: "tower",  blurb: "About 50 kilojoules. A typical phone battery converts roughly 80% of grid electricity into stored chemical energy." },
+      { id: "lightning",name: "Lightning bolt",        height: 1e9,      shape: "tower",  blurb: "1 gigajoule. Most of which is dissipated as heat, light, and the shockwave we hear as thunder." },
+      { id: "tnt",      name: "1 ton of TNT",          height: 4.184e9,  shape: "tower",  blurb: "By definition: 1 ton of TNT = 4.184 gigajoules. The standard yardstick for explosive energy." },
+      { id: "hiroshima",name: "Hiroshima bomb",        height: 6.3e13,   shape: "burj",   blurb: "Roughly 15 kilotons of TNT. Killed an estimated 140,000 people — about 60% of them in the first weeks." },
+      { id: "tsar",     name: "Tsar Bomba",            height: 2.1e17,   shape: "burj",   blurb: "Largest nuclear weapon ever detonated. About 50 megatons — roughly 3,300× the Hiroshima bomb. The flash was visible from 1,000 km away." },
+      { id: "earthquake",name: "Mag 9.0 earthquake",   height: 2e18,     shape: "burj",   blurb: "Energy released by a magnitude 9 earthquake. Each step on the Richter scale is about 32× the energy of the last." },
+      { id: "asteroid", name: "Chicxulub impact",      height: 4.2e23,   shape: "burj",   blurb: "Energy of the asteroid impact that killed the dinosaurs. About 100 trillion tons of TNT equivalent." },
+      { id: "sun",      name: "Sun's output / second", height: 3.85e26,  shape: "planet", color: "#ffd166", blurb: "The Sun radiates 3.85 × 10²⁶ watts continuously. Earth intercepts roughly one-billionth of this — and that one-billionth runs all the weather and life on the planet." }
+    ]
+  },
+  temp: {
+    title: "Temperature — from absolute zero to a star's core",
+    unitLabel: "Logarithmic Kelvin — each step is roughly 10× hotter",
+    max: 1.5e7,
+    isLog: true,
+    items: [
+      { id: "absolute", name: "Absolute zero",         height: 0.001,    shape: "drop",   blurb: "0 K. −273.15 °C. The coldest possible temperature — molecular motion stops. We've gotten within a billionth of a degree of it in lab experiments." },
+      { id: "space",    name: "Outer space (CMB)",     height: 2.7,      shape: "drop",   blurb: "The cosmic microwave background sits at 2.7 K. The universe's leftover heat from the Big Bang." },
+      { id: "boiling-n",name: "Liquid nitrogen",       height: 77,       shape: "drop",   blurb: "Nitrogen boils at 77 K (−196 °C). Common in labs, hospitals, and on the skin of horror-movie chefs." },
+      { id: "antarctic",name: "Antarctic record low",  height: 184,      shape: "human",  blurb: "Vostok station, 1983: −89.2 °C / 184 K. The coldest natural temperature ever recorded on Earth." },
+      { id: "freeze",   name: "Water freezes",         height: 273,      shape: "drop",   blurb: "0 °C / 273.15 K. Where water transitions to ice — and the basis of the Celsius scale." },
+      { id: "human",    name: "Human body",            height: 310,      shape: "human",  blurb: "37 °C / 310 K. A few tenths of a degree below this and you're hypothermic; a few above, feverish." },
+      { id: "boil",     name: "Water boils",           height: 373,      shape: "drop",   blurb: "100 °C / 373 K at sea level. On Mt Everest, water boils at only 71 °C — too cool to make a proper cup of tea." },
+      { id: "death",    name: "Death Valley record",   height: 330,      shape: "human",  blurb: "56.7 °C / 330 K, recorded in 1913. The hottest air temperature ever reliably measured on Earth's surface." },
+      { id: "lava",     name: "Lava",                  height: 1500,     shape: "tower",  blurb: "Around 700–1,200 °C / ~1,500 K. Volcanic basalt at this temperature glows a dull orange." },
+      { id: "filament", name: "Bulb filament",         height: 3000,     shape: "tower",  blurb: "About 2,800 K. A traditional incandescent tungsten filament — still cooler than the surface of most stars." },
+      { id: "sun-surf", name: "Sun's surface",         height: 5778,     shape: "planet", color: "#ffd166", blurb: "5,778 K. Glows yellow-white. Our eyes evolved to be most sensitive at exactly this peak emission wavelength." },
+      { id: "lightning",name: "Lightning channel",     height: 30000,    shape: "tower",  blurb: "Roughly 30,000 K — five times hotter than the surface of the Sun. The temperature is what makes the air glow blue-white." },
+      { id: "sun-core", name: "Sun's core",            height: 1.5e7,    shape: "planet", color: "#ffd166", blurb: "15 million K. Pressure here is so high that hydrogen nuclei fuse into helium, releasing the energy that lights up our solar system." }
+    ]
   }
 };
 
@@ -825,6 +890,9 @@ function unitOf(cat) {
     case 'speed': return 'km/h';
     case 'time': return 's';
     case 'space': return 'km';
+    case 'money': return 'USD';
+    case 'energy': return 'J';
+    case 'temp': return 'K';
     default: return 'm';
   }
 }
@@ -920,6 +988,20 @@ function updateDetail() {
   if (cat.horizontal) heightLabel = fmt(it.height) + " km across";
   else if (activeCat === 'mass') heightLabel = fmt(it.height) + " kg";
   else if (activeCat === 'speed') heightLabel = fmt(it.height) + " km/h";
+  else if (activeCat === 'money') {
+    const v = it.height;
+    if (v >= 1e12) heightLabel = "$" + (v/1e12).toFixed(2).replace(/\.?0+$/, '') + " trillion";
+    else if (v >= 1e9) heightLabel = "$" + (v/1e9).toFixed(2).replace(/\.?0+$/, '') + " billion";
+    else if (v >= 1e6) heightLabel = "$" + (v/1e6).toFixed(2).replace(/\.?0+$/, '') + " million";
+    else if (v >= 1000) heightLabel = "$" + (v/1000).toFixed(0) + "k";
+    else heightLabel = "$" + v.toFixed(2);
+  }
+  else if (activeCat === 'energy') heightLabel = fmt(it.height) + " J";
+  else if (activeCat === 'temp') {
+    const k = it.height;
+    const c = (k - 273.15);
+    heightLabel = (k < 1 ? k.toFixed(3) : k >= 1e6 ? (k/1e6).toFixed(1) + "M" : k.toLocaleString()) + " K  ·  " + (c < -200 ? c.toFixed(1) : Math.round(c).toLocaleString()) + " °C";
+  }
   else if (activeCat === 'time') {
     if (it.height < 60) heightLabel = it.height + " seconds";
     else if (it.height < 3600) heightLabel = fmt(it.height/60) + " minutes";

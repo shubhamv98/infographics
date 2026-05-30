@@ -790,6 +790,239 @@
     color: var(--ink-dim);
   }
 
+  /* ============ HABITABLE ZONE ============ */
+  .habit-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .habit-stage {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 50px 30px;
+    margin-top: 30px;
+    overflow: hidden;
+  }
+  .habit-svg {
+    display: block;
+    width: 100%;
+    height: 280px;
+    min-width: 700px;
+  }
+  .habit-svg .zone-too-hot { fill: rgba(255, 107, 50, 0.18); }
+  .habit-svg .zone-habitable { fill: rgba(121, 224, 121, 0.18); }
+  .habit-svg .zone-too-cold { fill: rgba(80, 140, 220, 0.18); }
+  .habit-svg .zone-line { stroke: rgba(255,255,255,0.12); stroke-width: 1; stroke-dasharray: 4 4; }
+  .habit-svg .zone-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    fill: var(--ink-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .habit-svg .planet-name {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    fill: var(--ink);
+    font-weight: 500;
+    text-anchor: middle;
+  }
+  .habit-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 30px;
+  }
+  @media (max-width: 700px) { .habit-cards { grid-template-columns: 1fr; } }
+  .habit-cell {
+    padding: 22px 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  .habit-cell.hot   { border-left: 3px solid #ff7b50; }
+  .habit-cell.just  { border-left: 3px solid #79e079; }
+  .habit-cell.cold  { border-left: 3px solid #508cdc; }
+  .habit-cell .role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: var(--ink-dim);
+  }
+  .habit-cell h4 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .habit-cell p {
+    font-size: 0.84rem;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+
+  /* ============ VOYAGER TRACKER ============ */
+  .voyager-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .voyager-stage {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 800px) { .voyager-stage { grid-template-columns: 1fr; } }
+  .voyager-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .voyager-card::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--c, #ffd166), transparent 60%);
+    opacity: 0.15;
+  }
+  .voyager-card .role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--c, var(--accent));
+    margin-bottom: 12px;
+  }
+  .voyager-card h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .voyager-card .subtitle {
+    color: var(--ink-dim);
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+  .voyager-card .live-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .voyager-card .live-stat:last-of-type { border-bottom: 1px solid var(--line); }
+  .voyager-card .live-stat .v {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.6rem;
+    color: var(--c, var(--accent));
+    line-height: 1;
+    flex: 1;
+    text-align: right;
+  }
+  .voyager-card .live-stat .v small {
+    font-family: "Inter", sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    margin-left: 4px;
+    font-style: normal;
+  }
+  .voyager-card .live-stat .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .voyager-card .blurb {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-top: 18px;
+  }
+
+  /* ============ ASTEROID DISASTERS ============ */
+  .asteroid-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .asteroid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+  }
+  .ast-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .ast-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+  .ast-rock {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #a08c70, #5a4a30 70%, #2a1f10);
+    margin-bottom: 16px;
+    box-shadow: 0 0 20px rgba(160, 140, 112, 0.3);
+  }
+  .ast-card .size {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+    color: var(--accent);
+  }
+  .ast-card .rate {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 12px;
+  }
+  .ast-card .effect {
+    font-size: 0.85rem;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .ast-card .historical {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    font-style: italic;
+  }
+
   /* ============ SCALE STRIP ============ */
   .scale-strip {
     position: relative;
@@ -1105,6 +1338,117 @@
       <div class="quote-mark">"</div>
       <div class="fact-text">A footprint left on the Moon during Apollo 11 will probably last <strong>10 to 100 million years</strong>. There's no wind, no water, and almost nothing to erase it.</div>
       <div class="source">NASA · long-term lunar erosion estimates</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HABITABLE ZONE ============ -->
+<section class="habit-section">
+  <div class="section-eyebrow">The Goldilocks Zone</div>
+  <h2 class="section-title">A narrow band where <em>liquid water can exist.</em></h2>
+  <p class="section-sub">For a planet to host life-as-we-know-it, it needs to orbit at just the right distance from its star — close enough that water doesn't freeze, far enough that it doesn't boil away. Earth sits in the middle of the zone. Mars used to. Venus probably did, billions of years ago.</p>
+
+  <div class="habit-stage">
+    <svg class="habit-svg" id="habitSvg" viewBox="0 0 1100 280" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+
+  <div class="habit-cards">
+    <div class="habit-cell hot">
+      <div class="role">Inside the zone</div>
+      <h4>Mercury &amp; Venus</h4>
+      <p>Too close to the Sun. Mercury has no atmosphere to retain heat. Venus has so much it cooks the surface to 464 °C — hotter than Mercury despite being further out.</p>
+    </div>
+    <div class="habit-cell just">
+      <div class="role">In the zone</div>
+      <h4>Earth &amp; Mars</h4>
+      <p>Earth: liquid water everywhere. Mars: liquid water once flowed here, but the planet's small mass let the atmosphere bleed away over a billion years. Now mostly frozen, with brief seasonal liquid brines.</p>
+    </div>
+    <div class="habit-cell cold">
+      <div class="role">Outside the zone</div>
+      <h4>The outer planets</h4>
+      <p>All gas or ice giants — far too cold for liquid water on any 'surface'. The interesting candidates for life are their moons: Europa and Enceladus both hide subsurface oceans warmed by tidal flexing, not the Sun.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOYAGER TRACKER ============ -->
+<section class="voyager-section">
+  <div class="section-eyebrow">Where Are They Now?</div>
+  <h2 class="section-title">Two probes, launched in <em>1977</em> — still transmitting.</h2>
+  <p class="section-sub">Voyager 1 and Voyager 2 are the most distant human-made objects in the universe. Both crossed into interstellar space in the 2010s. They're powered by slowly-decaying plutonium and are expected to keep transmitting until around 2036, after which they'll drift, silent, forever.</p>
+
+  <div class="voyager-stage">
+    <div class="voyager-card" style="--c: #79e0ff">
+      <div class="role">Launched 5 Sept 1977</div>
+      <h3>Voyager 1</h3>
+      <p class="subtitle">Currently the most distant human-made object in existence.</p>
+      <div class="live-stat"><div class="k">Distance from Earth</div><div class="v" id="v1-dist">25.0<small> billion km</small></div></div>
+      <div class="live-stat"><div class="k">Light-travel time</div><div class="v" id="v1-light">23<small> hours</small></div></div>
+      <div class="live-stat"><div class="k">Speed</div><div class="v">61,000<small> km/h</small></div></div>
+      <div class="live-stat"><div class="k">Status</div><div class="v">Interstellar<small> · Aug 2012</small></div></div>
+      <p class="blurb">Crossed the heliopause — the bubble of solar wind around the Sun — in 2012. Now travelling through interstellar plasma. Carries a Golden Record with sounds, music, and greetings in 55 languages.</p>
+    </div>
+
+    <div class="voyager-card" style="--c: #ffd166">
+      <div class="role">Launched 20 Aug 1977</div>
+      <h3>Voyager 2</h3>
+      <p class="subtitle">The only spacecraft to have visited Uranus and Neptune.</p>
+      <div class="live-stat"><div class="k">Distance from Earth</div><div class="v" id="v2-dist">21.0<small> billion km</small></div></div>
+      <div class="live-stat"><div class="k">Light-travel time</div><div class="v" id="v2-light">19.5<small> hours</small></div></div>
+      <div class="live-stat"><div class="k">Speed</div><div class="v">55,000<small> km/h</small></div></div>
+      <div class="live-stat"><div class="k">Status</div><div class="v">Interstellar<small> · Nov 2018</small></div></div>
+      <p class="blurb">Took advantage of a once-in-176-years planetary alignment to flyby Jupiter, Saturn, Uranus, and Neptune in sequence. Discovered 11 new moons. Still our only close-up data on the ice giants.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ASTEROID DISASTERS ============ -->
+<section class="asteroid-section">
+  <div class="section-eyebrow">A Risk Calculator</div>
+  <h2 class="section-title">Asteroid impacts, by size — <em>what would happen?</em></h2>
+  <p class="section-sub">An asteroid's destructive power scales roughly with the cube of its diameter. Small ones happen all the time and burn up harmlessly. Bigger ones are very rare — but each one could end civilisation. NASA tracks all known objects bigger than 140 m.</p>
+  <div class="asteroid-grid">
+    <div class="ast-card">
+      <div class="ast-rock" style="width:30px;height:30px"></div>
+      <div class="size">~10 m</div>
+      <div class="rate">Once a year</div>
+      <p class="effect">Burns up entirely in the upper atmosphere as a bright fireball. No damage on the ground.</p>
+      <div class="historical">Most meteor showers — including the Chelyabinsk fireball (2013), 20 m wide, broke windows in 7,000 buildings.</div>
+    </div>
+    <div class="ast-card">
+      <div class="ast-rock" style="width:38px;height:38px"></div>
+      <div class="size">~50 m</div>
+      <div class="rate">Once every 1,000 years</div>
+      <p class="effect">An airburst with the energy of several Hiroshima bombs. Destroys a small city if over land.</p>
+      <div class="historical">Tunguska (1908): flattened 2,000 km² of Siberian forest. Asteroid never found a crater — exploded mid-air.</div>
+    </div>
+    <div class="ast-card">
+      <div class="ast-rock" style="width:50px;height:50px"></div>
+      <div class="size">~140 m</div>
+      <div class="rate">Once every 30,000 years</div>
+      <p class="effect">Destroys a major metropolitan area. NASA's threshold for a "potentially hazardous object" — anything bigger than this is tracked.</p>
+      <div class="historical">Meteor Crater, Arizona: 50 m asteroid, 50,000 years ago. Crater 1.2 km wide and 170 m deep, still visible.</div>
+    </div>
+    <div class="ast-card">
+      <div class="ast-rock" style="width:65px;height:65px"></div>
+      <div class="size">~1 km</div>
+      <div class="rate">Once every 500,000 years</div>
+      <p class="effect">Continental-scale damage. Dust thrown into the upper atmosphere causes years of cooling and crop failure worldwide.</p>
+      <div class="historical">No recent example. Last one of this size hit roughly 1 million years ago.</div>
+    </div>
+    <div class="ast-card">
+      <div class="ast-rock" style="width:80px;height:80px"></div>
+      <div class="size">~5 km</div>
+      <div class="rate">Once every 20 million years</div>
+      <p class="effect">Mass extinction event. Atmospheric soot blocks sunlight for years; surface freezes; food chains collapse. Civilization ends.</p>
+      <div class="historical">No known example in human history. Several in deep geological record.</div>
+    </div>
+    <div class="ast-card">
+      <div class="ast-rock" style="width:95px;height:95px"></div>
+      <div class="size">~10 km</div>
+      <div class="rate">Once every ~100 million years</div>
+      <p class="effect">Reshapes the biosphere. Most large land animals die. Species recovery takes millions of years.</p>
+      <div class="historical">Chicxulub, 66 million years ago: ended the age of non-avian dinosaurs. Crater 180 km wide, off the Yucatán.</div>
     </div>
   </div>
 </section>
@@ -1452,6 +1796,95 @@ function renderMoons() {
   `).join('');
 }
 renderMoons();
+
+// ============ HABITABLE ZONE ============
+(function renderHabitable() {
+  const W2 = 1100, H2 = 280;
+  const PAD2 = { l: 50, r: 50, t: 30, b: 30 };
+  const innerW = W2 - PAD2.l - PAD2.r;
+  const cy = H2 / 2;
+
+  const auMin = 0, auMax = 35;
+  const xS = au => PAD2.l + (au / auMax) * innerW;
+
+  const HZ_INNER = 0.95, HZ_OUTER = 1.5;
+  let html = "";
+
+  // Hot zone (Sun → HZ inner)
+  html += `<rect class="zone-too-hot" x="${PAD2.l}" y="${PAD2.t}" width="${xS(HZ_INNER) - PAD2.l}" height="${H2 - PAD2.t - PAD2.b}"/>`;
+  // Habitable zone
+  html += `<rect class="zone-habitable" x="${xS(HZ_INNER)}" y="${PAD2.t}" width="${xS(HZ_OUTER) - xS(HZ_INNER)}" height="${H2 - PAD2.t - PAD2.b}"/>`;
+  // Cold zone
+  html += `<rect class="zone-too-cold" x="${xS(HZ_OUTER)}" y="${PAD2.t}" width="${W2 - PAD2.r - xS(HZ_OUTER)}" height="${H2 - PAD2.t - PAD2.b}"/>`;
+
+  // Zone labels
+  html += `<text class="zone-label" x="${(PAD2.l + xS(HZ_INNER))/2}" y="${PAD2.t + 20}" text-anchor="middle">Too Hot</text>`;
+  html += `<text class="zone-label" x="${(xS(HZ_INNER) + xS(HZ_OUTER))/2}" y="${PAD2.t + 20}" text-anchor="middle" fill="#79e079">Habitable</text>`;
+  html += `<text class="zone-label" x="${(xS(HZ_OUTER) + W2 - PAD2.r)/2}" y="${PAD2.t + 20}" text-anchor="middle">Too Cold</text>`;
+
+  // Sun
+  html += `<circle cx="${PAD2.l}" cy="${cy}" r="14" fill="url(#sunGrad)" filter="url(#sunGlow)"/>`;
+  html += `<defs><radialGradient id="sunGrad"><stop offset="0%" stop-color="#fff5cf"/><stop offset="60%" stop-color="#ffd166"/><stop offset="100%" stop-color="#ff7e21"/></radialGradient><filter id="sunGlow"><feGaussianBlur stdDeviation="3"/></filter></defs>`;
+
+  // Planets
+  const planetData = [
+    { name: "Mercury", au: 0.39, color: "#9c8b7e", r: 4 },
+    { name: "Venus",   au: 0.72, color: "#e6c07b", r: 6 },
+    { name: "Earth",   au: 1.0,  color: "#5b8def", r: 6 },
+    { name: "Mars",    au: 1.52, color: "#d35a3f", r: 5 },
+    { name: "Jupiter", au: 5.2,  color: "#d8a679", r: 14 },
+    { name: "Saturn",  au: 9.58, color: "#e3d3a4", r: 12 },
+    { name: "Uranus",  au: 19.2, color: "#9fd9e0", r: 9 },
+    { name: "Neptune", au: 30.05,color: "#3d63d6", r: 9 }
+  ];
+  // Orbit line
+  html += `<line x1="${PAD2.l + 14}" y1="${cy}" x2="${W2 - PAD2.r}" y2="${cy}" class="zone-line"/>`;
+  planetData.forEach(p => {
+    const x = xS(p.au);
+    html += `<circle cx="${x}" cy="${cy}" r="${p.r}" fill="${p.color}" stroke="#fff" stroke-width="0.5" opacity="0.95"/>`;
+    html += `<text class="planet-name" x="${x}" y="${cy + p.r + 18}">${p.name}</text>`;
+    if (p.name === 'Earth') {
+      html += `<circle cx="${x}" cy="${cy}" r="${p.r + 6}" fill="none" stroke="#79e079" stroke-width="2" stroke-dasharray="3 3"/>`;
+    }
+  });
+  // AU markers
+  [1, 5, 10, 20, 30].forEach(au => {
+    const x = xS(au);
+    html += `<text class="zone-label" x="${x}" y="${H2 - PAD2.b + 14}" text-anchor="middle" style="font-size:9px">${au} AU</text>`;
+  });
+
+  document.getElementById('habitSvg').innerHTML = html;
+})();
+
+// ============ VOYAGER LIVE DISTANCE ============
+(function tickVoyagers() {
+  // Approximate speeds in km/s
+  const v1Speed = 16.95;
+  const v2Speed = 15.40;
+  // Reference: distances on 1 Jan 2025 (rough): V1 24.9 billion km, V2 20.7 billion km
+  const refDate = new Date('2025-01-01T00:00:00Z').getTime();
+  const v1Ref = 24.9e9;
+  const v2Ref = 20.7e9;
+  function update() {
+    const now = Date.now();
+    const dt = (now - refDate) / 1000;
+    const v1Dist = v1Ref + v1Speed * dt;
+    const v2Dist = v2Ref + v2Speed * dt;
+    const c = 299792.458;
+    const v1Light = (v1Dist / c) / 3600;
+    const v2Light = (v2Dist / c) / 3600;
+    const v1El = document.getElementById('v1-dist');
+    const v2El = document.getElementById('v2-dist');
+    const v1L = document.getElementById('v1-light');
+    const v2L = document.getElementById('v2-light');
+    if (v1El) v1El.innerHTML = (v1Dist/1e9).toFixed(3) + '<small> billion km</small>';
+    if (v2El) v2El.innerHTML = (v2Dist/1e9).toFixed(3) + '<small> billion km</small>';
+    if (v1L)  v1L.innerHTML  = v1Light.toFixed(2) + '<small> hours</small>';
+    if (v2L)  v2L.innerHTML  = v2Light.toFixed(2) + '<small> hours</small>';
+  }
+  update();
+  setInterval(update, 1000);
+})();
 </script>
 </body>
 </html>

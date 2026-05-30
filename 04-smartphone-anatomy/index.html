@@ -707,6 +707,122 @@
     color: var(--ink-dim);
   }
 
+  /* ============ NETWORK EVOLUTION ============ */
+  .network-section {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .network-wrap { max-width: 1300px; margin: 0 auto; }
+  .gen-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) { .gen-grid { grid-template-columns: 1fr 1fr; } }
+  .gen-card {
+    padding: 28px 20px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .gen-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--c, var(--accent)), transparent 60%);
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  .gen-card:hover { transform: translateY(-3px); border-color: var(--c); }
+  .gen-card .gen {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--c);
+    margin-bottom: 4px;
+  }
+  .gen-card .yr {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    margin-bottom: 16px;
+  }
+  .gen-card .speed {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .gen-card .desc {
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .gen-card .perk {
+    font-size: 0.72rem;
+    padding: 4px 8px;
+    background: rgba(255,107,107,0.1);
+    border-radius: 100px;
+    border: 1px solid var(--c);
+    color: var(--c);
+    display: inline-block;
+  }
+
+  /* ============ PRIVACY ============ */
+  .privacy-section {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--line);
+    background: var(--bg-2);
+  }
+  .privacy-wrap { max-width: 1300px; margin: 0 auto; }
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .priv-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 24px 22px;
+    border-top: 3px solid #ff8a3c;
+  }
+  .priv-card .icon {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+  .priv-card h4 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+  }
+  .priv-card p {
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+
+  /* ============ STORAGE EVOLUTION ============ */
+  .storage-section {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .storage-wrap { max-width: 1300px; margin: 0 auto; }
+  .storage-svg {
+    display: block;
+    width: 100%;
+    max-width: 1100px;
+    margin: 40px auto 20px;
+    height: 380px;
+  }
+
   /* ============ ENVIRONMENTAL ============ */
   .env-section {
     padding: 100px 6vw;
@@ -1215,6 +1331,83 @@
   </div>
 </section>
 
+<!-- ============ NETWORK EVOLUTION ============ -->
+<section class="network-section">
+  <div class="network-wrap">
+    <div class="section-eyebrow">Five Generations of Wireless</div>
+    <h2 class="section-title">From a single phone call to <em>holographic streaming</em> — in 50 years.</h2>
+    <p class="section-sub">Each cellular generation has been roughly 100× faster than the last. By 5G, the network can move data at speeds that match a fibre-optic cable — wirelessly, while you walk.</p>
+    <div class="gen-grid">
+      <div class="gen-card" style="--c:#a3a3a3">
+        <div class="gen">1G</div>
+        <div class="yr">1980s</div>
+        <div class="speed">~2 kbps</div>
+        <p class="desc">Analog voice only. Calls broadcast unencrypted on radio frequencies — anyone with a scanner could listen in.</p>
+        <span class="perk">Voice calls</span>
+      </div>
+      <div class="gen-card" style="--c:#79b87a">
+        <div class="gen">2G</div>
+        <div class="yr">1991</div>
+        <div class="speed">~64 kbps</div>
+        <p class="desc">Digital, encrypted. Brought SMS, picture messaging, and the first ringtone economy. Still in use in some emerging markets.</p>
+        <span class="perk">SMS · MMS</span>
+      </div>
+      <div class="gen-card" style="--c:#79e0ff">
+        <div class="gen">3G</div>
+        <div class="yr">2001</div>
+        <div class="speed">~2 Mbps</div>
+        <p class="desc">First proper mobile internet. Made smartphones useful — without 3G the iPhone in 2007 would have been unusable.</p>
+        <span class="perk">Mobile web</span>
+      </div>
+      <div class="gen-card" style="--c:#ffd166">
+        <div class="gen">4G</div>
+        <div class="yr">2009</div>
+        <div class="speed">~100 Mbps</div>
+        <p class="desc">Streaming era. Made YouTube, Netflix, Uber, Instagram Stories all viable. Latency dropped enough for real-time apps.</p>
+        <span class="perk">Video streaming</span>
+      </div>
+      <div class="gen-card" style="--c:#ff6b6b">
+        <div class="gen">5G</div>
+        <div class="yr">2019</div>
+        <div class="speed">~1-10 Gbps</div>
+        <p class="desc">Fibre-class wireless. Latency under 5 ms — fast enough for remote surgery, autonomous vehicles, and AR/VR streaming.</p>
+        <span class="perk">Ultra-low latency</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRIVACY ============ -->
+<section class="privacy-section">
+  <div class="privacy-wrap">
+    <div class="section-eyebrow">What It Knows About You</div>
+    <h2 class="section-title">Your phone is <em>continuously aware.</em></h2>
+    <p class="section-sub">A modern phone collects, processes, or transmits this information — often constantly, in the background, with most apps having default access. None of these is hypothetical: each can be observed in network traffic.</p>
+    <div class="privacy-grid">
+      <div class="priv-card"><div class="icon">📍</div><h4>Your location</h4><p>Updated every few minutes via GPS, Wi-Fi, and cellular triangulation. Apple, Google, and your mobile carrier all maintain location histories of every customer.</p></div>
+      <div class="priv-card"><div class="icon">🚶</div><h4>How you move</h4><p>Step count, walking pace, transport mode (walking / driving / cycling) — passively recorded by the accelerometer + gyroscope, no app needed.</p></div>
+      <div class="priv-card"><div class="icon">😴</div><h4>When you sleep</h4><p>The phone knows when you stop touching it, when you put it on a charger, and how still it stays. From this it infers sleep onset and duration.</p></div>
+      <div class="priv-card"><div class="icon">👀</div><h4>What you look at</h4><p>App usage, screen time per app, scroll velocity, taps per minute, search queries — all logged by the OS and most large platforms.</p></div>
+      <div class="priv-card"><div class="icon">🎙️</div><h4>What you say (sometimes)</h4><p>"Hey Siri" / "OK Google" listens continuously for the wake word locally. Voice goes to servers only after the wake word fires.</p></div>
+      <div class="priv-card"><div class="icon">📷</div><h4>What you see</h4><p>Photo library is scanned (locally) for objects, faces, locations, dates. Every photo is tagged automatically — try searching "beach" in your gallery.</p></div>
+      <div class="priv-card"><div class="icon">🤝</div><h4>Who you know</h4><p>Contacts, call frequency, message volume per person, who you reply to fastest — used by social platforms to suggest connections.</p></div>
+      <div class="priv-card"><div class="icon">💳</div><h4>What you buy</h4><p>Tap-to-pay logs every transaction with merchant + amount. Loyalty apps cross-reference with discount IDs. Ad networks resell to each other.</p></div>
+      <div class="priv-card"><div class="icon">📡</div><h4>Where you've been</h4><p>Wi-Fi networks you've ever connected to, MAC addresses of nearby Bluetooth devices, cell towers within range — a permanent map.</p></div>
+      <div class="priv-card"><div class="icon">💓</div><h4>Your vitals</h4><p>If you wear a smartwatch: heart rate, blood oxygen, ECG patterns, body temperature. Some of this can detect illnesses before you notice them.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORAGE EVOLUTION ============ -->
+<section class="storage-section">
+  <div class="storage-wrap">
+    <div class="section-eyebrow">More And More Memory</div>
+    <h2 class="section-title">How storage capacity got <em>preposterous.</em></h2>
+    <p class="section-sub">Top-end smartphone storage has roughly doubled every two and a half years — Moore's Law for flash memory. The chart below shows the largest available iPhone model since 2007. The 1 TB model can hold around 250 full-quality movies, or every photo a person typically takes in a decade.</p>
+    <svg class="storage-svg" id="storageSvg" viewBox="0 0 1100 380" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+</section>
+
 <!-- ============ ENVIRONMENTAL ============ -->
 <section class="env-section">
   <div class="env-wrap">
@@ -1515,6 +1708,51 @@ document.getElementById('sensorsGrid').innerHTML = SENSORS.map(s => `
   });
 
   document.getElementById('costSvg').innerHTML = html;
+})();
+
+// ============ STORAGE EVOLUTION ============
+(function renderStorage() {
+  const W = 1100, H = 380;
+  const PAD = { l: 70, r: 50, t: 30, b: 70 };
+  const innerW = W - PAD.l - PAD.r;
+  const innerH = H - PAD.t - PAD.b;
+  const STORAGE = [
+    { y: 2007, gb: 8 },
+    { y: 2009, gb: 32 },
+    { y: 2011, gb: 64 },
+    { y: 2014, gb: 128 },
+    { y: 2017, gb: 256 },
+    { y: 2019, gb: 512 },
+    { y: 2021, gb: 1024 },
+    { y: 2023, gb: 1024 },
+    { y: 2024, gb: 1024 }
+  ];
+  const yearMin = 2007, yearMax = 2024;
+  const xS = y => PAD.l + ((y - yearMin) / (yearMax - yearMin)) * innerW;
+  const maxGb = 1024;
+  const yS = v => PAD.t + innerH - (v / maxGb) * innerH;
+
+  let html = "";
+  // Y gridlines
+  [0, 128, 256, 512, 1024].forEach(v => {
+    const y = yS(v);
+    html += `<line x1="${PAD.l}" y1="${y}" x2="${W - PAD.r}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="2 4"/>`;
+    html += `<text x="${PAD.l - 8}" y="${y + 4}" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="rgba(255,255,255,0.5)" letter-spacing="1">${v >= 1024 ? '1 TB' : v + ' GB'}</text>`;
+  });
+  // X axis
+  html += `<line x1="${PAD.l}" y1="${H - PAD.b}" x2="${W - PAD.r}" y2="${H - PAD.b}" stroke="rgba(255,255,255,0.3)"/>`;
+  // Bars
+  const barW = (innerW / STORAGE.length) * 0.7;
+  STORAGE.forEach((s, i) => {
+    const x = xS(s.y) - barW / 2;
+    const y = yS(s.gb);
+    const h = (H - PAD.b) - y;
+    html += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="4" fill="url(#sgrad)"/>`;
+    html += `<text x="${xS(s.y)}" y="${y - 8}" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="13" fill="#ff6b6b">${s.gb >= 1024 ? '1 TB' : s.gb + ' GB'}</text>`;
+    html += `<text x="${xS(s.y)}" y="${H - PAD.b + 18}" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="1">${s.y}</text>`;
+  });
+  html += `<defs><linearGradient id="sgrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#3a1a30"/></linearGradient></defs>`;
+  document.getElementById('storageSvg').innerHTML = html;
 })();
 </script>
 </body>

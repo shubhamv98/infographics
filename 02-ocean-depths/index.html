@@ -527,6 +527,223 @@
     text-align: center;
   }
 
+  /* ============ HYDROTHERMAL VENTS ============ */
+  .vents-section {
+    padding: 100px 6vw;
+    background: linear-gradient(180deg, #001b2e 0%, #050514 100%);
+    border-top: 1px solid var(--line);
+  }
+  .vents-wrap { max-width: 1300px; margin: 0 auto; }
+  .vents-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    margin-top: 40px;
+    align-items: center;
+  }
+  @media (max-width: 800px) { .vents-grid { grid-template-columns: 1fr; } }
+  .vent-art {
+    position: relative;
+    aspect-ratio: 1/1;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #001020 0%, #000508 100%);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .vent-art svg { width: 100%; height: 100%; }
+  .vent-art .smoke {
+    animation: smoke-rise 4s ease-in-out infinite;
+    transform-origin: bottom center;
+    transform-box: fill-box;
+  }
+  @keyframes smoke-rise {
+    0%   { transform: translateY(0) scaleY(1); opacity: 0.9; }
+    50%  { transform: translateY(-10px) scaleY(1.1); opacity: 0.6; }
+    100% { transform: translateY(-20px) scaleY(1.2); opacity: 0; }
+  }
+  .vents-text h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .vents-text h3 em { font-style: italic; color: var(--accent); }
+  .vents-text p {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .vents-text strong { color: var(--ink); font-weight: 500; }
+  .vent-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .vent-stat {
+    padding: 12px 16px;
+    background: rgba(121, 224, 255, 0.05);
+    border-left: 2px solid var(--accent);
+    border-radius: 4px;
+  }
+  .vent-stat .v {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.3rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .vent-stat .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  /* ============ SHIPWRECKS ============ */
+  .wrecks-section {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .wrecks-wrap { max-width: 1300px; margin: 0 auto; }
+  .wrecks-list {
+    margin-top: 40px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.02);
+  }
+  .wreck-row {
+    display: grid;
+    grid-template-columns: 60px 200px 1fr 130px;
+    gap: 24px;
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+    transition: background 0.2s;
+  }
+  .wreck-row:hover { background: rgba(121, 224, 255, 0.04); }
+  .wreck-row:last-child { border-bottom: none; }
+  @media (max-width: 800px) {
+    .wreck-row { grid-template-columns: 60px 1fr; }
+    .wreck-row .wreck-detail, .wreck-row .wreck-depth { grid-column: 2; padding-left: 0; }
+  }
+  .wreck-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(121, 224, 255, 0.1);
+    border: 1px solid rgba(121, 224, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+  .wreck-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.3rem;
+    line-height: 1.1;
+    font-style: italic;
+  }
+  .wreck-name small {
+    display: block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    font-style: normal;
+    margin-top: 4px;
+  }
+  .wreck-detail {
+    font-size: 0.88rem;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+  .wreck-depth {
+    text-align: right;
+  }
+  .wreck-depth .num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .wreck-depth .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ============ CURRENTS ============ */
+  .currents-section {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--line);
+    background: linear-gradient(180deg, #050514 0%, #001b2e 100%);
+  }
+  .currents-wrap { max-width: 1300px; margin: 0 auto; }
+  .currents-svg {
+    width: 100%;
+    height: 460px;
+    margin-top: 40px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #001020;
+  }
+  .currents-svg .continent { fill: rgba(255,255,255,0.06); stroke: rgba(255,255,255,0.15); stroke-width: 1; }
+  .currents-svg .warm-current {
+    fill: none;
+    stroke: #ff6b6b;
+    stroke-width: 2;
+    stroke-dasharray: 6 4;
+    animation: dash 30s linear infinite;
+    opacity: 0.85;
+  }
+  .currents-svg .cold-current {
+    fill: none;
+    stroke: #79e0ff;
+    stroke-width: 2;
+    stroke-dasharray: 6 4;
+    animation: dash 30s linear infinite reverse;
+    opacity: 0.85;
+  }
+  @keyframes dash { to { stroke-dashoffset: -200; } }
+  .currents-svg .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    fill: var(--ink-dim);
+  }
+  .currents-legend {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 20px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .currents-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .currents-legend .swatch {
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+  }
+
   /* ============ FINALE COMPARISON ============ */
   .finale {
     position: relative;
@@ -1092,6 +1309,174 @@
         <div class="where">−400 m · Mesopelagic</div>
         <div class="desc">Each spring, millions migrate to the surface off Japan to spawn — turning bays into rivers of blue light.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HYDROTHERMAL VENTS ============ -->
+<section class="vents-section">
+  <div class="vents-wrap">
+    <div class="section-eyebrow">Life Without Sunlight</div>
+    <h2 class="section-title">In total darkness, <em>life still finds a way.</em></h2>
+    <p class="section-sub">Discovered only in 1977, deep-sea hydrothermal vents host entire ecosystems that don't depend on photosynthesis at all. Bacteria there break down hydrogen sulphide for energy — chemosynthesis. Everything else in the ecosystem feeds on those bacteria. It's the only branch of life on Earth that doesn't ultimately trace its energy back to the Sun.</p>
+
+    <div class="vents-grid">
+      <div class="vent-art">
+        <svg viewBox="0 0 400 400">
+          <defs>
+            <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a1a2a" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#0a0a14"/>
+            </linearGradient>
+            <radialGradient id="vent-glow" cx="0.5" cy="1">
+              <stop offset="0%" stop-color="#ff8050" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#ff8050" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="400" height="400" fill="url(#floor)"/>
+          <ellipse cx="200" cy="380" rx="200" ry="40" fill="url(#vent-glow)"/>
+          <path d="M180,400 L185,200 Q195,170 200,160 Q205,170 215,200 L220,400 Z" fill="#1a1410" stroke="#3a2a20" stroke-width="1.5"/>
+          <path d="M195,160 Q200,155 205,160 L208,170 Q200,168 192,170 Z" fill="#0a0a08"/>
+          <g class="smoke">
+            <ellipse cx="200" cy="140" rx="14" ry="20" fill="#3a2a30" opacity="0.7"/>
+            <ellipse cx="195" cy="115" rx="20" ry="22" fill="#2a2030" opacity="0.5"/>
+            <ellipse cx="205" cy="80"  rx="28" ry="26" fill="#1a1525" opacity="0.4"/>
+            <ellipse cx="195" cy="40"  rx="36" ry="30" fill="#100a18" opacity="0.3"/>
+          </g>
+          <g>
+            <path d="M150,400 Q150,360 155,330 L155,300 Q160,290 158,320 L158,400" fill="#a01030" opacity="0.85"/>
+            <path d="M160,400 Q160,355 165,325 L165,295 Q170,285 168,318 L168,400" fill="#c01540" opacity="0.85"/>
+            <path d="M170,400 Q170,365 175,335 L175,305 Q180,295 178,328 L178,400" fill="#a01030" opacity="0.85"/>
+            <path d="M225,400 Q225,360 230,332 L230,302 Q235,292 233,322 L233,400" fill="#c01540" opacity="0.85"/>
+            <path d="M235,400 Q235,355 240,325 L240,295 Q245,285 243,318 L243,400" fill="#a01030" opacity="0.85"/>
+            <path d="M245,400 Q245,365 250,335 L250,305 Q255,295 253,328 L253,400" fill="#c01540" opacity="0.85"/>
+          </g>
+          <ellipse cx="120" cy="395" rx="10" ry="5" fill="#fff5cf" opacity="0.7"/>
+          <ellipse cx="280" cy="396" rx="12" ry="5" fill="#fff5cf" opacity="0.7"/>
+          <ellipse cx="320" cy="394" rx="9" ry="4" fill="#fff5cf" opacity="0.7"/>
+          <circle cx="100" cy="200" r="1.5" fill="#79e0ff" opacity="0.4"/>
+          <circle cx="320" cy="180" r="1.5" fill="#79e0ff" opacity="0.4"/>
+          <circle cx="80"  cy="120" r="1.2" fill="#79e0ff" opacity="0.3"/>
+          <circle cx="340" cy="240" r="1" fill="#79e0ff" opacity="0.5"/>
+          <circle cx="60"  cy="270" r="1.4" fill="#79e0ff" opacity="0.3"/>
+        </svg>
+      </div>
+
+      <div class="vents-text">
+        <h3>The <em>Black Smokers</em> of the Mid-Atlantic Ridge</h3>
+        <p>Where new seafloor is being made — where the Earth's crust splits and magma rises — superheated water laden with metals shoots up through the rock. When it hits the freezing seawater, the metals precipitate into tall mineral chimneys that look like industrial smokestacks. Some grow 30 cm in a single day.</p>
+        <p>Around them: <strong>tubeworms</strong> two metres long, blind shrimp, ghostly white crabs, and clams half a metre across. None of them have eyes — there's nothing to see. They thrive on bacteria that eat sulphur compounds for breakfast.</p>
+        <p>Many biologists now think life on Earth may have <strong>started at vents like these</strong>. They're stable, energy-rich, and chemically active — exactly the conditions that prebiotic chemistry seems to need.</p>
+        <div class="vent-stats">
+          <div class="vent-stat"><div class="v">400 °C</div><div class="k">Vent fluid temp</div></div>
+          <div class="vent-stat"><div class="v">~600</div><div class="k">Known active vents</div></div>
+          <div class="vent-stat"><div class="v">1977</div><div class="k">Discovered (Galápagos)</div></div>
+          <div class="vent-stat"><div class="v">600+</div><div class="k">Species found only here</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAMOUS SHIPWRECKS ============ -->
+<section class="wrecks-section">
+  <div class="wrecks-wrap">
+    <div class="section-eyebrow">Resting Places</div>
+    <h2 class="section-title">Eight ships, <em>still down there.</em></h2>
+    <p class="section-sub">An estimated 3 million shipwrecks sit on the world's seafloor. A handful are famous, mostly because of how they sank. The depth varies wildly — some sit in shallow tropical water, others in the abyss.</p>
+    <div class="wrecks-list">
+      <div class="wreck-row">
+        <div class="wreck-icon">🛳️</div>
+        <div><div class="wreck-name">RMS Titanic <small>1912</small></div></div>
+        <div class="wreck-detail">Hit an iceberg on her maiden voyage. Discovered in 1985 by Robert Ballard. Now slowly being eaten by iron-loving bacteria — estimated to disappear entirely within a few decades.</div>
+        <div class="wreck-depth"><div class="num">3,800 m</div><div class="label">N. Atlantic</div></div>
+      </div>
+      <div class="wreck-row">
+        <div class="wreck-icon">⚔️</div>
+        <div><div class="wreck-name">Bismarck <small>1941</small></div></div>
+        <div class="wreck-detail">Pride of the German fleet. Sunk in WWII after being shadowed across the Atlantic. The wreck is mostly intact, sitting upright on the seafloor.</div>
+        <div class="wreck-depth"><div class="num">4,791 m</div><div class="label">N. Atlantic</div></div>
+      </div>
+      <div class="wreck-row">
+        <div class="wreck-icon">🛢️</div>
+        <div><div class="wreck-name">USS Indianapolis <small>1945</small></div></div>
+        <div class="wreck-detail">Delivered components for the Hiroshima bomb, then was torpedoed days later. 880 sailors went into the water; only 316 survived after five days adrift with sharks. Wreck found in 2017.</div>
+        <div class="wreck-depth"><div class="num">5,500 m</div><div class="label">Philippine Sea</div></div>
+      </div>
+      <div class="wreck-row">
+        <div class="wreck-icon">🚢</div>
+        <div><div class="wreck-name">RMS Lusitania <small>1915</small></div></div>
+        <div class="wreck-detail">Torpedoed by a German U-boat off Ireland. Sank in 18 minutes. Killed 1,198 people, including 128 Americans — a major step toward U.S. entry into WWI.</div>
+        <div class="wreck-depth"><div class="num">93 m</div><div class="label">Off Ireland</div></div>
+      </div>
+      <div class="wreck-row">
+        <div class="wreck-icon">⛵</div>
+        <div><div class="wreck-name">Mary Rose <small>1545</small></div></div>
+        <div class="wreck-detail">Tudor warship of Henry VIII. Sank during a battle with the French. Raised in 1982 — now one of the world's most important Tudor-era artefacts. Preserved in a sealed museum hall.</div>
+        <div class="wreck-depth"><div class="num">14 m</div><div class="label">Solent, UK</div></div>
+      </div>
+      <div class="wreck-row">
+        <div class="wreck-icon">⚓</div>
+        <div><div class="wreck-name">Endurance <small>1915</small></div></div>
+        <div class="wreck-detail">Ernest Shackleton's ship, crushed by Antarctic pack ice during his famous failed expedition. Found in 2022 in remarkable condition — preserved by the cold and the absence of wood-eating organisms in the Weddell Sea.</div>
+        <div class="wreck-depth"><div class="num">3,008 m</div><div class="label">Weddell Sea</div></div>
+      </div>
+      <div class="wreck-row">
+        <div class="wreck-icon">💣</div>
+        <div><div class="wreck-name">USS Arizona <small>1941</small></div></div>
+        <div class="wreck-detail">Sunk during the Pearl Harbor attack. Still leaking small amounts of fuel from her bunkers — known as "the tears of the Arizona". A memorial sits over the hull.</div>
+        <div class="wreck-depth"><div class="num">12 m</div><div class="label">Pearl Harbor</div></div>
+      </div>
+      <div class="wreck-row">
+        <div class="wreck-icon">🪖</div>
+        <div><div class="wreck-name">SS Andrea Doria <small>1956</small></div></div>
+        <div class="wreck-detail">Italian liner that sank after a collision off Nantucket. Within easy reach of recreational divers — but currents, depth, and rapid hull deterioration have made it one of the deadliest popular dive sites.</div>
+        <div class="wreck-depth"><div class="num">73 m</div><div class="label">Off Nantucket</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OCEAN CURRENTS ============ -->
+<section class="currents-section">
+  <div class="currents-wrap">
+    <div class="section-eyebrow">The Great Conveyor</div>
+    <h2 class="section-title">A river inside the ocean — <em>1,000 years long.</em></h2>
+    <p class="section-sub">Heat from the equator and salt from polar evaporation drive the world's biggest circulation system: the thermohaline circulation. A single drop of water completes one full loop of this conveyor in about a thousand years. It's what keeps Europe warm and Africa wet.</p>
+
+    <svg class="currents-svg" viewBox="0 0 1200 460" preserveAspectRatio="xMidYMid meet">
+      <path class="continent" d="M180,100 Q220,80 280,90 L320,140 L300,200 L240,210 L180,180 Z"/>
+      <path class="continent" d="M380,180 L460,170 L520,200 L540,280 L460,330 L400,280 L380,220 Z"/>
+      <path class="continent" d="M560,90 Q620,80 700,100 L760,120 L780,180 L760,260 L680,290 L600,260 L560,200 Z"/>
+      <path class="continent" d="M620,300 L700,310 L760,360 L740,420 L660,420 L620,380 Z"/>
+      <path class="continent" d="M820,130 L900,120 L960,180 L920,220 L840,210 L800,180 Z"/>
+      <path class="continent" d="M900,260 L1000,270 L1080,310 L1040,380 L940,380 L880,330 Z"/>
+
+      <path class="warm-current" d="M250,300 Q400,310 540,250 Q640,200 700,160 Q780,140 840,150 Q900,170 940,210"/>
+      <path class="warm-current" d="M540,250 Q620,280 720,300"/>
+      <path class="warm-current" d="M180,250 Q160,200 220,180 Q280,160 320,180"/>
+      <path class="warm-current" d="M850,300 Q920,290 980,280"/>
+
+      <path class="cold-current" d="M940,210 Q900,250 850,310 Q800,360 720,390 Q640,420 540,420 Q420,420 320,400 Q220,380 180,330 Q160,300 200,290"/>
+      <path class="cold-current" d="M180,330 Q120,360 80,400 Q60,420 100,420"/>
+      <path class="cold-current" d="M560,420 Q520,440 460,440"/>
+      <path class="cold-current" d="M1080,310 Q1100,360 1080,400"/>
+
+      <text class="label" x="280" y="155">N. America</text>
+      <text class="label" x="450" y="270">S. America</text>
+      <text class="label" x="660" y="170">Europe</text>
+      <text class="label" x="650" y="370">Africa</text>
+      <text class="label" x="880" y="170">Asia</text>
+      <text class="label" x="970" y="340">Australia</text>
+
+      <text class="label" x="600" y="40" text-anchor="middle" fill="#ff8a8a" font-size="12" letter-spacing="2">— WARM SURFACE CURRENT —</text>
+      <text class="label" x="600" y="450" text-anchor="middle" fill="#79e0ff" font-size="12" letter-spacing="2">— COLD DEEP-WATER CURRENT —</text>
+    </svg>
+
+    <div class="currents-legend">
+      <span><div class="swatch" style="background: #ff6b6b"></div>Warm surface (~20 °C)</span>
+      <span><div class="swatch" style="background: #79e0ff"></div>Cold deep (~4 °C)</span>
+      <span>Loop time · ~1,000 years</span>
     </div>
   </div>
 </section>
