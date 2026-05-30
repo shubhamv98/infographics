@@ -386,6 +386,89 @@
     letter-spacing: 0.1em;
   }
 
+  /* ============ WORLD WONDERS ============ */
+  .wonders-section {
+    max-width: 1300px;
+    margin: 80px auto 0;
+    padding: 0 6vw;
+  }
+  .wonders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+  }
+  .wonder-card {
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 26px 24px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .wonder-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+  .wonder-card .top-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .wonder-card .name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    font-style: italic;
+  }
+  .wonder-card .height {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+  }
+  .wonder-card .where {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 12px;
+  }
+  .wonder-card .desc {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+
+  /* ============ CLOSING NOTE ============ */
+  .closer {
+    max-width: 1100px;
+    margin: 80px auto 40px;
+    padding: 60px 6vw;
+    text-align: center;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .closer .quote {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 800px;
+    margin: 0 auto 20px;
+  }
+  .closer .quote em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .closer .attrib {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
   footer {
     text-align: center;
     padding: 30px 6vw 50px;
@@ -500,6 +583,61 @@
   <div class="magnitude-row">
     <div class="magnitude-track" id="magnitudeTrack"></div>
   </div>
+</section>
+
+<!-- ============ WORLD WONDERS ============ -->
+<section class="wonders-section">
+  <div class="eyebrow" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px;">Wonders of Scale</div>
+  <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.8rem, 3.5vw, 2.6rem); line-height: 1.1; margin-bottom: 16px; max-width: 800px;">A few <em>genuinely strange</em> measurements.</h2>
+  <p style="color: var(--ink-dim); font-size: 0.95rem; line-height: 1.65; max-width: 660px; margin-bottom: 0;">Things that exist on Earth or nearby that the human brain doesn't have a category for. Each of these is, at some level, a measurement that breaks intuition.</p>
+  <div class="wonders-grid">
+    <div class="wonder-card">
+      <div class="top-row"><div class="name">Pando</div><div class="height">43 ha · 6,000 t</div></div>
+      <div class="where">Utah, USA · Oldest organism</div>
+      <div class="desc">A clonal colony of one quaking aspen tree connected by a single root system. Estimated 14,000 years old. Possibly the heaviest organism on Earth.</div>
+    </div>
+    <div class="wonder-card">
+      <div class="top-row"><div class="name">The Sahara</div><div class="height">9.2M km²</div></div>
+      <div class="where">North Africa · Largest hot desert</div>
+      <div class="desc">Larger than the United States. Used to be a fertile grassland 6,000 years ago — geological evidence shows it cycles between green and arid every 20,000 years.</div>
+    </div>
+    <div class="wonder-card">
+      <div class="top-row"><div class="name">Lake Baikal</div><div class="height">1,642 m deep</div></div>
+      <div class="where">Siberia · Deepest lake</div>
+      <div class="desc">Holds 20% of all the unfrozen freshwater on Earth's surface. 25 million years old — older than most mountain ranges.</div>
+    </div>
+    <div class="wonder-card">
+      <div class="top-row"><div class="name">Antarctic Ice Sheet</div><div class="height">4,776 m thick</div></div>
+      <div class="where">Antarctica · Largest single ice mass</div>
+      <div class="desc">Holds 60% of the world's freshwater. If it all melted, sea level would rise 58 m globally.</div>
+    </div>
+    <div class="wonder-card">
+      <div class="top-row"><div class="name">Mauna Kea</div><div class="height">10,210 m base-to-peak</div></div>
+      <div class="where">Hawaii · Tallest mountain</div>
+      <div class="desc">Measured from its base on the seafloor, Mauna Kea is taller than Mt. Everest. Most of it is underwater, which is why we call Everest the tallest.</div>
+    </div>
+    <div class="wonder-card">
+      <div class="top-row"><div class="name">The Mid-Atlantic Ridge</div><div class="height">16,000 km long</div></div>
+      <div class="where">Atlantic Ocean · Longest mountain range</div>
+      <div class="desc">An undersea mountain range running from the Arctic to the Antarctic. Almost entirely hidden under the ocean. New seafloor is created here every year.</div>
+    </div>
+    <div class="wonder-card">
+      <div class="top-row"><div class="name">Greenland</div><div class="height">2.16M km²</div></div>
+      <div class="where">North Atlantic · Largest island</div>
+      <div class="desc">Three times the size of Texas. The map you grew up with has been lying about this — the Mercator projection makes it look the size of Africa, which is in fact 14× larger.</div>
+    </div>
+    <div class="wonder-card">
+      <div class="top-row"><div class="name">Hyperion (tree)</div><div class="height">115.92 m</div></div>
+      <div class="where">California · Tallest living thing</div>
+      <div class="desc">A coast redwood, taller than the Statue of Liberty. Its exact location is kept secret to protect it. Roughly 700–800 years old.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSER ============ -->
+<section class="closer">
+  <p class="quote">"Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist, but <em>that's just peanuts to space.</em>"</p>
+  <div class="attrib">Douglas Adams · The Hitchhiker's Guide to the Galaxy</div>
 </section>
 
 <footer>

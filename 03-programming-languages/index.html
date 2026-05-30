@@ -30,33 +30,39 @@
     font-family: "Inter", system-ui, sans-serif;
     overflow-x: hidden;
   }
-  /* paper texture */
-  body::before {
-    content: "";
-    position: fixed; inset: 0;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(180,160,120,0.04), transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(180,160,120,0.04), transparent 50%);
-    pointer-events: none;
-    z-index: 0;
+
+  .section-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--p-procedural);
+    margin-bottom: 18px;
+  }
+  .section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    max-width: 800px;
+  }
+  .section-title em { font-style: italic; color: var(--p-procedural); }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--ink-dim);
+    line-height: 1.7;
+    max-width: 660px;
+    margin-bottom: 40px;
   }
 
   header {
-    position: relative;
-    z-index: 2;
     padding: 60px 6vw 40px;
     max-width: 1400px;
     margin: 0 auto;
   }
-  .eyebrow {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--p-procedural);
-    margin-bottom: 20px;
-  }
-  h1 {
+  header h1 {
     font-family: "Cormorant Garamond", serif;
     font-weight: 500;
     font-size: clamp(2.2rem, 4.5vw, 3.8rem);
@@ -65,11 +71,8 @@
     letter-spacing: -0.01em;
     max-width: 900px;
   }
-  h1 em {
-    font-style: italic;
-    color: var(--p-procedural);
-  }
-  .lede {
+  header h1 em { font-style: italic; color: var(--p-procedural); }
+  header .lede {
     font-size: 1rem;
     line-height: 1.65;
     color: var(--ink-dim);
@@ -77,7 +80,7 @@
     margin-bottom: 30px;
   }
 
-  /* FILTERS */
+  /* ============ FAMILY TREE GRAPH ============ */
   .filters {
     display: flex;
     flex-wrap: wrap;
@@ -132,10 +135,7 @@
   .chip[data-p="logic"]      { --c: var(--p-logic); }
   .chip[data-p="multi"]      { --c: var(--p-multi); }
 
-  /* TREE */
   .tree-wrap {
-    position: relative;
-    z-index: 2;
     max-width: 1400px;
     margin: 0 auto;
     padding: 20px 4vw 60px;
@@ -154,14 +154,8 @@
     width: 100%;
     height: 700px;
   }
-  .tree-svg .axis-line {
-    stroke: var(--line);
-    stroke-width: 1;
-  }
-  .tree-svg .decade-tick {
-    stroke: var(--line);
-    stroke-width: 1;
-  }
+  .tree-svg .axis-line { stroke: var(--line); stroke-width: 1; }
+  .tree-svg .decade-tick { stroke: var(--line); stroke-width: 1; }
   .tree-svg .decade-label {
     font-family: "JetBrains Mono", monospace;
     font-size: 11px;
@@ -175,9 +169,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
   }
-  .tree-svg .lane-bg {
-    fill: rgba(0,0,0,0.015);
-  }
+  .tree-svg .lane-bg { fill: rgba(0,0,0,0.015); }
   .tree-svg .link {
     fill: none;
     stroke: var(--ink-dim);
@@ -185,10 +177,7 @@
     opacity: 0.25;
     transition: opacity 0.2s, stroke-width 0.2s;
   }
-  .tree-svg .link.highlight {
-    opacity: 1;
-    stroke-width: 2.4;
-  }
+  .tree-svg .link.highlight { opacity: 1; stroke-width: 2.4; }
   .tree-svg .node circle {
     cursor: pointer;
     transition: r 0.2s, stroke-width 0.2s;
@@ -204,13 +193,10 @@
     transition: opacity 0.2s;
   }
   .tree-svg .node:hover circle,
-  .tree-svg .node.selected circle {
-    stroke-width: 4;
-  }
+  .tree-svg .node.selected circle { stroke-width: 4; }
   .tree-svg .node.dim { opacity: 0.18; }
   .tree-svg .node.dim text { opacity: 0.4; }
 
-  /* DETAIL */
   .detail {
     max-width: 1400px;
     margin: 0 auto 40px;
@@ -220,9 +206,7 @@
     gap: 50px;
     align-items: start;
   }
-  @media (max-width: 800px) {
-    .detail { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 800px) { .detail { grid-template-columns: 1fr; } }
   .detail-card {
     border-top: 4px solid var(--c, var(--ink));
     padding-top: 24px;
@@ -282,8 +266,320 @@
     margin: 2px 4px 2px 0;
     cursor: pointer;
   }
-  .detail-side .pill:hover {
-    border-color: var(--ink);
+  .detail-side .pill:hover { border-color: var(--ink); }
+
+  /* ============ HELLO WORLD GALLERY ============ */
+  .hello-section {
+    padding: 80px 6vw;
+    background: var(--bg-paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .hello-wrap { max-width: 1400px; margin: 0 auto; }
+  .hello-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  @media (max-width: 720px) { .hello-grid { grid-template-columns: 1fr; } }
+  .lang-pick {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 480px;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px;
+    background: var(--bg);
+  }
+  .lang-btn {
+    text-align: left;
+    padding: 10px 14px;
+    background: transparent;
+    border: none;
+    border-left: 3px solid transparent;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.88rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lang-btn::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--c);
+    flex-shrink: 0;
+  }
+  .lang-btn:hover { background: var(--bg-paper); }
+  .lang-btn.active {
+    background: var(--bg-paper);
+    border-left-color: var(--c);
+    font-weight: 600;
+  }
+  .lang-btn .yr {
+    margin-left: auto;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+  }
+  .code-pane {
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .code-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 22px;
+    border-bottom: 1px solid #333;
+    gap: 10px;
+  }
+  .code-header .dots {
+    display: flex;
+    gap: 6px;
+  }
+  .code-header .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .code-header .dot:nth-child(1) { background: #ff5f57; }
+  .code-header .dot:nth-child(2) { background: #febc2e; }
+  .code-header .dot:nth-child(3) { background: #28c840; }
+  .code-header .filename {
+    color: #999;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    margin-left: 12px;
+  }
+  .code-header .lang {
+    margin-left: auto;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    color: var(--c);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  pre.code-block {
+    margin: 0;
+    padding: 28px 24px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #ededed;
+    overflow-x: auto;
+    background: #1a1a1a;
+    min-height: 240px;
+  }
+  pre.code-block .kw { color: #ff8a8a; }
+  pre.code-block .str { color: #b8e986; }
+  pre.code-block .com { color: #6e6e6e; font-style: italic; }
+  pre.code-block .num { color: #ffd166; }
+  pre.code-block .fn { color: #79e0ff; }
+
+  /* ============ POPULARITY ============ */
+  .pop-section {
+    padding: 100px 6vw;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .pop-wrap { max-width: 1400px; margin: 0 auto; }
+  .pop-stage {
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 30px;
+    margin-top: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+  }
+  .pop-svg {
+    display: block;
+    width: 100%;
+    height: 460px;
+    min-width: 800px;
+  }
+  .pop-svg .pop-line {
+    fill: none;
+    stroke-width: 2.5;
+    transition: opacity 0.2s, stroke-width 0.2s;
+  }
+  .pop-svg .pop-axis-line { stroke: var(--line); }
+  .pop-svg .pop-axis-text {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    fill: var(--ink-dim);
+    letter-spacing: 0.1em;
+  }
+  .pop-svg .pop-label {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  /* ============ DOMAINS ============ */
+  .domains-section {
+    padding: 100px 6vw;
+    background: var(--bg-paper);
+    border-top: 1px solid var(--line);
+  }
+  .domains-wrap { max-width: 1400px; margin: 0 auto; }
+  .domains-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    margin-top: 40px;
+  }
+  .domain-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .domain-card .head {
+    padding: 22px 24px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .domain-card .icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  .domain-card h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+  .domain-card .desc {
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+  }
+  .domain-card .langs {
+    padding: 16px 24px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .domain-pill {
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* ============ NOTABLE BUILT WITH ============ */
+  .built-section {
+    padding: 100px 6vw;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .built-wrap { max-width: 1400px; margin: 0 auto; }
+  .built-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-paper);
+  }
+  .built-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .built-row:last-child { border-bottom: none; }
+  @media (max-width: 700px) {
+    .built-row { grid-template-columns: 1fr; gap: 8px; }
+  }
+  .built-lang {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    font-style: italic;
+  }
+  .built-lang .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  .built-software {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .built-software strong {
+    color: var(--p-procedural);
+    font-weight: 500;
+  }
+
+  /* ============ CREATORS ============ */
+  .creators-section {
+    padding: 100px 6vw;
+    background: var(--bg-paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .creators-wrap { max-width: 1400px; margin: 0 auto; }
+  .creators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 40px;
+  }
+  .creator-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--c);
+    border-radius: 8px;
+    padding: 26px 24px;
+  }
+  .creator-card .photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--c), var(--c2, var(--ink-dim)));
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-style: italic;
+  }
+  .creator-card .name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    line-height: 1.1;
+  }
+  .creator-card .role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c);
+    margin-bottom: 12px;
+  }
+  .creator-card .quote {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    line-height: 1.6;
+    font-style: italic;
   }
 
   footer {
@@ -291,16 +587,15 @@
     padding: 40px 6vw 60px;
     font-size: 0.78rem;
     color: var(--ink-dim);
-    border-top: 1px solid var(--line);
     max-width: 1400px;
-    margin: 40px auto 0;
+    margin: 0 auto;
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="eyebrow">A Genealogy in Code · 1957 – 2024</div>
+  <div class="section-eyebrow" style="margin-bottom: 20px;">A Genealogy in Code · 1957 – 2024</div>
   <h1>The Family Tree of <em>Programming Languages</em></h1>
   <p class="lede">Every modern language is a remix. Click a node to see what it borrowed, who built it, and what it inspired. Curves trace direct lines of influence — not every connection, but the ones that mattered most.</p>
   <div class="filters">
@@ -334,6 +629,68 @@
     <div class="row"><div class="k">Paradigm</div><div class="v" id="d-paradigm">—</div></div>
     <div class="row"><div class="k">Influenced by</div><div class="v" id="d-parents">—</div></div>
     <div class="row"><div class="k">Influenced</div><div class="v" id="d-children">—</div></div>
+  </div>
+</section>
+
+<!-- ============ HELLO WORLD GALLERY ============ -->
+<section class="hello-section">
+  <div class="hello-wrap">
+    <div class="section-eyebrow">"Hello, World!" Gallery</div>
+    <h2 class="section-title">The same program, in <em>fifteen different syntaxes.</em></h2>
+    <p class="section-sub">A small program that prints a string is the canonical first-impression of a language. Notice the trends: assembly-era languages favour verbosity; '90s languages obsess over types; modern ones obsess over brevity. Click any name on the left to see the code.</p>
+    <div class="hello-grid">
+      <div class="lang-pick" id="langPick"></div>
+      <div class="code-pane">
+        <div class="code-header">
+          <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="filename" id="codeFile">hello.c</div>
+          <div class="lang" id="codeLang" style="--c: var(--p-procedural)">C · 1972</div>
+        </div>
+        <pre class="code-block" id="codeBlock"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POPULARITY OVER TIME ============ -->
+<section class="pop-section">
+  <div class="pop-wrap">
+    <div class="section-eyebrow">Rise &amp; Fall</div>
+    <h2 class="section-title">Popularity over time — <em>nothing stays on top forever.</em></h2>
+    <p class="section-sub">A schematic, drawn from the broad shape of TIOBE, RedMonk, and Stack Overflow rankings since 1990. Cobol's never gone away. Java peaked twice. Python's ascent is the most dramatic single curve in the field's history.</p>
+    <div class="pop-stage">
+      <svg class="pop-svg" id="popSvg" viewBox="0 0 1200 460" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOTABLE SOFTWARE ============ -->
+<section class="built-section">
+  <div class="built-wrap">
+    <div class="section-eyebrow">In the Wild</div>
+    <h2 class="section-title">Software you've definitely heard of, <em>and what it's written in.</em></h2>
+    <p class="section-sub">Almost no real system is written in only one language. But each of these has a primary one — the one that wrote the core, the one its engineers think in.</p>
+    <div class="built-list" id="builtList"></div>
+  </div>
+</section>
+
+<!-- ============ DOMAINS ============ -->
+<section class="domains-section">
+  <div class="domains-wrap">
+    <div class="section-eyebrow">Choose Your Battlefield</div>
+    <h2 class="section-title">Different problems, <em>different languages.</em></h2>
+    <p class="section-sub">There is no single "best" language — only languages that fit certain shapes of problem better than others. The ecosystem you adopt usually matters more than the syntax.</p>
+    <div class="domains-grid" id="domainsGrid"></div>
+  </div>
+</section>
+
+<!-- ============ CREATORS ============ -->
+<section class="creators-section">
+  <div class="creators-wrap">
+    <div class="section-eyebrow">The People Who Did This</div>
+    <h2 class="section-title">A handful of <em>extraordinary minds.</em></h2>
+    <p class="section-sub">A language is shaped overwhelmingly by the taste of its first designer. The list below is short of every brilliant contributor, but each of these individuals authored a language that altered the field.</p>
+    <div class="creators-grid" id="creatorsGrid"></div>
   </div>
 </section>
 
@@ -436,13 +793,13 @@ const LANGS = [
 ];
 
 const PARADIGMS = {
-  procedural: { color: "var(--p-procedural)", lane: 5 },
-  oop:        { color: "var(--p-oop)",        lane: 2 },
-  functional: { color: "var(--p-functional)", lane: 1 },
-  scripting:  { color: "var(--p-scripting)",  lane: 4 },
-  systems:    { color: "var(--p-systems)",    lane: 6 },
-  logic:      { color: "var(--p-logic)",      lane: 0 },
-  multi:      { color: "var(--p-multi)",      lane: 3 }
+  procedural: { color: "var(--p-procedural)", lane: 5, hex: "#d97757" },
+  oop:        { color: "var(--p-oop)",        lane: 2, hex: "#4a90a4" },
+  functional: { color: "var(--p-functional)", lane: 1, hex: "#7a9c5e" },
+  scripting:  { color: "var(--p-scripting)",  lane: 4, hex: "#c89b3c" },
+  systems:    { color: "var(--p-systems)",    lane: 6, hex: "#5a4a8a" },
+  logic:      { color: "var(--p-logic)",      lane: 0, hex: "#a64d6c" },
+  multi:      { color: "var(--p-multi)",      lane: 3, hex: "#2a2a2a" }
 };
 const PARADIGM_LABEL = {
   procedural: "Procedural",
@@ -457,7 +814,7 @@ const PARADIGM_LABEL = {
 const W = 1400, H = 700;
 const PAD = { l: 130, r: 50, t: 50, b: 50 };
 const yearMin = 1955, yearMax = 2025;
-const LANES = 7; // 0..6
+const LANES = 7;
 const innerW = W - PAD.l - PAD.r;
 const innerH = H - PAD.t - PAD.b;
 const laneH = innerH / LANES;
@@ -465,12 +822,11 @@ const laneH = innerH / LANES;
 function xOf(year) { return PAD.l + ((year - yearMin) / (yearMax - yearMin)) * innerW; }
 function yOfLane(lane) { return PAD.t + lane * laneH + laneH / 2; }
 
-// Position each language; if multiple share a year+lane, jitter Y
 const positioned = LANGS.map(l => ({ ...l }));
 const buckets = {};
 positioned.forEach(l => {
   const lane = PARADIGMS[l.paradigm].lane;
-  const key = lane + ":" + Math.floor(l.year / 4); // group nearby years in same lane
+  const key = lane + ":" + Math.floor(l.year / 4);
   buckets[key] = buckets[key] || [];
   buckets[key].push(l);
 });
@@ -481,15 +837,13 @@ Object.values(buckets).forEach(arr => {
     l._x = xOf(l.year);
     l._y = yOfLane(lane) + offset;
     l._color = PARADIGMS[l.paradigm].color;
+    l._hex = PARADIGMS[l.paradigm].hex;
   });
 });
 const byId = Object.fromEntries(positioned.map(l => [l.id, l]));
 
-// SVG render
 const svg = document.getElementById("tree");
 let html = "";
-
-// Lane backgrounds + labels
 for (let i = 0; i < LANES; i++) {
   const paradigm = Object.keys(PARADIGMS).find(p => PARADIGMS[p].lane === i);
   if (!paradigm) continue;
@@ -498,30 +852,22 @@ for (let i = 0; i < LANES; i++) {
   }
   html += `<text class="lane-label" x="${PAD.l - 16}" y="${yOfLane(i) + 4}" text-anchor="end">${PARADIGM_LABEL[paradigm]}</text>`;
 }
-
-// X axis
 html += `<line class="axis-line" x1="${PAD.l}" y1="${H - PAD.b}" x2="${W - PAD.r}" y2="${H - PAD.b}" />`;
 for (let y = 1960; y <= 2020; y += 10) {
   const x = xOf(y);
   html += `<line class="decade-tick" x1="${x}" y1="${H - PAD.b}" x2="${x}" y2="${H - PAD.b + 6}" />`;
   html += `<text class="decade-label" x="${x}" y="${H - PAD.b + 22}" text-anchor="middle">${y}</text>`;
 }
-
-// Links (parent -> child)
 positioned.forEach(child => {
   child.parents.forEach(pid => {
     const parent = byId[pid];
     if (!parent) return;
-    const x1 = parent._x, y1 = parent._y;
-    const x2 = child._x, y2 = child._y;
+    const x1 = parent._x, y1 = parent._y, x2 = child._x, y2 = child._y;
     const cx = (x1 + x2) / 2;
-    // smooth bezier
     const path = `M ${x1} ${y1} C ${cx} ${y1}, ${cx} ${y2}, ${x2} ${y2}`;
     html += `<path class="link" data-from="${pid}" data-to="${child.id}" d="${path}" />`;
   });
 });
-
-// Nodes
 positioned.forEach(l => {
   html += `
     <g class="node" data-id="${l.id}" data-paradigm="${l.paradigm}" transform="translate(${l._x}, ${l._y})">
@@ -530,27 +876,21 @@ positioned.forEach(l => {
       <text x="${l.size / 2 + 7}" y="4">${l.name}</text>
     </g>`;
 });
-
 svg.innerHTML = html;
 
-// Interaction
 const nodes = svg.querySelectorAll(".node");
 const links = svg.querySelectorAll(".link");
 
 function selectLanguage(id) {
   const l = byId[id];
   if (!l) return;
-
   nodes.forEach(n => n.classList.remove("selected"));
   links.forEach(p => p.classList.remove("highlight"));
-
   const node = svg.querySelector(`.node[data-id="${id}"]`);
   if (node) node.classList.add("selected");
-
   links.forEach(p => {
     if (p.dataset.from === id || p.dataset.to === id) p.classList.add("highlight");
   });
-
   const card = document.getElementById("detailCard");
   card.style.setProperty("--c", l._color);
   document.getElementById("d-meta").textContent = `${l.year} · ${PARADIGM_LABEL[l.paradigm]}`;
@@ -559,17 +899,14 @@ function selectLanguage(id) {
   document.getElementById("d-blurb").textContent = l.blurb;
   document.getElementById("d-year").textContent = l.year;
   document.getElementById("d-paradigm").textContent = PARADIGM_LABEL[l.paradigm];
-
   const parents = l.parents.length
     ? l.parents.map(pid => byId[pid] ? `<span class="pill" data-jump="${pid}">${byId[pid].name}</span>` : "").join("")
     : "<span style='color:var(--ink-dim)'>None — original design</span>";
   document.getElementById("d-parents").innerHTML = parents;
-
   const children = positioned.filter(x => x.parents.includes(l.id));
   document.getElementById("d-children").innerHTML = children.length
     ? children.map(c => `<span class="pill" data-jump="${c.id}">${c.name}</span>`).join("")
     : "<span style='color:var(--ink-dim)'>—</span>";
-
   document.querySelectorAll(".pill[data-jump]").forEach(p => {
     p.addEventListener("click", () => selectLanguage(p.dataset.jump));
   });
@@ -587,7 +924,6 @@ nodes.forEach(n => {
   });
 });
 
-// Filters
 document.querySelectorAll(".chip").forEach(chip => {
   chip.addEventListener("click", () => {
     document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
@@ -598,22 +934,190 @@ document.querySelectorAll(".chip").forEach(chip => {
       else n.classList.add("dim");
     });
     links.forEach(link => {
-      if (p === "all") {
-        link.style.opacity = "";
-      } else {
+      if (p === "all") { link.style.opacity = ""; }
+      else {
         const from = byId[link.dataset.from], to = byId[link.dataset.to];
-        if ((from && from.paradigm === p) || (to && to.paradigm === p)) {
-          link.style.opacity = 0.5;
-        } else {
-          link.style.opacity = 0.05;
-        }
+        if ((from && from.paradigm === p) || (to && to.paradigm === p)) link.style.opacity = 0.5;
+        else link.style.opacity = 0.05;
       }
     });
   });
 });
 
-// Pre-select Python
 selectLanguage("python");
+
+// ============ HELLO WORLD GALLERY ============
+const HELLO = {
+  fortran: { ext: "f90", file: "hello.f90", code: `<span class="kw">program</span> hello\n  <span class="kw">print</span> *, <span class="str">"Hello, World!"</span>\n<span class="kw">end program</span> hello` },
+  cobol:   { ext: "cob", file: "HELLO.COB", code: `       <span class="kw">IDENTIFICATION DIVISION</span>.\n       <span class="kw">PROGRAM-ID</span>. HELLO.\n       <span class="kw">PROCEDURE DIVISION</span>.\n           <span class="kw">DISPLAY</span> <span class="str">"Hello, World!"</span>.\n           <span class="kw">STOP RUN</span>.` },
+  lisp:    { ext: "lisp", file: "hello.lisp", code: `(<span class="fn">format</span> t <span class="str">"Hello, World!~%"</span>)` },
+  basic:   { ext: "bas", file: "HELLO.BAS", code: `<span class="num">10</span> <span class="kw">PRINT</span> <span class="str">"Hello, World!"</span>\n<span class="num">20</span> <span class="kw">END</span>` },
+  c:       { ext: "c", file: "hello.c", code: `<span class="com">#include &lt;stdio.h&gt;</span>\n\n<span class="kw">int</span> <span class="fn">main</span>() {\n  <span class="fn">printf</span>(<span class="str">"Hello, World!\\n"</span>);\n  <span class="kw">return</span> <span class="num">0</span>;\n}` },
+  pascal:  { ext: "pas", file: "hello.pas", code: `<span class="kw">program</span> Hello;\n<span class="kw">begin</span>\n  <span class="fn">writeln</span>(<span class="str">'Hello, World!'</span>);\n<span class="kw">end</span>.` },
+  smalltalk:{ ext: "st", file: "hello.st", code: `<span class="kw">Transcript</span> <span class="fn">show</span>: <span class="str">'Hello, World!'</span>; <span class="fn">cr</span>.` },
+  cpp:     { ext: "cpp", file: "hello.cpp", code: `<span class="com">#include &lt;iostream&gt;</span>\n\n<span class="kw">int</span> <span class="fn">main</span>() {\n  std::cout &lt;&lt; <span class="str">"Hello, World!"</span> &lt;&lt; std::endl;\n  <span class="kw">return</span> <span class="num">0</span>;\n}` },
+  perl:    { ext: "pl", file: "hello.pl", code: `<span class="com">#!/usr/bin/perl</span>\n<span class="kw">print</span> <span class="str">"Hello, World!\\n"</span>;` },
+  haskell: { ext: "hs", file: "hello.hs", code: `<span class="fn">main</span> = <span class="fn">putStrLn</span> <span class="str">"Hello, World!"</span>` },
+  python:  { ext: "py", file: "hello.py", code: `<span class="fn">print</span>(<span class="str">"Hello, World!"</span>)` },
+  java:    { ext: "java", file: "Hello.java", code: `<span class="kw">public class</span> <span class="fn">Hello</span> {\n  <span class="kw">public static void</span> <span class="fn">main</span>(<span class="kw">String</span>[] args) {\n    <span class="kw">System</span>.out.<span class="fn">println</span>(<span class="str">"Hello, World!"</span>);\n  }\n}` },
+  js:      { ext: "js", file: "hello.js", code: `<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Hello, World!"</span>);` },
+  php:     { ext: "php", file: "hello.php", code: `<span class="com">&lt;?php</span>\n<span class="kw">echo</span> <span class="str">"Hello, World!"</span>;` },
+  ruby:    { ext: "rb", file: "hello.rb", code: `<span class="fn">puts</span> <span class="str">"Hello, World!"</span>` },
+  csharp:  { ext: "cs", file: "Hello.cs", code: `<span class="kw">using</span> System;\n\n<span class="kw">class</span> <span class="fn">Hello</span> {\n  <span class="kw">static void</span> <span class="fn">Main</span>() {\n    <span class="kw">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"Hello, World!"</span>);\n  }\n}` },
+  go:      { ext: "go", file: "hello.go", code: `<span class="kw">package</span> main\n\n<span class="kw">import</span> <span class="str">"fmt"</span>\n\n<span class="kw">func</span> <span class="fn">main</span>() {\n  fmt.<span class="fn">Println</span>(<span class="str">"Hello, World!"</span>)\n}` },
+  rust:    { ext: "rs", file: "hello.rs", code: `<span class="kw">fn</span> <span class="fn">main</span>() {\n  <span class="fn">println!</span>(<span class="str">"Hello, World!"</span>);\n}` },
+  kotlin:  { ext: "kt", file: "hello.kt", code: `<span class="kw">fun</span> <span class="fn">main</span>() {\n  <span class="fn">println</span>(<span class="str">"Hello, World!"</span>)\n}` },
+  swift:   { ext: "swift", file: "hello.swift", code: `<span class="fn">print</span>(<span class="str">"Hello, World!"</span>)` },
+  ts:      { ext: "ts", file: "hello.ts", code: `<span class="kw">const</span> message: <span class="kw">string</span> = <span class="str">"Hello, World!"</span>;\n<span class="fn">console</span>.<span class="fn">log</span>(message);` },
+  sql:     { ext: "sql", file: "hello.sql", code: `<span class="kw">SELECT</span> <span class="str">'Hello, World!'</span> <span class="kw">AS</span> greeting;` },
+  scala:   { ext: "scala", file: "Hello.scala", code: `<span class="kw">object</span> <span class="fn">Hello</span> <span class="kw">extends</span> <span class="fn">App</span> {\n  <span class="fn">println</span>(<span class="str">"Hello, World!"</span>)\n}` }
+};
+
+const helloLangs = ["fortran","cobol","lisp","basic","c","pascal","smalltalk","cpp","perl","haskell","python","java","js","php","ruby","csharp","go","rust","kotlin","swift","ts","sql","scala"];
+const langPick = document.getElementById('langPick');
+langPick.innerHTML = helloLangs.map(id => {
+  const l = byId[id];
+  return `<button class="lang-btn ${id==='python'?'active':''}" data-id="${id}" style="--c:${l._color}">${l.name}<span class="yr">${l.year}</span></button>`;
+}).join('');
+
+function showHello(id) {
+  const l = byId[id];
+  const h = HELLO[id];
+  if (!l || !h) return;
+  document.getElementById('codeFile').textContent = h.file;
+  document.getElementById('codeLang').textContent = `${l.name} · ${l.year}`;
+  document.getElementById('codeLang').style.setProperty('--c', l._color);
+  document.getElementById('codeLang').style.color = l._color;
+  document.getElementById('codeBlock').innerHTML = h.code;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.id === id));
+}
+document.querySelectorAll('.lang-btn').forEach(b => {
+  b.addEventListener('click', () => showHello(b.dataset.id));
+});
+showHello('python');
+
+// ============ POPULARITY OVER TIME ============
+const POP_DATA = [
+  { id: "c",       label: "C",          color: "#d97757", points: [[1990,30],[1995,35],[2000,32],[2005,25],[2010,18],[2015,14],[2020,11],[2024,9]] },
+  { id: "cpp",     label: "C++",        color: "#4a90a4", points: [[1990,12],[1995,18],[2000,22],[2005,18],[2010,14],[2015,11],[2020,9],[2024,8]] },
+  { id: "java",    label: "Java",       color: "#a3672a", points: [[1990,0], [1995,2], [2000,18],[2005,25],[2010,28],[2015,22],[2020,17],[2024,12]] },
+  { id: "python",  label: "Python",     color: "#5a8fbf", points: [[1990,0], [1995,1], [2000,2], [2005,5], [2010,9], [2015,15],[2020,25],[2024,32]] },
+  { id: "js",      label: "JavaScript", color: "#c89b3c", points: [[1990,0], [1995,1], [2000,3], [2005,5], [2010,8], [2015,14],[2020,17],[2024,18]] },
+  { id: "php",     label: "PHP",        color: "#7a73a3", points: [[1990,0], [1995,0.5],[2000,4],[2005,12],[2010,9], [2015,7], [2020,5], [2024,4]] },
+  { id: "csharp",  label: "C#",         color: "#5a4a8a", points: [[1990,0], [1995,0], [2000,1], [2005,7], [2010,12],[2015,10],[2020,8], [2024,7]] },
+  { id: "rust",    label: "Rust",       color: "#a64d6c", points: [[1990,0], [1995,0], [2000,0], [2005,0], [2010,0.2],[2015,1],[2020,3],[2024,6]] },
+  { id: "go",      label: "Go",         color: "#7a9c5e", points: [[1990,0], [1995,0], [2000,0], [2005,0], [2010,0.5],[2015,2],[2020,5],[2024,7]] },
+  { id: "ts",      label: "TypeScript", color: "#1a4060", points: [[1990,0], [1995,0], [2000,0], [2005,0], [2010,0],[2015,2],[2020,12],[2024,17]] },
+  { id: "cobol",   label: "COBOL",      color: "#a3a3a3", points: [[1990,18],[1995,12],[2000,8], [2005,5], [2010,3], [2015,2], [2020,1.5],[2024,1.2]] },
+  { id: "perl",    label: "Perl",       color: "#7a5a3a", points: [[1990,4], [1995,8], [2000,15],[2005,12],[2010,6], [2015,3], [2020,1.5],[2024,1]] }
+];
+
+(function renderPopChart() {
+  const W2 = 1200, H2 = 460;
+  const PAD2 = { l: 50, r: 110, t: 30, b: 50 };
+  const innerW = W2 - PAD2.l - PAD2.r;
+  const innerH = H2 - PAD2.t - PAD2.b;
+  const yearMin = 1990, yearMax = 2024;
+  const valMax = 35;
+  const xS = y => PAD2.l + ((y - yearMin) / (yearMax - yearMin)) * innerW;
+  const yS = v => PAD2.t + innerH - (v / valMax) * innerH;
+
+  let html = "";
+  // Y-grid
+  for (let v = 0; v <= valMax; v += 5) {
+    const y = yS(v);
+    html += `<line class="pop-axis-line" x1="${PAD2.l}" y1="${y}" x2="${W2 - PAD2.r}" y2="${y}" stroke-dasharray="2 4"/>`;
+    html += `<text class="pop-axis-text" x="${PAD2.l - 6}" y="${y + 4}" text-anchor="end">${v}%</text>`;
+  }
+  // X-axis
+  html += `<line class="pop-axis-line" x1="${PAD2.l}" y1="${H2 - PAD2.b}" x2="${W2 - PAD2.r}" y2="${H2 - PAD2.b}"/>`;
+  for (let y = 1990; y <= 2024; y += 5) {
+    const x = xS(y);
+    html += `<text class="pop-axis-text" x="${x}" y="${H2 - PAD2.b + 18}" text-anchor="middle">${y}</text>`;
+  }
+  // Lines
+  POP_DATA.forEach(d => {
+    const path = d.points.map((p, i) => (i ? "L" : "M") + xS(p[0]) + " " + yS(p[1])).join(" ");
+    html += `<path class="pop-line" d="${path}" stroke="${d.color}"/>`;
+    const last = d.points[d.points.length - 1];
+    html += `<text class="pop-label" x="${xS(last[0]) + 8}" y="${yS(last[1]) + 4}" fill="${d.color}">${d.label}</text>`;
+  });
+  document.getElementById('popSvg').innerHTML = html;
+})();
+
+// ============ NOTABLE BUILT WITH ============
+const BUILT = [
+  { lang: "C",          color: "#d97757", items: "<strong>Linux kernel</strong>, <strong>Git</strong>, the <strong>SQLite</strong> database engine, <strong>Redis</strong>, <strong>PostgreSQL</strong>, the <strong>Python interpreter itself</strong>, and most operating system kernels ever shipped." },
+  { lang: "C++",        color: "#4a90a4", items: "<strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Microsoft Office</strong>, the <strong>Unreal Engine</strong>, <strong>Adobe Photoshop</strong>, <strong>MongoDB</strong>, <strong>MySQL</strong>, and almost every AAA video game." },
+  { lang: "Java",       color: "#a3672a", items: "<strong>Minecraft</strong>, <strong>Android</strong> system code, <strong>LinkedIn</strong>'s backend, <strong>Netflix</strong>'s middleware, the <strong>Eclipse</strong> IDE, much of <strong>Amazon</strong>'s and <strong>Twitter</strong>'s historical backends." },
+  { lang: "Python",     color: "#5a8fbf", items: "<strong>Instagram</strong>, <strong>YouTube</strong>'s recommendation system, <strong>Dropbox</strong>'s desktop client, <strong>Reddit</strong>'s original codebase, <strong>TensorFlow</strong> + <strong>PyTorch</strong>, and roughly all modern AI tooling." },
+  { lang: "JavaScript / TypeScript", color: "#c89b3c", items: "<strong>Every web frontend</strong>. <strong>VS Code</strong>, <strong>Slack</strong>, <strong>Discord</strong>, <strong>Figma</strong>, <strong>Notion</strong>, <strong>Spotify</strong>'s desktop app — all Electron + JS/TS." },
+  { lang: "Go",         color: "#7a9c5e", items: "<strong>Docker</strong>, <strong>Kubernetes</strong>, <strong>Terraform</strong>, the <strong>Hugo</strong> static site generator, large parts of <strong>Cloudflare</strong>'s and <strong>Uber</strong>'s infrastructure." },
+  { lang: "Rust",       color: "#5a4a8a", items: "<strong>Firefox</strong>'s rendering engine, <strong>Discord</strong>'s read states service, <strong>Cloudflare</strong>'s edge proxy, <strong>Dropbox</strong>'s file sync engine, parts of <strong>1Password</strong>." },
+  { lang: "C#",         color: "#5a4a8a", items: "Most of <strong>Microsoft</strong>'s server-side stack, <strong>Stack Overflow</strong>'s backend, the <strong>Unity</strong> game engine, and a generation of Windows desktop applications." },
+  { lang: "Swift / Objective-C", color: "#a64d6c", items: "<strong>iOS</strong>, <strong>macOS</strong>, <strong>watchOS</strong>, <strong>tvOS</strong>. Effectively every native Apple-platform app since 1998." },
+  { lang: "PHP",        color: "#7a73a3", items: "<strong>Wikipedia</strong>, <strong>Facebook</strong> (largely rewritten as Hack), <strong>WordPress</strong>, <strong>Slack</strong>'s original backend, <strong>Etsy</strong>, <strong>Tumblr</strong>." },
+  { lang: "Ruby",       color: "#a64d6c", items: "<strong>GitHub</strong>, <strong>Shopify</strong>, <strong>Airbnb</strong> (originally), <strong>Twitter</strong> (originally), <strong>Hulu</strong>, the <strong>Stripe</strong> dashboard." },
+  { lang: "SQL",        color: "#a64d6c", items: "Every <strong>relational database</strong> ever shipped: PostgreSQL, MySQL, Oracle, SQLite, SQL Server. Half a century later, still the dominant data-query interface." },
+  { lang: "COBOL",      color: "#a3a3a3", items: "Roughly <strong>$3 trillion</strong> in daily commerce runs through legacy COBOL: ATMs, airline reservations, federal tax systems, much of US banking back-ends." }
+];
+document.getElementById('builtList').innerHTML = BUILT.map(b => `
+  <div class="built-row">
+    <div class="built-lang"><span class="dot" style="background:${b.color}"></span>${b.lang}</div>
+    <div class="built-software">${b.items}</div>
+  </div>
+`).join('');
+
+// ============ DOMAINS ============
+const DOMAINS = [
+  { icon: "🌐", title: "Web Frontend", desc: "Code that runs in browsers.", langs: [{ n: "JavaScript", c: "#c89b3c" }, { n: "TypeScript", c: "#1a4060" }, { n: "WebAssembly", c: "#5a4a8a" }] },
+  { icon: "⚙️", title: "Web Backend", desc: "Servers, APIs, databases.", langs: [{ n: "Python", c: "#5a8fbf" }, { n: "Java", c: "#a3672a" }, { n: "Go", c: "#7a9c5e" }, { n: "Node.js", c: "#c89b3c" }, { n: "Ruby", c: "#a64d6c" }, { n: "PHP", c: "#7a73a3" }] },
+  { icon: "📊", title: "Data &amp; AI", desc: "Analytics, ML, AI.", langs: [{ n: "Python", c: "#5a8fbf" }, { n: "R", c: "#7a9c5e" }, { n: "Julia", c: "#5a4a8a" }, { n: "SQL", c: "#a64d6c" }] },
+  { icon: "📱", title: "Mobile", desc: "iOS and Android apps.", langs: [{ n: "Swift", c: "#a64d6c" }, { n: "Kotlin", c: "#4a90a4" }, { n: "Dart", c: "#5a8fbf" }, { n: "Objective-C", c: "#7a73a3" }] },
+  { icon: "🎮", title: "Game Development", desc: "Engines and gameplay.", langs: [{ n: "C++", c: "#4a90a4" }, { n: "C#", c: "#5a4a8a" }, { n: "Lua", c: "#c89b3c" }, { n: "GDScript", c: "#7a9c5e" }] },
+  { icon: "🔧", title: "Systems &amp; OS", desc: "Kernels, drivers, low-level.", langs: [{ n: "C", c: "#d97757" }, { n: "C++", c: "#4a90a4" }, { n: "Rust", c: "#5a4a8a" }, { n: "Assembly", c: "#a3a3a3" }] },
+  { icon: "🏦", title: "Finance &amp; Trading", desc: "Banking, HFT, settlement.", langs: [{ n: "Java", c: "#a3672a" }, { n: "C++", c: "#4a90a4" }, { n: "Python", c: "#5a8fbf" }, { n: "COBOL", c: "#a3a3a3" }] },
+  { icon: "☁️", title: "DevOps &amp; Cloud", desc: "Infrastructure as code.", langs: [{ n: "Go", c: "#7a9c5e" }, { n: "Python", c: "#5a8fbf" }, { n: "Bash", c: "#a3a3a3" }, { n: "Terraform", c: "#5a4a8a" }] },
+  { icon: "🔬", title: "Scientific Computing", desc: "Simulation, modelling.", langs: [{ n: "Fortran", c: "#a3a3a3" }, { n: "Python", c: "#5a8fbf" }, { n: "MATLAB", c: "#d97757" }, { n: "C++", c: "#4a90a4" }] }
+];
+document.getElementById('domainsGrid').innerHTML = DOMAINS.map(d => `
+  <div class="domain-card">
+    <div class="head">
+      <div class="icon">${d.icon}</div>
+      <h3>${d.title}</h3>
+      <div class="desc">${d.desc}</div>
+    </div>
+    <div class="langs">
+      ${d.langs.map(l => `<span class="domain-pill" style="background:${l.c}">${l.n}</span>`).join('')}
+    </div>
+  </div>
+`).join('');
+
+// ============ CREATORS ============
+const CREATORS = [
+  { name: "Grace Hopper",     lang: "COBOL · 1959",    initials: "GH", c: "#a3a3a3", c2: "#666", quote: "Co-invented COBOL and pioneered the idea of compilers. Coined the term 'debugging' after pulling a literal moth out of a relay." },
+  { name: "John McCarthy",    lang: "Lisp · 1958",     initials: "JM", c: "#7a9c5e", c2: "#5a7c3a", quote: "Designed Lisp at MIT in two months. Also coined the term 'artificial intelligence' the same decade." },
+  { name: "Dennis Ritchie",   lang: "C · 1972",        initials: "DR", c: "#d97757", c2: "#a04a30", quote: "Co-designed C while writing Unix at Bell Labs. The most quietly influential software engineer who ever lived." },
+  { name: "Niklaus Wirth",    lang: "Pascal · 1970",   initials: "NW", c: "#d97757", c2: "#a04a30", quote: "Designed Pascal, Modula, and Oberon. Famous for: 'Whereas Europeans pronounce my name correctly (Vurt), Americans invariably mangle it into Worth.'" },
+  { name: "Alan Kay",         lang: "Smalltalk · 1972",initials: "AK", c: "#4a90a4", c2: "#2a6080", quote: "Designed Smalltalk and helped invent the GUI at Xerox PARC. Said 'The best way to predict the future is to invent it.'" },
+  { name: "Bjarne Stroustrup",lang: "C++ · 1985",      initials: "BS", c: "#4a90a4", c2: "#2a6080", quote: "Designed C++ as a one-person project at Bell Labs. Said: 'There are only two kinds of languages: the ones people complain about and the ones nobody uses.'" },
+  { name: "Larry Wall",       lang: "Perl · 1987",     initials: "LW", c: "#c89b3c", c2: "#8a6a20", quote: "Linguist-turned-programmer. Designed Perl with the philosophy 'There's More Than One Way To Do It' — endorsed by him, hated by his critics." },
+  { name: "Guido van Rossum", lang: "Python · 1991",   initials: "GR", c: "#5a8fbf", c2: "#3a6090", quote: "Created Python over a Christmas holiday in 1989. Served as 'Benevolent Dictator For Life' until 2018. Now a Distinguished Engineer at Microsoft." },
+  { name: "Brendan Eich",     lang: "JavaScript · 1995",initials: "BE", c: "#c89b3c", c2: "#8a6a20", quote: "Designed JavaScript in 10 days at Netscape. Resentful of how rushed it was; designed many of its rough edges, then watched the world adopt them anyway." },
+  { name: "James Gosling",    lang: "Java · 1995",     initials: "JG", c: "#a3672a", c2: "#704a18", quote: "Led the Java team at Sun Microsystems. The 'write once, run anywhere' promise was largely his vision — and largely delivered." },
+  { name: "Anders Hejlsberg", lang: "C# · 2000, TS · 2012",initials: "AH",c: "#5a4a8a", c2: "#3a2a60", quote: "Designed Turbo Pascal, Delphi, C#, and TypeScript — four widely-used languages by one person. Currently leads the TypeScript team at Microsoft." },
+  { name: "Yukihiro Matsumoto",lang: "Ruby · 1995",    initials: "YM", c: "#a64d6c", c2: "#702a48", quote: "Designed Ruby in Japan with the explicit goal of being a language he himself would enjoy using. The community calls him 'Matz'." },
+  { name: "Graydon Hoare",    lang: "Rust · 2010",     initials: "GH", c: "#5a4a8a", c2: "#3a2a60", quote: "Started Rust as a personal project at Mozilla after his apartment elevator broke for the second time due to memory bugs." },
+  { name: "Chris Lattner",    lang: "Swift · 2014",    initials: "CL", c: "#a64d6c", c2: "#702a48", quote: "Designed LLVM, the compiler infrastructure most modern languages use, while still in graduate school. Then designed Swift at Apple." }
+];
+document.getElementById('creatorsGrid').innerHTML = CREATORS.map(c => `
+  <div class="creator-card" style="--c:${c.c}; --c2:${c.c2}">
+    <div class="photo">${c.initials}</div>
+    <div class="role">${c.lang}</div>
+    <div class="name">${c.name}</div>
+    <div class="quote">${c.quote}</div>
+  </div>
+`).join('');
 </script>
 </body>
 </html>

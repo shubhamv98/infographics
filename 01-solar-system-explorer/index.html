@@ -600,6 +600,196 @@
     text-align: center;
   }
 
+  /* ============ COMET ============ */
+  .comet {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 12px #fff, 0 0 24px rgba(255,255,255,0.5);
+    animation: cometPath 16s linear infinite;
+    pointer-events: none;
+    z-index: 4;
+  }
+  .comet::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6));
+    border-radius: 100px;
+  }
+  @keyframes cometPath {
+    0%   { transform: translate(-560px, -340px) rotate(25deg); opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { transform: translate(120px, 80px) rotate(25deg); opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translate(640px, 380px) rotate(25deg); opacity: 0; }
+  }
+
+  /* ============ MISSIONS TIMELINE ============ */
+  .missions-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 60px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .missions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+  }
+  .mission-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 24px 22px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .mission-card:hover {
+    transform: translateY(-3px);
+    border-left-color: #ff9a3c;
+  }
+  .mission-card .year {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .mission-card .name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .mission-card .where {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 12px;
+  }
+  .mission-card .what {
+    font-size: 0.85rem;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* ============ FORMATION TIMELINE ============ */
+  .formation-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 60px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .formation-track {
+    margin-top: 40px;
+    position: relative;
+    border-left: 2px solid var(--accent);
+    padding-left: 36px;
+  }
+  .formation-event {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .formation-event:last-child { border-bottom: none; }
+  .formation-event::before {
+    content: "";
+    position: absolute;
+    left: -42px;
+    top: 28px;
+    width: 14px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(255, 209, 102, 0.18);
+  }
+  .formation-event .age {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .formation-event .title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+  .formation-event .what {
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+    line-height: 1.6;
+    max-width: 760px;
+  }
+
+  /* ============ MIND-BENDING FACTS ============ */
+  .facts-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    margin-top: 30px;
+  }
+  .fact-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 32px 28px;
+    position: relative;
+  }
+  .fact-card .quote-mark {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 4rem;
+    line-height: 0.5;
+    color: var(--accent);
+    opacity: 0.3;
+    position: absolute;
+    top: 20px;
+    right: 26px;
+  }
+  .fact-card .fact-text {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .fact-card .fact-text strong {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .fact-card .source {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
   /* ============ SCALE STRIP ============ */
   .scale-strip {
     position: relative;
@@ -666,6 +856,7 @@
       <button class="ctrl" id="toggleScale">Realistic Scale</button>
     </div>
     <div class="sun" id="sunNode" title="The Sun"></div>
+    <div class="comet"></div>
     <!-- planets injected via JS -->
   </div>
 
@@ -750,6 +941,172 @@
   <h2 class="section-title">A small selection of the system's <em>most interesting moons.</em></h2>
   <p class="section-sub">The solar system has more than 290 known moons. A handful of them — Titan, Europa, Ganymede — are arguably more interesting than several of the planets they orbit.</p>
   <div class="moons-grid" id="moonsGrid"></div>
+</section>
+
+<!-- ============ SPACE MISSIONS ============ -->
+<section class="missions-section">
+  <div class="section-eyebrow">We've Sent Things There</div>
+  <h2 class="section-title">Eight planets, hundreds of moons — and <em>more than 250 missions.</em></h2>
+  <p class="section-sub">Every world in the system has been visited at least once. A handful of probes have been doing it for fifty years and counting. Here are the ones that mattered.</p>
+  <div class="missions-grid">
+    <div class="mission-card">
+      <div class="year">1962</div>
+      <div class="name">Mariner 2</div>
+      <div class="where">Venus · NASA</div>
+      <div class="what">First successful planetary flyby in history. Discovered Venus is hellishly hot — over 460 °C — finally killing the romantic 19th-century idea of a tropical jungle planet next door.</div>
+    </div>
+    <div class="mission-card">
+      <div class="year">1969</div>
+      <div class="name">Apollo 11</div>
+      <div class="where">Moon · NASA</div>
+      <div class="what">Humans land on another world for the first time. Twelve people walked on the Moon between 1969 and 1972. Nobody has been back since.</div>
+    </div>
+    <div class="mission-card">
+      <div class="year">1976</div>
+      <div class="name">Viking 1 &amp; 2</div>
+      <div class="where">Mars · NASA</div>
+      <div class="what">First successful landings on another planet. Sent back the first colour photos of the Martian surface — a rust-coloured desert under a butterscotch sky.</div>
+    </div>
+    <div class="mission-card">
+      <div class="year">1977</div>
+      <div class="name">Voyager 1 &amp; 2</div>
+      <div class="where">Outer planets &amp; beyond · NASA</div>
+      <div class="what">Visited Jupiter, Saturn, Uranus, and Neptune. Both probes are now in interstellar space, still transmitting weak signals back. Will outlast every other human artefact.</div>
+    </div>
+    <div class="mission-card">
+      <div class="year">1995</div>
+      <div class="name">Galileo</div>
+      <div class="where">Jupiter · NASA</div>
+      <div class="what">Eight years orbiting Jupiter. Discovered evidence of liquid oceans under the ice of Europa — possibly the most habitable real estate in the solar system after Earth.</div>
+    </div>
+    <div class="mission-card">
+      <div class="year">2004</div>
+      <div class="name">Cassini-Huygens</div>
+      <div class="where">Saturn · NASA / ESA</div>
+      <div class="what">Thirteen years orbiting Saturn. Dropped the Huygens probe onto Titan — the only landing ever made on a moon other than Earth's. Found a methane lake.</div>
+    </div>
+    <div class="mission-card">
+      <div class="year">2006</div>
+      <div class="name">New Horizons</div>
+      <div class="where">Pluto · NASA</div>
+      <div class="what">Took nearly a decade to reach Pluto. Flew past in 2015 and revealed a heart-shaped plain of frozen nitrogen, plus mountains of water ice. Now exiting the solar system.</div>
+    </div>
+    <div class="mission-card">
+      <div class="year">2011</div>
+      <div class="name">Curiosity / Perseverance</div>
+      <div class="where">Mars · NASA</div>
+      <div class="what">Car-sized rovers that are still driving across Mars. Found organic molecules. Perseverance is collecting rock samples for a future return mission.</div>
+    </div>
+    <div class="mission-card">
+      <div class="year">2018</div>
+      <div class="name">Parker Solar Probe</div>
+      <div class="where">The Sun · NASA</div>
+      <div class="what">The fastest object ever built. Has flown closer to the Sun than any spacecraft — into the corona itself, at temperatures that would melt almost anything else.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORMATION TIMELINE ============ -->
+<section class="formation-section">
+  <div class="section-eyebrow">How Did Any Of This Happen?</div>
+  <h2 class="section-title">The solar system, formed from <em>a collapsing cloud of dust.</em></h2>
+  <p class="section-sub">4.6 billion years ago, a slowly-rotating cloud of hydrogen, helium, and the debris of older dead stars began collapsing under its own gravity. The story below is what happened next, in roughly chronological order.</p>
+  <div class="formation-track">
+    <div class="formation-event">
+      <div class="age">4.6 billion years ago</div>
+      <div class="title">A cloud collapses</div>
+      <div class="what">A nearby supernova shockwave probably pushed a slowly-spinning cloud of gas and dust past the threshold for gravitational collapse. As it shrank, conservation of angular momentum spun it into a flattened disc.</div>
+    </div>
+    <div class="formation-event">
+      <div class="age">4.6 billion years ago</div>
+      <div class="title">The Sun ignites</div>
+      <div class="what">Hydrogen at the centre of the disc compressed enough for nuclear fusion to start. About 99.86% of all the matter in the cloud ended up as the Sun. Everything else — every planet, moon, asteroid, and comet — formed from the remaining 0.14%.</div>
+    </div>
+    <div class="formation-event">
+      <div class="age">4.55 billion years ago</div>
+      <div class="title">Dust grains stick together</div>
+      <div class="what">In the rotating disc, microscopic grains collided and clumped over millions of years — first into pebbles, then boulders, then planetesimals tens of kilometres wide. Inside the 'frost line', only rocky material survived. Beyond it, ice could too.</div>
+    </div>
+    <div class="formation-event">
+      <div class="age">4.5 billion years ago</div>
+      <div class="title">The giants form fast</div>
+      <div class="what">Beyond the frost line, planetesimals grew massive enough to capture hydrogen and helium directly from the disc. Jupiter and Saturn formed within a few million years — astonishingly fast on planetary timescales. Uranus and Neptune followed.</div>
+    </div>
+    <div class="formation-event">
+      <div class="age">4.5 billion years ago</div>
+      <div class="title">Earth is hit by Theia</div>
+      <div class="what">A Mars-sized body — astronomers call it Theia — slammed into proto-Earth at an oblique angle. The collision vaporised both bodies' outer layers, which then re-condensed in orbit and coalesced into the Moon. Earth's axial tilt and most of its rotational energy came from this single impact.</div>
+    </div>
+    <div class="formation-event">
+      <div class="age">4.1 billion years ago</div>
+      <div class="title">Late Heavy Bombardment</div>
+      <div class="what">For about 200 million years, the inner solar system was pummelled by leftover planetesimals. Most of the craters you can see on the Moon, Mercury, and Mars date from this era. Life on Earth had to wait for it to end.</div>
+    </div>
+    <div class="formation-event">
+      <div class="age">3.8 billion years ago</div>
+      <div class="title">Life appears on Earth</div>
+      <div class="what">The oldest fossil evidence of life dates from this period. Single-celled organisms in shallow seas. They had no competition for the next two billion years. We are direct descendants.</div>
+    </div>
+    <div class="formation-event">
+      <div class="age">5 billion years from now</div>
+      <div class="title">The Sun dies</div>
+      <div class="what">When the Sun exhausts its hydrogen, it will swell into a red giant — large enough to engulf Mercury, Venus, and probably Earth. After about a billion more years it will shed its outer layers as a planetary nebula, leaving behind a slowly-cooling white dwarf the size of Earth.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MIND-BENDING FACTS ============ -->
+<section class="facts-section">
+  <div class="section-eyebrow">Things That Sound Made Up</div>
+  <h2 class="section-title">A small collection of <em>genuinely strange truths.</em></h2>
+  <p class="section-sub">Every one of these has a Wikipedia citation. The solar system is weirder than fiction.</p>
+  <div class="facts-grid">
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">It rains <strong>diamonds</strong> on Neptune and Uranus. The pressure deep inside compresses the carbon in their atmospheres into solid crystals that fall thousands of kilometres into the planet's core.</div>
+      <div class="source">Geophysics · 2017 confirmation</div>
+    </div>
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">Saturn's moon <strong>Iapetus</strong> is split between hemispheres of brilliant ice and pitch-black dust — like a billiard ball half-painted. The dust comes from another moon, blasted off by micrometeorites.</div>
+      <div class="source">Cassini observations · 2007</div>
+    </div>
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">A day on <strong>Venus</strong> (243 Earth days) is longer than its year (225 Earth days). It also rotates backwards, possibly because of an ancient impact that flipped it over.</div>
+      <div class="source">NASA Planetary Fact Sheet</div>
+    </div>
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">The Voyager Golden Records carry messages and music from Earth on probes that <strong>will outlast our species</strong>. They'll still be playable a billion years from now.</div>
+      <div class="source">NASA · launched 1977</div>
+    </div>
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">If you compressed Saturn into a swimming pool of water, <strong>it would float</strong>. Its average density is about 0.69 g/cm³ — less than water.</div>
+      <div class="source">Density: NASA Saturn Fact Sheet</div>
+    </div>
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">Olympus Mons on <strong>Mars</strong> is so wide (600 km) that, if you stood on it, you wouldn't even know you were on a mountain — the slope is gentler than 5°. The horizon would just be flat.</div>
+      <div class="source">Topographic survey · 2003</div>
+    </div>
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">There is a <strong>hexagonal storm</strong> at Saturn's north pole, 30,000 km wide, that has been holding its six-sided shape for at least 40 years. Nobody fully knows why.</div>
+      <div class="source">Voyager &amp; Cassini imagery</div>
+    </div>
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">Jupiter's moon <strong>Europa</strong> probably contains <strong>twice as much liquid water</strong> as all of Earth's oceans combined — sealed under a kilometres-thick crust of ice.</div>
+      <div class="source">Galileo magnetic-field data</div>
+    </div>
+    <div class="fact-card">
+      <div class="quote-mark">"</div>
+      <div class="fact-text">A footprint left on the Moon during Apollo 11 will probably last <strong>10 to 100 million years</strong>. There's no wind, no water, and almost nothing to erase it.</div>
+      <div class="source">NASA · long-term lunar erosion estimates</div>
+    </div>
+  </div>
 </section>
 
 <!-- ============ SCALE STRIP ============ -->

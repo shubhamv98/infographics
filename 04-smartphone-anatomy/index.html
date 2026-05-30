@@ -645,6 +645,111 @@
     }
   }
 
+  /* ============ COST & POWER OVER TIME ============ */
+  .cost-section {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .cost-wrap { max-width: 1300px; margin: 0 auto; }
+  .cost-stage {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 30px;
+    margin-top: 30px;
+    overflow-x: auto;
+  }
+  .cost-svg {
+    display: block;
+    width: 100%;
+    min-width: 800px;
+    height: 420px;
+  }
+  .cost-svg .axis { stroke: var(--line); }
+  .cost-svg .grid { stroke: var(--line); stroke-dasharray: 2 4; opacity: 0.5; }
+  .cost-svg .axis-text {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    fill: var(--ink-dim);
+    letter-spacing: 0.1em;
+  }
+  .cost-svg .ll { stroke-width: 2.5; fill: none; }
+  .cost-svg .dot { stroke: var(--bg); stroke-width: 2; }
+  .cost-svg .tag {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .cost-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .cost-summary .stat {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px 20px;
+  }
+  .cost-summary .stat .v {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .cost-summary .stat .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  /* ============ ENVIRONMENTAL ============ */
+  .env-section {
+    padding: 100px 6vw;
+    border-top: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--bg) 0%, #050508 100%);
+  }
+  .env-wrap { max-width: 1300px; margin: 0 auto; }
+  .env-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    margin-top: 40px;
+  }
+  .env-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-top: 3px solid #79b87a;
+    border-radius: 10px;
+    padding: 28px 26px;
+  }
+  .env-card .icon {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  .env-card h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .env-card .num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.2rem;
+    color: #79b87a;
+    line-height: 1;
+    margin: 12px 0 6px;
+  }
+  .env-card .desc {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    line-height: 1.6;
+  }
+
   footer {
     text-align: center;
     padding: 30px 6vw 50px;
@@ -1092,6 +1197,83 @@
   </div>
 </section>
 
+<!-- ============ COST & POWER OVER TIME ============ -->
+<section class="cost-section">
+  <div class="cost-wrap">
+    <div class="section-eyebrow">A Steeper Curve Than Almost Anything</div>
+    <h2 class="section-title">In 50 years, smartphones got <em>10,000 times faster</em> — and roughly the same price.</h2>
+    <p class="section-sub">Below: inflation-adjusted launch price (line) versus computing power in MIPS, plotted on a log scale (bars). The 1980s and 90s lines barely move on the chart. Then everything happens at once.</p>
+    <div class="cost-stage">
+      <svg class="cost-svg" id="costSvg" viewBox="0 0 1100 420" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="cost-summary">
+      <div class="stat"><div class="v">10,000×</div><div class="k">More computing power since 1990</div></div>
+      <div class="stat"><div class="v">−85%</div><div class="k">Real price drop since DynaTAC</div></div>
+      <div class="stat"><div class="v">7B+</div><div class="k">Active smartphones today</div></div>
+      <div class="stat"><div class="v">90%</div><div class="k">Of the world has cellular coverage</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENVIRONMENTAL ============ -->
+<section class="env-section">
+  <div class="env-wrap">
+    <div class="section-eyebrow">Hidden Costs</div>
+    <h2 class="section-title">A smartphone is a <em>geological object</em> as much as a digital one.</h2>
+    <p class="section-sub">Every device represents an unusually concentrated extraction of metals from a global supply chain. The numbers below describe both what's inside one phone and what the global industry consumes annually.</p>
+    <div class="env-grid">
+      <div class="env-card">
+        <div class="icon">⛏️</div>
+        <h3>Material extracted</h3>
+        <div class="num">~70 kg</div>
+        <div class="desc">Of rock, ore, and waste rock processed to produce the metals in a single 200 gram smartphone — roughly a 350× ratio.</div>
+      </div>
+      <div class="env-card">
+        <div class="icon">⚡</div>
+        <h3>Manufacturing emissions</h3>
+        <div class="num">~70 kg CO₂e</div>
+        <div class="desc">Embodied carbon per device. Roughly 80% of a phone's lifetime emissions happen before it's even shipped.</div>
+      </div>
+      <div class="env-card">
+        <div class="icon">💧</div>
+        <h3>Water used per chip</h3>
+        <div class="num">~14,000 L</div>
+        <div class="desc">A modern semiconductor fab consumes water at the rate of a small city. TSMC alone uses about 150,000 tonnes a day.</div>
+      </div>
+      <div class="env-card">
+        <div class="icon">♻️</div>
+        <h3>E-waste recycled</h3>
+        <div class="num">~17%</div>
+        <div class="desc">Of all electronic waste globally is properly recycled. The rest goes to landfill, informal recycling, or sits in drawers.</div>
+      </div>
+      <div class="env-card">
+        <div class="icon">📉</div>
+        <h3>Average lifespan</h3>
+        <div class="num">2.7 years</div>
+        <div class="desc">Before replacement. Doubling the average lifespan would roughly halve the industry's annual carbon footprint.</div>
+      </div>
+      <div class="env-card">
+        <div class="icon">🌍</div>
+        <h3>Annual production</h3>
+        <div class="num">1.2 billion</div>
+        <div class="desc">Smartphones manufactured each year. Combined, more than the population of every country except China and India.</div>
+      </div>
+      <div class="env-card">
+        <div class="icon">🪙</div>
+        <h3>Gold per phone</h3>
+        <div class="num">~30 mg</div>
+        <div class="desc">In the connectors and PCB plating. Recycling 1 tonne of phones recovers more gold than mining 1 tonne of ore.</div>
+      </div>
+      <div class="env-card">
+        <div class="icon">🔋</div>
+        <h3>Battery materials</h3>
+        <div class="num">~5 g lithium</div>
+        <div class="desc">Plus cobalt and nickel. The cobalt overwhelmingly comes from one country — the DR Congo — under widely-criticised labour conditions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   Built as a single self-contained HTML page. No frameworks. Component scale is stylised — real boards are denser than this. BoM data: Counterpoint Research &amp; iFixit teardowns.
 </footer>
@@ -1259,6 +1441,81 @@ document.getElementById('sensorsGrid').innerHTML = SENSORS.map(s => `
     <div class="sensor-desc">${s.desc}</div>
   </div>
 `).join('');
+
+// ============ COST OVER TIME CHART ============
+(function renderCostChart() {
+  const W = 1100, H = 420;
+  const PAD = { l: 60, r: 110, t: 30, b: 50 };
+  const innerW = W - PAD.l - PAD.r;
+  const innerH = H - PAD.t - PAD.b;
+  const yearMin = 1973, yearMax = 2024;
+  const xS = y => PAD.l + ((y - yearMin) / (yearMax - yearMin)) * innerW;
+
+  // Price (USD inflation-adjusted to 2024)
+  const PRICE = [
+    [1973, 11000, "DynaTAC"],
+    [1989, 9500,  "MicroTAC"],
+    [1999, 700,   "Nokia 3210"],
+    [2007, 1700,  "iPhone"],
+    [2014, 800,   "iPhone 6"],
+    [2024, 999,   "iPhone 15"]
+  ];
+  const priceMax = 12000;
+  const yPrice = v => PAD.t + innerH - (v / priceMax) * innerH;
+
+  // MIPS (log scale)
+  const POWER = [
+    [1973, 0.001, "DynaTAC"],
+    [1989, 0.5,   "MicroTAC"],
+    [1999, 5,     "Nokia 3210"],
+    [2007, 400,   "iPhone"],
+    [2014, 25000, "iPhone 6"],
+    [2024, 2500000, "iPhone 15 Pro"]
+  ];
+  const powerMaxLog = Math.log10(2500000);
+  const yPower = v => {
+    if (v <= 0) return PAD.t + innerH;
+    return PAD.t + innerH - (Math.log10(v) / powerMaxLog) * innerH;
+  };
+
+  let html = "";
+
+  // Y-axis grids and labels (price)
+  for (let v = 0; v <= priceMax; v += 2000) {
+    const y = yPrice(v);
+    html += `<line class="grid" x1="${PAD.l}" y1="${y}" x2="${W - PAD.r}" y2="${y}"/>`;
+    html += `<text class="axis-text" x="${PAD.l - 8}" y="${y + 4}" text-anchor="end" fill="#ff6b6b">$${v.toLocaleString()}</text>`;
+  }
+  // Right Y-axis (power)
+  [1, 100, 10000, 1000000].forEach(v => {
+    const y = yPower(v);
+    html += `<text class="axis-text" x="${W - PAD.r + 8}" y="${y + 4}" text-anchor="start" fill="#79e0ff">${v >= 1000000 ? '1M' : (v >= 1000 ? (v/1000)+'k' : v)} MIPS</text>`;
+  });
+  // X-axis
+  html += `<line class="axis" x1="${PAD.l}" y1="${H - PAD.b}" x2="${W - PAD.r}" y2="${H - PAD.b}"/>`;
+  [1973, 1985, 1995, 2005, 2015, 2024].forEach(y => {
+    const x = xS(y);
+    html += `<text class="axis-text" x="${x}" y="${H - PAD.b + 18}" text-anchor="middle">${y}</text>`;
+  });
+
+  // Power line (computing capability) - blue
+  const powerPath = POWER.map((p, i) => (i ? "L" : "M") + xS(p[0]) + " " + yPower(p[1])).join(" ");
+  html += `<path class="ll" d="${powerPath}" stroke="#79e0ff"/>`;
+  POWER.forEach(p => {
+    html += `<circle class="dot" cx="${xS(p[0])}" cy="${yPower(p[1])}" r="5" fill="#79e0ff"/>`;
+  });
+  html += `<text class="tag" x="${xS(2024) + 8}" y="${yPower(2500000) - 8}" fill="#79e0ff">Computing power</text>`;
+
+  // Price line (orange)
+  const pricePath = PRICE.map((p, i) => (i ? "L" : "M") + xS(p[0]) + " " + yPrice(p[1])).join(" ");
+  html += `<path class="ll" d="${pricePath}" stroke="#ff6b6b" stroke-dasharray="6 3"/>`;
+  PRICE.forEach(p => {
+    html += `<circle class="dot" cx="${xS(p[0])}" cy="${yPrice(p[1])}" r="5" fill="#ff6b6b"/>`;
+    html += `<text class="tag" x="${xS(p[0])}" y="${yPrice(p[1]) - 12}" text-anchor="middle" fill="#ff6b6b">${p[2]}</text>`;
+  });
+
+  document.getElementById('costSvg').innerHTML = html;
+})();
 </script>
 </body>
 </html>

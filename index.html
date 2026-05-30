@@ -49,7 +49,30 @@
     font-size: 1.05rem;
     color: var(--ink-dim);
     max-width: 680px;
-    margin-bottom: 60px;
+    margin-bottom: 36px;
+  }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 18px;
+    margin-bottom: 50px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .summary .cell .v {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .summary .cell .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
   }
   .grid {
     display: grid;
@@ -103,9 +126,7 @@
     letter-spacing: 0.25em;
     opacity: 0.6;
   }
-  .body {
-    padding: 32px 36px;
-  }
+  .body { padding: 32px 36px; }
   .tag {
     font-family: "JetBrains Mono", monospace;
     font-size: 0.7rem;
@@ -123,8 +144,25 @@
   }
   .body p {
     color: var(--ink-dim);
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+  .body .features {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    color: var(--ink);
     margin-bottom: 18px;
+    line-height: 1.7;
+  }
+  .body .features span {
+    display: inline-block;
+    padding: 3px 10px;
+    margin: 2px 4px 2px 0;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: 0.68rem;
   }
   .arrow {
     display: inline-flex;
@@ -146,8 +184,16 @@
 <body>
 <div class="wrap">
   <div class="eyebrow">Portfolio · Interactive Infographics</div>
-  <h1>Five single-page <em>visual essays</em>, hand-built with code.</h1>
-  <p class="lede">Each piece below is a self-contained HTML document — no frameworks, no build step, no dependencies beyond Google Fonts. Click in to explore, or download the file and open it locally.</p>
+  <h1>Five hand-built <em>visual essays</em>, each a deep dive into a single idea.</h1>
+  <p class="lede">Self-contained single-page HTML documents — no frameworks, no build step, no external JS dependencies. Each piece is designed to reward curiosity: hover, click, scroll, switch views, and read.</p>
+
+  <div class="summary">
+    <div class="cell"><div class="v">5</div><div class="k">Interactive pieces</div></div>
+    <div class="cell"><div class="v">35+</div><div class="k">Distinct sections</div></div>
+    <div class="cell"><div class="v">~5,000</div><div class="k">Lines of code</div></div>
+    <div class="cell"><div class="v">100+</div><div class="k">Custom illustrations</div></div>
+    <div class="cell"><div class="v">0</div><div class="k">JS frameworks</div></div>
+  </div>
 
   <div class="grid">
     <a class="card" href="01-solar-system-explorer/">
@@ -158,7 +204,10 @@
       <div class="body">
         <div class="tag">Animated atlas · Click-to-explore</div>
         <h2>An Atlas of the Solar System</h2>
-        <p>Eight worlds in motion around a central sun. Click any planet to read its physical stats and a short story about what makes it strange. Includes a true-scale comparison strip.</p>
+        <p>An animated planetary system, comparison charts across six metrics, a logarithmic distance map, missions timeline, formation history, and a gallery of nine genuinely strange truths.</p>
+        <div class="features">
+          <span>Animated orbits</span><span>Comet</span><span>Moons gallery</span><span>6 metric charts</span><span>Missions timeline</span><span>Formation history</span>
+        </div>
         <span class="arrow">Open infographic →</span>
       </div>
     </a>
@@ -171,7 +220,10 @@
       <div class="body">
         <div class="tag">Vertical scroll · Scale narrative</div>
         <h2>How Deep Is the Ocean?</h2>
-        <p>A scroll-driven descent from the sunlit surface to the Challenger Deep — 11 km below sea level. A live depth ruler tracks your position as you pass scuba divers, sperm whales, the Titanic, and an inverted Mount Everest.</p>
+        <p>A scroll-driven descent from sunlit surface to Challenger Deep with live depth and pressure tracking. Plus zone overview, submersible exploration timeline, bioluminescence gallery, and ocean vs. atmosphere comparison.</p>
+        <div class="features">
+          <span>Live depth ruler</span><span>Pressure tracker</span><span>5 marine zones</span><span>Submersible history</span><span>Bioluminescence</span><span>Ocean stats</span>
+        </div>
         <span class="arrow">Open infographic →</span>
       </div>
     </a>
@@ -184,7 +236,10 @@
       <div class="body">
         <div class="tag">Network graph · Timeline</div>
         <h2>The Family Tree of Programming Languages</h2>
-        <p>Thirty languages from Fortran (1957) to Swift (2014), arranged on a timeline and connected by lines of influence. Filter by paradigm, click a node, follow the threads forward or backward.</p>
+        <p>A timeline of 30 languages with bezier influence curves, plus a live "Hello, World!" code gallery in 23 syntaxes, popularity-over-time line chart, "what was built with this", domain breakdown, and 14 notable creators.</p>
+        <div class="features">
+          <span>Timeline graph</span><span>Hello World gallery</span><span>Popularity chart</span><span>Notable software</span><span>Creator portraits</span><span>Paradigm filters</span>
+        </div>
         <span class="arrow">Open infographic →</span>
       </div>
     </a>
@@ -197,7 +252,10 @@
       <div class="body">
         <div class="tag">Anatomy · Cutaway · Hotspots</div>
         <h2>Anatomy of a Smartphone</h2>
-        <p>Toggle between exterior and interior cutaway views. Click any of fifteen labelled components — from the OLED display to the Taptic Engine — to read what it does and why it matters.</p>
+        <p>Three views (Outside / Inside / Exploded) with 22 interactive hotspots. Plus a Bill of Materials chart, global supply chain (8 countries), 14-sensor enumeration, Apollo-vs-iPhone comparison, evolution timeline, cost-vs-power chart, and environmental footprint.</p>
+        <div class="features">
+          <span>3 view modes</span><span>22 hotspots</span><span>BoM chart</span><span>Supply chain</span><span>14 sensors</span><span>vs. Apollo</span><span>Cost evolution</span><span>Eco impact</span>
+        </div>
         <span class="arrow">Open infographic →</span>
       </div>
     </a>
@@ -210,14 +268,17 @@
       <div class="body">
         <div class="tag">Comparative scale atlas</div>
         <h2>On the Same Scale</h2>
-        <p>Four categories — buildings, living things, ocean depths, and planets — drawn to true relative size. Pick a tab and watch the brain finally process what "828 metres" actually means.</p>
+        <p>Seven categories drawn at true relative scale — Land, Living, Below, Space, Mass, Speed, Time. Plus 6 famous editorial callouts ("If Earth were a marble…"), a Powers of Ten strip across 17 orders of magnitude, and a Wonders of Scale section.</p>
+        <div class="features">
+          <span>7 categories</span><span>True-scale silhouettes</span><span>Famous callouts</span><span>Powers of Ten</span><span>Wonders of Earth</span>
+        </div>
         <span class="arrow">Open infographic →</span>
       </div>
     </a>
   </div>
 
   <footer>
-    Built as part of a portfolio submission. Each file is self-contained — view source on any of them to see the full implementation.
+    Built as a portfolio. Each piece is a single self-contained HTML document — view-source on any of them to see the full implementation. No frameworks. No external JavaScript dependencies.
   </footer>
 </div>
 </body>
