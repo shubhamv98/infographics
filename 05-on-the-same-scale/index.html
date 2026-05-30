@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>On the Same Scale — How Big Things Really Are</title>
+<title>On the Same Scale — How Big, Heavy, Fast, and Old Things Really Are</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -54,7 +54,7 @@
     font-size: 1.05rem;
     line-height: 1.65;
     color: var(--ink-dim);
-    max-width: 700px;
+    max-width: 720px;
   }
 
   .tabs {
@@ -162,10 +162,7 @@
     fill: var(--ink-dim);
     letter-spacing: 0.15em;
   }
-  svg.canvas .item {
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
+  svg.canvas .item { cursor: pointer; transition: opacity 0.2s; }
   svg.canvas .item .silhouette {
     fill: var(--shape);
     transition: fill 0.2s;
@@ -234,7 +231,77 @@
     color: var(--ink);
   }
 
-  /* RECAP — the "Million Lines of Code" style summary at end */
+  /* ============ EDITORIAL CALLOUTS ============ */
+  .callout-section {
+    max-width: 1300px;
+    margin: 80px auto;
+    padding: 0 6vw;
+  }
+  .callout-section .section-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .callout-section h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    max-width: 800px;
+  }
+  .callout-section h2 em { font-style: italic; color: var(--accent); }
+  .callout-section .sub {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+  .callout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .callout-card {
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 28px 26px;
+  }
+  .callout-card .if {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .callout-card .question {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .callout-card .answer {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .callout-card .desc {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+
+  /* RECAP */
   .recap {
     max-width: 1300px;
     margin: 60px auto 40px;
@@ -269,6 +336,56 @@
     display: block;
   }
 
+  /* ============ ORDERS OF MAGNITUDE STRIP ============ */
+  .magnitude-section {
+    max-width: 1300px;
+    margin: 80px auto 0;
+    padding: 0 6vw;
+  }
+  .magnitude-row {
+    margin-top: 30px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  .magnitude-track {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    min-width: 900px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-paper);
+  }
+  .magnitude-cell {
+    flex: 1;
+    padding: 24px 18px;
+    border-right: 1px solid var(--line);
+    text-align: center;
+    min-width: 110px;
+  }
+  .magnitude-cell:last-child { border-right: none; }
+  .magnitude-cell .pow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .magnitude-cell .what {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .magnitude-cell .unit {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+  }
+
   footer {
     text-align: center;
     padding: 30px 6vw 50px;
@@ -285,13 +402,16 @@
 <header>
   <div class="eyebrow">A Visual Atlas of Scale</div>
   <h1>On the Same <em>Scale.</em></h1>
-  <p class="lede">Numbers don't help. Saying "the Burj Khalifa is 828 metres" tells you very little. Drawing it next to a person, a blue whale, and the Eiffel Tower — at the same scale — is how the brain actually understands size. Pick a category and see for yourself.</p>
+  <p class="lede">Numbers don't help. Saying "the Burj Khalifa is 828 metres" tells you very little. Drawing it next to a person, a blue whale, and the Eiffel Tower — at the same scale — is how the brain actually understands size. Seven categories below. Pick a tab and see for yourself.</p>
 
   <div class="tabs" id="tabs">
-    <button class="tab active" data-cat="land">Things on Land</button>
-    <button class="tab" data-cat="alive">Living Things</button>
-    <button class="tab" data-cat="depth">Beneath the Surface</button>
-    <button class="tab" data-cat="space">Out in Space</button>
+    <button class="tab active" data-cat="land">Land</button>
+    <button class="tab" data-cat="alive">Living</button>
+    <button class="tab" data-cat="depth">Below</button>
+    <button class="tab" data-cat="space">Space</button>
+    <button class="tab" data-cat="mass">Mass</button>
+    <button class="tab" data-cat="speed">Speed</button>
+    <button class="tab" data-cat="time">Time</button>
   </div>
 </header>
 
@@ -316,22 +436,77 @@
   </div>
 </div>
 
+<!-- ============ FAMOUS COMPARISONS ============ -->
+<section class="callout-section">
+  <div class="section-eyebrow">Useful Lies of Scale</div>
+  <h2>If you shrank things down — <em>here's what would happen.</em></h2>
+  <p class="sub">Famous comparisons that have done a lot of the heavy lifting in popular science writing for the last fifty years. Each one collapses an unimaginable number into a small object you can picture.</p>
+
+  <div class="callout-grid">
+    <div class="callout-card">
+      <div class="if">If Earth were a marble</div>
+      <div class="question">…how far away would the Sun be?</div>
+      <div class="answer">116 metres</div>
+      <div class="desc">A basketball-sized Sun, roughly the length of a football pitch away. The Moon would sit just 30 cm from your marble.</div>
+    </div>
+    <div class="callout-card">
+      <div class="if">If a human cell were a city</div>
+      <div class="question">…how big would the nucleus be?</div>
+      <div class="answer">A stadium</div>
+      <div class="desc">DNA inside the nucleus would unspool into a thread two metres long — packed into a space barely visible to the naked eye.</div>
+    </div>
+    <div class="callout-card">
+      <div class="if">If history were a single day</div>
+      <div class="question">…when did agriculture start?</div>
+      <div class="answer">11:58 PM</div>
+      <div class="desc">Humans only invented farming about 12,000 years ago. The internet shows up in the final 0.005 of a second of the day.</div>
+    </div>
+    <div class="callout-card">
+      <div class="if">If the ocean were 4 cm deep</div>
+      <div class="question">…how deep would the Mariana Trench be?</div>
+      <div class="answer">11 cm</div>
+      <div class="desc">A small valley scratched into something mostly already shallow. The deep sea is genuinely a tiny fraction of the planet.</div>
+    </div>
+    <div class="callout-card">
+      <div class="if">If an atom were a football pitch</div>
+      <div class="question">…how big would the nucleus be?</div>
+      <div class="answer">A pea</div>
+      <div class="desc">In the centre. Almost everything else would be empty space. You and the chair you're sitting in are 99.999999% nothing.</div>
+    </div>
+    <div class="callout-card">
+      <div class="if">If the universe were a swimming pool</div>
+      <div class="question">…how big would the Milky Way be?</div>
+      <div class="answer">A grain of sand</div>
+      <div class="desc">There are roughly two trillion galaxies in the observable universe. Each is its own grain of sand on the bottom of the pool.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVERYTHING RECAP ============ -->
 <section class="recap">
-  <h2>Now everything together — <em>a final overview.</em></h2>
-  <p class="sub">The full set of things shown above, all on a single canvas. A reminder that scale is the most slippery thing the human brain has to deal with.</p>
+  <div class="eyebrow" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px;">A Final Overview</div>
+  <h2>Eleven things, one canvas — <em>drawn truthfully.</em></h2>
+  <p class="sub">Same vertical scale, no cheating. Notice how a blue whale dwarfs even the largest known dinosaur. And how Burj Khalifa makes everything else look like a footnote.</p>
   <div class="everything">
     <svg id="everything" viewBox="0 0 1200 480" preserveAspectRatio="xMidYMax meet"></svg>
   </div>
 </section>
 
+<!-- ============ POWERS OF TEN STRIP ============ -->
+<section class="magnitude-section">
+  <div class="eyebrow" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px;">Powers of Ten</div>
+  <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.8rem, 3.5vw, 2.6rem); line-height: 1.1; margin-bottom: 16px; max-width: 800px;">The size of things, in <em>jumps of ten.</em></h2>
+  <p style="color: var(--ink-dim); font-size: 0.95rem; line-height: 1.65; max-width: 640px; margin-bottom: 0;">From the smallest stable unit of matter to the entire visible universe — every column is ten times larger than the one before it. Across just 41 columns, you cover all of physical reality.</p>
+  <div class="magnitude-row">
+    <div class="magnitude-track" id="magnitudeTrack"></div>
+  </div>
+</section>
+
 <footer>
-  Built as a single self-contained HTML page. No frameworks. Heights from public records, NASA fact sheets, and Smithsonian archives. Silhouettes drawn from scratch.
+  Built as a single self-contained HTML page. No frameworks. Heights, masses, and speeds from public records, NASA, and Smithsonian archives. Silhouettes drawn from scratch.
 </footer>
 
 <script>
-// Each silhouette is an SVG path on a 100x100 canvas, designed so y=100 is ground.
-// The renderer scales it to (item.height / categoryMax) of available height.
-
 const SHAPES = {
   human: "M50,30 a8,8 0 1,0 0,-0.1 z M42,40 L58,40 L58,60 L65,75 L65,95 L60,100 L55,80 L52,100 L48,100 L45,80 L40,100 L35,100 L35,75 L42,60 Z",
   giraffe: "M55,18 a4,4 0 1,0 0,-0.1 z M55,22 L57,22 L57,30 L65,30 L65,75 L70,80 L70,100 L65,100 L65,82 L60,82 L60,100 L55,100 L55,82 L48,82 L48,100 L43,100 L43,82 L38,82 L38,100 L33,100 L33,80 L38,75 L38,55 L48,30 L55,30 Z",
@@ -342,42 +517,46 @@ const SHAPES = {
   empire: "M48,5 L52,5 L52,15 L50,15 Z M45,15 L55,15 L55,30 L45,30 Z M42,30 L58,30 L58,55 L42,55 Z M38,55 L62,55 L62,75 L38,75 Z M32,75 L68,75 L68,95 L32,95 Z",
   burj: "M50,3 L51,3 L51,15 L50,15 Z M48,15 L52,15 L52,28 L48,28 Z M45,28 L55,28 L55,45 L45,45 Z M40,45 L60,45 L60,65 L40,65 Z M34,65 L66,65 L66,82 L34,82 Z M26,82 L74,82 L74,95 L26,95 Z",
   tower: "M48,10 L52,10 L52,30 L48,30 Z M44,30 L56,30 L60,55 L40,55 Z M38,55 L62,55 L65,80 L35,80 Z M30,80 L70,80 L70,95 L30,95 Z",
-
+  pyramid: "M50,15 L82,90 L18,90 Z M50,15 L60,40 L70,90 L50,90 Z",
+  dome: "M30,60 Q30,30 50,28 Q70,30 70,60 L70,90 L30,90 Z M50,28 L50,15 L52,15 L52,28 Z",
+  sears: "M44,8 L52,8 L52,15 L48,15 L48,30 L52,30 L52,90 L40,90 L40,40 L44,40 L44,30 L40,30 L40,18 L44,18 Z",
   ant: "M40,82 a3,3 0 1,0 0,-0.1 z M50,80 a4,4 0 1,0 0,-0.1 z M60,82 a3,3 0 1,0 0,-0.1 z",
   cat: "M30,55 L25,40 L33,52 L42,52 L48,40 L52,40 L58,52 L67,52 L75,40 L70,55 L75,80 Q50,90 25,80 Z",
-  human2: "M50,30 a8,8 0 1,0 0,-0.1 z M42,40 L58,40 L58,60 L65,75 L65,95 L60,100 L55,80 L52,100 L48,100 L45,80 L40,100 L35,100 L35,75 L42,60 Z",
+  mouse: "M40,75 Q35,70 38,65 Q42,62 50,65 Q60,62 68,68 Q72,75 65,80 Q50,86 40,82 Z M70,68 L80,72 L72,75 Z",
   horse: "M22,40 L30,32 L40,30 L42,38 L75,38 L78,32 L82,40 L80,60 L75,80 L70,80 L72,60 L40,60 L42,80 L37,80 L33,60 L25,55 Z",
   elephant: "M10,40 L18,30 L40,28 L70,30 L82,40 L88,55 L86,80 L78,80 L80,60 L66,60 L70,80 L62,80 L58,60 L42,60 L40,80 L32,80 L34,60 L20,60 L18,80 L12,80 L8,55 Z",
   trex: "M75,18 L82,16 L80,28 L70,32 L66,42 L72,55 L78,75 L72,80 L66,55 L52,55 L48,75 L42,75 L38,55 L30,52 L22,68 L18,68 L20,52 L18,40 L26,38 L36,42 L52,42 L62,32 L62,22 Z",
-
-  earthcompass: 6371,
-  // Distances/depths (meters)
-  poolDepth: 4,
-  scubaLimit: 40,
-  diveRecord: 332,
-  burjFlip: 828,
-  titanic: 3800,
-  marianas: 10935,
-
-  // Planets (radius in km — but we'll use diameter for scale)
+  bear: "M30,40 Q30,28 42,28 L58,28 Q70,28 70,40 L72,55 Q75,80 50,82 Q25,80 28,55 Z M30,28 L25,18 L32,22 Z M70,28 L75,18 L68,22 Z",
+  sequoia: "M48,5 Q42,3 38,8 L40,30 Q30,32 32,45 L40,55 Q30,60 35,70 L42,80 L48,90 L52,90 L58,80 L65,70 Q70,60 60,55 L68,45 Q70,32 60,30 L62,8 Q58,3 52,5 Z M46,90 L46,98 L54,98 L54,90 Z",
   planet: "M50,50 m-45,0 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0",
-  cloud: "M20,60 Q15,45 30,45 Q35,35 50,40 Q70,35 75,50 Q90,52 85,65 Q70,72 50,68 Q30,72 15,65 Z",
+  car: "M10,65 Q15,60 25,60 L75,60 Q85,60 90,65 L92,80 L82,80 A4,4 0 1,1 74,80 L26,80 A4,4 0 1,1 18,80 L8,80 Z",
+  jet: "M5,55 L80,50 L92,55 L92,57 L80,62 L60,62 L55,80 L50,80 L48,62 L20,62 L8,58 Z M30,57 L25,40 L28,57 Z",
+  rocket: "M50,5 L42,30 L42,75 L38,85 L42,85 L48,98 L52,98 L58,85 L62,85 L58,75 L58,30 Z M42,40 L30,55 L42,55 Z M58,40 L70,55 L58,55 Z M48,30 L52,30 L52,75 L48,75 Z",
+  cheetah: "M22,50 L30,45 L40,45 L48,40 L70,40 L78,45 L82,50 L82,65 L75,75 L72,75 L70,68 L42,68 L38,75 L35,75 L32,65 L22,65 Z",
+  snail: "M20,75 Q15,72 18,68 L65,68 Q72,72 70,80 L25,80 Z M50,55 Q70,55 70,68 Q70,55 60,50 Q55,45 50,55 Z M65,68 L72,62 M70,55 L78,55",
+  bullet: "M30,55 L78,55 L92,65 L78,75 L30,75 Z",
+  drop: "M50,20 Q35,55 50,80 Q65,55 50,20 Z",
+  atom: "M50,50 a30,12 0 1,0 0,-0.1 M50,50 a30,12 0 1,0 0,-0.1 transform=rotate(60) M50,50 a30,12 0 1,0 0,-0.1 transform=rotate(-60) Z",
+  // simpler atom:
+  atomDot: "M50,50 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z"
 };
 
 const DATA = {
   land: {
     title: "Things on Land — drawn to scale",
     unitLabel: "Vertical scale: 0 → 900 m",
-    max: 900, // metres
+    max: 900,
     items: [
-      { id: "human", name: "Adult human",  height: 1.7,   shape: "human",   blurb: "Average global adult height. Roughly the only thing on this chart that the human brain can intuitively grasp without needing a comparison." },
-      { id: "bus",   name: "Double-decker bus", height: 4.4, shape: "bus", blurb: "About the height of a London Routemaster. Useful as a unit for British journalists describing things larger than themselves." },
-      { id: "giraffe", name: "Giraffe", height: 5.5, shape: "giraffe", blurb: "The tallest land animal alive. Its heart weighs 11 kg to push blood up that long neck — at a pressure double that of a human." },
-      { id: "tower", name: "Pisa Tower", height: 56, shape: "tower", blurb: "The famous lean is 4°. Engineers stabilised the foundation in the 1990s; without that intervention, it would have collapsed within decades." },
-      { id: "liberty", name: "Statue of Liberty", height: 93, shape: "liberty", blurb: "Including the pedestal. The statue alone is 46 m. The torch was redesigned in 1986 with 24-carat gold leaf." },
-      { id: "empire", name: "Empire State Building", height: 381, shape: "empire", blurb: "Held the title of world's tallest from 1931 to 1971 — the longest run by any building. Built in just 410 days." },
-      { id: "eiffel", name: "Eiffel Tower", height: 330, shape: "eiffel", blurb: "Originally meant to stand for only 20 years. Saved by becoming a radio transmission tower — function trumping protest." },
-      { id: "burj",  name: "Burj Khalifa", height: 828, shape: "burj", blurb: "Tallest building in the world. The needle-like spire is shaped to 'confuse' the wind into not forming stable vortices that would shake the structure." }
+      { id: "human",   name: "Adult human",      height: 1.7, shape: "human",   blurb: "Average global adult height. Roughly the only thing on this chart that the human brain can intuitively grasp without needing a comparison." },
+      { id: "bus",     name: "Double-decker bus",height: 4.4, shape: "bus",     blurb: "About the height of a London Routemaster. Useful as a unit for British journalists describing things larger than themselves." },
+      { id: "giraffe", name: "Giraffe",          height: 5.5, shape: "giraffe", blurb: "The tallest land animal alive. Its heart weighs 11 kg to push blood up that long neck — at a pressure double that of a human." },
+      { id: "tower",   name: "Pisa Tower",       height: 56,  shape: "tower",   blurb: "The famous lean is 4°. Engineers stabilised the foundation in the 1990s; without that intervention, it would have collapsed within decades." },
+      { id: "pyramid", name: "Great Pyramid",    height: 139, shape: "pyramid", blurb: "Originally 146 m tall — the tallest man-made structure for nearly 4,000 years. Built around 2570 BCE." },
+      { id: "liberty", name: "Statue of Liberty",height: 93,  shape: "liberty", blurb: "Including the pedestal. The statue alone is 46 m. The torch was redesigned in 1986 with 24-carat gold leaf." },
+      { id: "eiffel",  name: "Eiffel Tower",     height: 330, shape: "eiffel",  blurb: "Originally meant to stand for only 20 years. Saved by becoming a radio transmission tower — function trumping protest." },
+      { id: "empire",  name: "Empire State",     height: 381, shape: "empire",  blurb: "Held the title of world's tallest from 1931 to 1971 — the longest run by any building. Built in just 410 days." },
+      { id: "sears",   name: "Willis (Sears) Tower", height: 442, shape: "sears", blurb: "Tallest building in the world from 1973 to 1996. Has 16,100 windows and would take 28 days to wash if you cleaned one a minute non-stop." },
+      { id: "burj",    name: "Burj Khalifa",     height: 828, shape: "burj",    blurb: "Tallest building in the world. The needle-like spire is shaped to 'confuse' the wind into not forming stable vortices that would shake the structure." }
     ]
   },
   alive: {
@@ -385,13 +564,16 @@ const DATA = {
     unitLabel: "Vertical scale: 0 → 30 m",
     max: 30,
     items: [
-      { id: "ant", name: "Ant", height: 0.005, shape: "ant", blurb: "Some ants can lift 50 times their own body weight — roughly equivalent to a human deadlifting four cars." },
-      { id: "cat", name: "Domestic cat", height: 0.25, shape: "cat", blurb: "Standing height. A cat's spine is so flexible — 30 vertebrae compared to a human's 24 — that it can rotate 180° in mid-air to land on its feet." },
-      { id: "human2", name: "Adult human", height: 1.7, shape: "human2", blurb: "For reference. Modern humans evolved roughly 300,000 years ago — a heartbeat in evolutionary time." },
-      { id: "horse", name: "Horse", height: 1.6, shape: "horse", blurb: "Shoulder height. The tallest horse ever recorded was a Shire named Sampson, at 2.2 metres at the shoulder." },
-      { id: "elephant", name: "African elephant", height: 4, shape: "elephant", blurb: "The largest living land animal. Its trunk has roughly 40,000 muscles — by comparison, the entire human body has about 600." },
-      { id: "trex", name: "Tyrannosaurus rex", height: 6, shape: "trex", blurb: "Hip height. T. rex lived around 66 million years ago. Bizarrely, it lived closer in time to us than to Stegosaurus." },
-      { id: "bluewhale", name: "Blue whale", height: 30, shape: "bluewhale", blurb: "The largest animal that has ever lived — larger than any dinosaur. Its tongue alone weighs as much as an adult elephant." }
+      { id: "ant",      name: "Ant",            height: 0.005, shape: "ant",      blurb: "Some ants can lift 50 times their own body weight — roughly equivalent to a human deadlifting four cars." },
+      { id: "mouse",    name: "Mouse",          height: 0.03,  shape: "mouse",    blurb: "House mice will eat anything humans eat, plus glue, soap, and crayons. Their hearts beat 600 times a minute." },
+      { id: "cat",      name: "Domestic cat",   height: 0.25,  shape: "cat",      blurb: "Standing height. A cat's spine has 30 vertebrae compared to a human's 24 — flexible enough to rotate 180° in mid-air to land on its feet." },
+      { id: "humanA",   name: "Adult human",    height: 1.7,   shape: "human",    blurb: "For reference. Modern humans evolved roughly 300,000 years ago — a heartbeat in evolutionary time." },
+      { id: "horse",    name: "Horse",          height: 1.6,   shape: "horse",    blurb: "Shoulder height. The tallest horse ever recorded was a Shire named Sampson, at 2.2 metres at the shoulder." },
+      { id: "bear",     name: "Polar bear",     height: 3,     shape: "bear",     blurb: "Standing on hind legs. Largest land carnivore. Can swim 100 km without rest. Their fur isn't actually white — each hair is hollow and clear." },
+      { id: "elephant", name: "African elephant", height: 4,   shape: "elephant", blurb: "The largest living land animal. Its trunk has roughly 40,000 muscles — by comparison, the entire human body has about 600." },
+      { id: "trex",     name: "Tyrannosaurus rex", height: 6,  shape: "trex",     blurb: "Hip height. T. rex lived around 66 million years ago. Bizarrely, it lived closer in time to us than to Stegosaurus." },
+      { id: "bluewhale",name: "Blue whale",     height: 30,    shape: "bluewhale",blurb: "The largest animal that has ever lived — larger than any dinosaur. Its tongue alone weighs as much as an adult elephant." },
+      { id: "sequoia",  name: "Giant sequoia",  height: 84,    shape: "sequoia",  blurb: "The largest tree species on Earth. The tallest specimen, 'General Sherman', is over 2,000 years old and weighs around 1,200 tonnes." }
     ]
   },
   depth: {
@@ -400,27 +582,82 @@ const DATA = {
     max: 11000,
     invert: true,
     items: [
-      { id: "pool", name: "Olympic pool", height: 2, shape: "tower", blurb: "Standard depth for an Olympic swimming pool — surprisingly shallow compared to its 50-metre length." },
-      { id: "scuba", name: "Recreational scuba limit", height: 40, shape: "human", blurb: "Below this, nitrogen narcosis impairs judgment. 40 metres is where amateur divers stop." },
-      { id: "freedive", name: "Deepest free dive", height: 332, shape: "human", blurb: "Herbert Nitsch reached this depth in 2012 on a single breath. The pressure at this depth is over 30 times that at the surface." },
-      { id: "burjflip", name: "Burj Khalifa, flipped", height: 828, shape: "burj", blurb: "If you upended the world's tallest building tip-down into the sea, its base would still sit hundreds of metres above the deep abyss." },
-      { id: "titanic", name: "RMS Titanic", height: 3800, shape: "tower", blurb: "The wreck rests on the floor of the North Atlantic. The pressure here is 380 atmospheres — equivalent to a small car balanced on every square inch." },
-      { id: "marianas", name: "Challenger Deep", height: 10935, shape: "tower", blurb: "The deepest known point on Earth. Pressure: 1,086 atmospheres. Only a handful of humans have ever reached it." }
+      { id: "pool",     name: "Olympic pool",            height: 2,     shape: "tower", blurb: "Standard depth for an Olympic swimming pool — surprisingly shallow compared to its 50-metre length." },
+      { id: "scuba",    name: "Recreational scuba",      height: 40,    shape: "human", blurb: "Below this, nitrogen narcosis impairs judgment. 40 metres is where amateur divers stop." },
+      { id: "freedive", name: "Deepest free dive",       height: 332,   shape: "human", blurb: "Herbert Nitsch reached this depth in 2012 on a single breath. The pressure at this depth is over 30 times that at the surface." },
+      { id: "burjflip", name: "Burj Khalifa, flipped",   height: 828,   shape: "burj",  blurb: "If you upended the world's tallest building tip-down into the sea, its base would still sit hundreds of metres above the deep abyss." },
+      { id: "submarine",name: "Military submarine",      height: 500,   shape: "tower", blurb: "Modern nuclear submarines operate at around 500 m. Their hulls are designed to fail at 1.5× this depth — beyond which water pressure crushes them inward." },
+      { id: "kola",     name: "Kola Superdeep Borehole", height: 12262, shape: "tower", blurb: "Deepest hole humans have drilled — into the Russian crust. Took 24 years. Reached temperatures so high the rock behaved plastically." },
+      { id: "titanic",  name: "RMS Titanic",             height: 3800,  shape: "tower", blurb: "The wreck rests on the floor of the North Atlantic. The pressure here is 380 atmospheres — equivalent to a small car balanced on every square inch." },
+      { id: "marianas", name: "Challenger Deep",         height: 10935, shape: "tower", blurb: "The deepest known point on Earth. Pressure: 1,086 atmospheres. Only a handful of humans have ever reached it." }
     ]
   },
   space: {
     title: "Out in Space — diameter scale",
-    unitLabel: "Horizontal: each body's true diameter relative to others",
-    max: 1392700, // Sun diameter, km
+    unitLabel: "Each body's diameter relative to others",
+    max: 1392700,
     horizontal: true,
     items: [
-      { id: "moon",    name: "Moon",    height: 3474,    shape: "planet", color: "#9a9a9a", blurb: "Earth's only natural satellite. Slowly drifting away from us at 3.8 cm per year." },
-      { id: "mercury", name: "Mercury", height: 4879,    shape: "planet", color: "#9c8b7e", blurb: "Smallest planet. A year on Mercury is shorter than its day." },
-      { id: "mars",    name: "Mars",    height: 6779,    shape: "planet", color: "#d35a3f", blurb: "Home to Olympus Mons, the tallest known volcano in the solar system — 22 km high." },
-      { id: "earth",   name: "Earth",   height: 12742,   shape: "planet", color: "#5b8def", blurb: "The only place in the universe currently known to host life. Average density: 5.51 g/cm³ — denser than any other planet." },
-      { id: "neptune", name: "Neptune", height: 49244,   shape: "planet", color: "#3d63d6", blurb: "Winds here reach 2,100 km/h — fastest in the solar system. The only planet first found through mathematics." },
-      { id: "jupiter", name: "Jupiter", height: 139820,  shape: "planet", color: "#d8a679", blurb: "More massive than all other planets combined. The Great Red Spot has been raging for at least 350 years." },
-      { id: "sun",     name: "The Sun", height: 1392700, shape: "planet", color: "#ffd166", blurb: "Contains 99.86% of the solar system's mass. About 1.3 million Earths could fit inside it." }
+      { id: "moon",    name: "Moon",     height: 3474,    shape: "planet", color: "#9a9a9a", blurb: "Earth's only natural satellite. Slowly drifting away from us at 3.8 cm per year." },
+      { id: "mercury", name: "Mercury",  height: 4879,    shape: "planet", color: "#9c8b7e", blurb: "Smallest planet. A year on Mercury is shorter than its day." },
+      { id: "mars",    name: "Mars",     height: 6779,    shape: "planet", color: "#d35a3f", blurb: "Home to Olympus Mons, the tallest known volcano in the solar system — 22 km high." },
+      { id: "earth",   name: "Earth",    height: 12742,   shape: "planet", color: "#5b8def", blurb: "The only place currently known to host life. Average density 5.51 g/cm³ — denser than any other planet." },
+      { id: "neptune", name: "Neptune",  height: 49244,   shape: "planet", color: "#3d63d6", blurb: "Winds here reach 2,100 km/h — fastest in the solar system. The only planet first found through mathematics." },
+      { id: "jupiter", name: "Jupiter",  height: 139820,  shape: "planet", color: "#d8a679", blurb: "More massive than all other planets combined. The Great Red Spot has been raging for at least 350 years." },
+      { id: "sun",     name: "The Sun",  height: 1392700, shape: "planet", color: "#ffd166", blurb: "Contains 99.86% of the solar system's mass. About 1.3 million Earths could fit inside it." }
+    ]
+  },
+  mass: {
+    title: "Mass — drawn on a logarithmic scale",
+    unitLabel: "Logarithmic — every step is roughly 1,000× heavier",
+    max: 5.97e24,
+    isLog: true,
+    items: [
+      { id: "ant_m",     name: "Ant",        height: 0.000005,  shape: "ant",       blurb: "About 5 milligrams. Despite the size, an ant can carry 50× its body weight." },
+      { id: "mouse_m",   name: "Mouse",      height: 0.02,      shape: "mouse",     blurb: "A field mouse weighs around 20 grams — about the same as 4 Indian rupees." },
+      { id: "human_m",   name: "Human",      height: 70,        shape: "human",     blurb: "The global average. About 60% water, 16% fat, 16% protein, and traces of dozens of elements." },
+      { id: "elephant_m",name: "Elephant",   height: 6000,      shape: "elephant",  blurb: "An adult African bull. The heart alone weighs 12-21 kg." },
+      { id: "whale_m",   name: "Blue whale", height: 150000,    shape: "bluewhale", blurb: "150 tonnes. Heaviest animal that has ever lived. The heart alone weighs as much as a small car." },
+      { id: "asteroid_m",name: "Small asteroid (1km)", height: 1.4e12, shape: "planet", color: "#9c8b7e", blurb: "A kilometre-wide asteroid. Hits like this happen roughly every 500,000 years and reshape continents." },
+      { id: "moon_m",    name: "Moon",       height: 7.34e22,   shape: "planet",    color: "#9a9a9a", blurb: "About 1.2% of Earth's mass — large enough to keep our days stable and our tides moving." },
+      { id: "earth_m",   name: "Earth",      height: 5.97e24,   shape: "planet",    color: "#5b8def", blurb: "Roughly 6 sextillion tonnes. The mass of the entire planet, expressed as a number, is 6 followed by 24 zeros." }
+    ]
+  },
+  speed: {
+    title: "Speed — fastest things on Earth and beyond",
+    unitLabel: "Logarithmic — each step is roughly 10× faster",
+    max: 1080000000,
+    isLog: true,
+    items: [
+      { id: "snail",    name: "Garden snail",     height: 0.05,        shape: "snail",  blurb: "About 50 metres per hour at full sprint. Some breed of snail takes 33 hours to cross a football pitch." },
+      { id: "walk",     name: "Walking human",    height: 5,           shape: "human",  blurb: "A typical pace is about 5 km/h. The world race-walking record sits at 15.4 km/h — almost a jog." },
+      { id: "bolt",     name: "Usain Bolt sprint",height: 44,          shape: "human",  blurb: "44.7 km/h was Bolt's peak speed during his 100m world record run in 2009." },
+      { id: "cheetah",  name: "Cheetah",          height: 110,         shape: "cheetah",blurb: "120 km/h, but only for about 30 seconds before overheating. The fastest land animal on Earth." },
+      { id: "car",      name: "Highway car",      height: 100,         shape: "car",    blurb: "Typical motorway cruising speed. Roughly 28 metres per second." },
+      { id: "jet",      name: "Commercial jet",   height: 900,         shape: "jet",    blurb: "Long-haul airliners cruise at about 900 km/h, just below the speed of sound. Concorde used to do twice that." },
+      { id: "bullet",   name: "Bullet (rifle)",   height: 3000,        shape: "bullet", blurb: "A typical high-velocity rifle round travels at around 850-1000 m/s — roughly 3,000 km/h." },
+      { id: "rocket",   name: "Saturn V launch",  height: 39000,       shape: "rocket", blurb: "Escape velocity for the Apollo missions: ~11 km/s, or about 39,000 km/h." },
+      { id: "voyager",  name: "Voyager 1",        height: 61000,       shape: "rocket", blurb: "Currently the fastest human-made object outbound from the Sun, at 17 km/s relative to the Sun." },
+      { id: "light",    name: "Speed of light",   height: 1080000000,  shape: "planet", color: "#ffd166", blurb: "299,792 km/s — the universal speed limit. From the Sun to Earth in 8 minutes 20 seconds." }
+    ]
+  },
+  time: {
+    title: "Time — from a heartbeat to the universe",
+    unitLabel: "Logarithmic — each step is roughly 100× longer",
+    max: 4.35e17,
+    isLog: true,
+    items: [
+      { id: "blink",      name: "Blink of an eye",       height: 0.3,        shape: "drop",   blurb: "Roughly 300 milliseconds. Faster than you can consciously decide to do anything." },
+      { id: "beat",       name: "Heartbeat",             height: 0.85,       shape: "drop",   blurb: "Average human heart rate at rest. Yours will beat about 2.5 billion times in your life." },
+      { id: "minute",     name: "One minute",            height: 60,         shape: "drop",   blurb: "60 seconds. About 84 heartbeats. The time it takes light to travel almost from the Sun to Earth." },
+      { id: "day",        name: "One day",               height: 86400,      shape: "planet", color: "#5b8def", blurb: "24 hours. Earth completes one rotation. Your body sheds about 1 million dead skin cells." },
+      { id: "year",       name: "One year",              height: 31536000,   shape: "planet", color: "#5b8def", blurb: "Earth completes one orbit around the Sun: 365.25 days. The fractional quarter-day is why we have leap years." },
+      { id: "lifespan",   name: "Human lifespan",        height: 2.5e9,      shape: "human",  blurb: "About 80 years globally. About 2.5 billion seconds — long enough to see roughly 4,000 weekends." },
+      { id: "civilization",name: "Human civilization",   height: 1.9e11,     shape: "pyramid",blurb: "Roughly 6,000 years since the first cities of Mesopotamia. The blink of a geological eye." },
+      { id: "homosapiens",name: "Homo sapiens",          height: 9.5e12,     shape: "human",  blurb: "About 300,000 years since modern humans first appeared. We're a young species." },
+      { id: "dinosaurs",  name: "Time since dinosaurs",  height: 2.1e15,     shape: "trex",   blurb: "66 million years since the asteroid impact at Chicxulub ended the age of non-avian dinosaurs." },
+      { id: "earth",      name: "Age of Earth",          height: 1.45e17,    shape: "planet", color: "#5b8def", blurb: "4.54 billion years. Roughly a third the age of the universe." },
+      { id: "universe",   name: "Age of universe",       height: 4.35e17,    shape: "planet", color: "#ffd166", blurb: "13.8 billion years since the Big Bang. So far, all we've ever measured." }
     ]
   }
 };
@@ -432,13 +669,26 @@ const PAD = { l: 40, r: 40, t: 30, b: 80 };
 let activeCat = "land";
 let activeId = "burj";
 
-function fmt(n, isDepth) {
-  if (n >= 1000) return (n/1000).toFixed(n >= 10000 ? 0 : 2).replace(/\.00$/, '') + " km";
-  if (n >= 1) return n.toLocaleString() + " m";
-  return (n * 100).toFixed(0) + " cm";
+function fmt(n) {
+  if (n >= 1e9) return (n/1e9).toFixed(2).replace(/\.?0+$/, '') + " billion";
+  if (n >= 1e6) return (n/1e6).toFixed(2).replace(/\.?0+$/, '') + " million";
+  if (n >= 1000) return (n/1000).toFixed(n >= 10000 ? 0 : 2).replace(/\.?0+$/, '') + "k";
+  if (n >= 1) return n.toLocaleString(undefined, {maximumFractionDigits: 2});
+  if (n >= 0.001) return (n * 1000).toFixed(0) + "m";
+  return n.toExponential(1);
 }
-function fmtSpace(km) {
-  return km.toLocaleString() + " km";
+function fmtUnit(n, unit) {
+  return fmt(n) + " " + unit;
+}
+
+function unitOf(cat) {
+  switch (cat) {
+    case 'mass': return 'kg';
+    case 'speed': return 'km/h';
+    case 'time': return 's';
+    case 'space': return 'km';
+    default: return 'm';
+  }
 }
 
 function render() {
@@ -452,66 +702,65 @@ function render() {
   let html = "";
 
   if (cat.horizontal) {
-    // Horizontal scale: items as discs, radii proportional, baseline along center
-    const cx = baseY - innerH / 2;
+    const cy = baseY - innerH / 2;
     const maxDia = cat.max;
     let xCursor = PAD.l + 60;
     cat.items.forEach((it) => {
       const r = (it.height / maxDia) * (innerH / 2) * 0.95;
-      // Constrain min for visibility
       const rDraw = Math.max(2.5, r);
-      // For very small ones, place them near the start; large at the end
       const xPos = xCursor + rDraw + 20;
       xCursor = xPos + rDraw + 20;
       html += `
-        <g class="item ${it.id===activeId?'active':''}" data-id="${it.id}" transform="translate(${xPos}, ${cx})">
+        <g class="item ${it.id===activeId?'active':''}" data-id="${it.id}" transform="translate(${xPos}, ${cy})">
           <circle r="${rDraw}" class="silhouette" fill="${it.color || 'var(--shape)'}" />
           <text class="name" y="${rDraw + 24}">${it.name}</text>
-          <text class="num" y="${rDraw + 40}">${fmtSpace(it.height)}</text>
+          <text class="num" y="${rDraw + 40}">${fmt(it.height)} km</text>
         </g>`;
     });
-    // baseline through middle
-    html += `<line class="baseline" x1="${PAD.l}" y1="${cx + innerH/2}" x2="${W - PAD.r}" y2="${cx + innerH/2}" />`;
-    // Active default if not in this category
-    if (!cat.items.find(i => i.id === activeId)) activeId = cat.items[cat.items.length - 1].id;
-
+    html += `<line class="baseline" x1="${PAD.l}" y1="${cy + innerH/2}" x2="${W - PAD.r}" y2="${cy + innerH/2}" />`;
   } else {
-    // Vertical scale: things stand on baseline (or hang from top if invert)
     const max = cat.max;
     const itemSlot = innerW / cat.items.length;
     cat.items.forEach((it, idx) => {
-      const drawH = Math.max(8, (it.height / max) * innerH);
+      let drawH;
+      if (cat.isLog) {
+        const logV = Math.log10(it.height + 1);
+        const logMax = Math.log10(max + 1);
+        drawH = Math.max(8, (logV / logMax) * innerH);
+      } else {
+        drawH = Math.max(8, (it.height / max) * innerH);
+      }
       const cx = PAD.l + itemSlot * idx + itemSlot / 2;
       const yTop = cat.invert ? PAD.t : baseY - drawH;
       const yBottom = cat.invert ? PAD.t + drawH : baseY;
       const shape = SHAPES[it.shape] || SHAPES.tower;
-      // place silhouette inside a 100x100 viewbox scaled to slot width / drawH
-      const slotW = Math.min(itemSlot * 0.8, 110);
-      // for very tall things, allow width override
+      const slotW = Math.min(itemSlot * 0.78, 90);
       const sx = cx - slotW / 2;
       const sy = cat.invert ? PAD.t : baseY - drawH;
+
+      const fill = it.color || 'var(--shape)';
       html += `
         <g class="item ${it.id===activeId?'active':''}" data-id="${it.id}">
           <g transform="translate(${sx}, ${sy}) scale(${slotW/100}, ${drawH/100})">
-            <path class="silhouette" d="${shape}"/>
+            <path class="silhouette" d="${shape}" fill="${fill}"/>
           </g>
           <text class="name" x="${cx}" y="${cat.invert ? yBottom + 24 : baseY + 22}">${it.name}</text>
-          <text class="num" x="${cx}" y="${cat.invert ? yBottom + 40 : baseY + 38}">${fmt(it.height, cat.invert)}</text>
+          <text class="num" x="${cx}" y="${cat.invert ? yBottom + 40 : baseY + 38}">${fmtUnit(it.height, unitOf(activeCat))}</text>
         </g>`;
     });
-    // baseline
     html += `<line class="baseline" x1="${PAD.l}" y1="${baseY}" x2="${W - PAD.r}" y2="${baseY}" />`;
-    if (!cat.items.find(i => i.id === activeId)) activeId = cat.items[cat.items.length - 1].id;
 
-    // gridlines (in metres) - only for vertical
-    const gridSteps = max < 50 ? 5 : (max < 1000 ? 100 : (max < 10000 ? 1000 : 2000));
-    for (let v = gridSteps; v < max; v += gridSteps) {
-      const y = cat.invert ? PAD.t + (v/max)*innerH : baseY - (v/max)*innerH;
-      html += `<line class="gridline" x1="${PAD.l}" y1="${y}" x2="${W - PAD.r}" y2="${y}" />`;
-      html += `<text class="gridlabel" x="${W - PAD.r - 6}" y="${y - 4}" text-anchor="end">${v.toLocaleString()} m</text>`;
+    if (!cat.isLog) {
+      const gridSteps = max < 50 ? 5 : (max < 1000 ? 100 : (max < 10000 ? 1000 : 2000));
+      for (let v = gridSteps; v < max; v += gridSteps) {
+        const y = cat.invert ? PAD.t + (v/max)*innerH : baseY - (v/max)*innerH;
+        html += `<line class="gridline" x1="${PAD.l}" y1="${y}" x2="${W - PAD.r}" y2="${y}" />`;
+        html += `<text class="gridlabel" x="${W - PAD.r - 6}" y="${y - 4}" text-anchor="end">${v.toLocaleString()} m</text>`;
+      }
     }
   }
 
+  if (!cat.items.find(i => i.id === activeId)) activeId = cat.items[cat.items.length - 1].id;
   canvas.innerHTML = html;
   canvas.querySelectorAll('.item').forEach(el => {
     el.addEventListener('click', () => {
@@ -529,9 +778,19 @@ function updateDetail() {
   if (!it) return;
   document.getElementById('d-meta').textContent = cat.title.split(" — ")[0];
   document.getElementById('d-name').textContent = it.name;
-  document.getElementById('d-height').textContent = cat.horizontal
-    ? fmtSpace(it.height) + " across"
-    : fmt(it.height) + (cat.invert ? " below the surface" : " tall");
+  let heightLabel;
+  if (cat.horizontal) heightLabel = fmt(it.height) + " km across";
+  else if (activeCat === 'mass') heightLabel = fmt(it.height) + " kg";
+  else if (activeCat === 'speed') heightLabel = fmt(it.height) + " km/h";
+  else if (activeCat === 'time') {
+    if (it.height < 60) heightLabel = it.height + " seconds";
+    else if (it.height < 3600) heightLabel = fmt(it.height/60) + " minutes";
+    else if (it.height < 86400) heightLabel = fmt(it.height/3600) + " hours";
+    else if (it.height < 31536000) heightLabel = fmt(it.height/86400) + " days";
+    else heightLabel = fmt(it.height/31536000) + " years";
+  }
+  else heightLabel = fmt(it.height) + (cat.invert ? " m below" : " m tall");
+  document.getElementById('d-height').textContent = heightLabel;
   document.getElementById('d-blurb').textContent = it.blurb;
 }
 
@@ -544,10 +803,9 @@ document.querySelectorAll('.tab').forEach(t => {
     render();
   });
 });
-
 render();
 
-// ============ "Everything" recap chart ============
+// ============ EVERYTHING RECAP ============
 const ev = document.getElementById('everything');
 function renderEverything() {
   const W2 = 1200, H2 = 480;
@@ -555,7 +813,6 @@ function renderEverything() {
   const innerW = W2 - PAD2.l - PAD2.r;
   const innerH = H2 - PAD2.t - PAD2.b;
   const baseY = H2 - PAD2.b;
-  // Pick a curated set across categories, log-scale heights
   const set = [
     { name: "Ant",     m: 0.005, shape: SHAPES.ant },
     { name: "Cat",     m: 0.25,  shape: SHAPES.cat },
@@ -563,8 +820,8 @@ function renderEverything() {
     { name: "Bus",     m: 4.4,   shape: SHAPES.bus },
     { name: "T. rex",  m: 6,     shape: SHAPES.trex },
     { name: "Whale",   m: 30,    shape: SHAPES.bluewhale },
-    { name: "Pisa",    m: 56,    shape: SHAPES.tower },
-    { name: "Liberty", m: 93,    shape: SHAPES.liberty },
+    { name: "Sequoia", m: 84,    shape: SHAPES.sequoia },
+    { name: "Pyramid", m: 139,   shape: SHAPES.pyramid },
     { name: "Eiffel",  m: 330,   shape: SHAPES.eiffel },
     { name: "Empire",  m: 381,   shape: SHAPES.empire },
     { name: "Burj",    m: 828,   shape: SHAPES.burj }
@@ -575,7 +832,7 @@ function renderEverything() {
   set.forEach((it, i) => {
     const h = Math.max(8, (it.m / max) * innerH);
     const cx = PAD2.l + slot * i + slot / 2;
-    const sw = Math.min(slot * 0.85, 100);
+    const sw = Math.min(slot * 0.85, 90);
     const sx = cx - sw / 2;
     const sy = baseY - h;
     html += `
@@ -591,6 +848,34 @@ function renderEverything() {
   ev.innerHTML = html;
 }
 renderEverything();
+
+// ============ POWERS OF TEN ============
+const MAGNITUDES = [
+  { pow: "10⁻¹⁵", what: "Proton",             unit: "1 femtometre" },
+  { pow: "10⁻¹⁰", what: "Hydrogen atom",      unit: "0.1 nm" },
+  { pow: "10⁻⁹",  what: "DNA helix",          unit: "1 nm" },
+  { pow: "10⁻⁷",  what: "Virus",              unit: "100 nm" },
+  { pow: "10⁻⁶",  what: "Bacterium",          unit: "1 µm" },
+  { pow: "10⁻⁴",  what: "Grain of sand",      unit: "0.1 mm" },
+  { pow: "10⁰",   what: "Human (1 m tall)",   unit: "1 metre" },
+  { pow: "10³",   what: "Small town",         unit: "1 km" },
+  { pow: "10⁶",   what: "USA (across)",       unit: "1,000 km" },
+  { pow: "10⁷",   what: "Earth's diameter",   unit: "12,742 km" },
+  { pow: "10⁹",   what: "Sun's diameter",     unit: "1.4 billion m" },
+  { pow: "10¹¹",  what: "Earth–Sun distance", unit: "150 billion m" },
+  { pow: "10¹³",  what: "Solar system",       unit: "0.001 light years" },
+  { pow: "10¹⁶",  what: "Nearest star",       unit: "4.2 light years" },
+  { pow: "10²¹",  what: "Milky Way",          unit: "100,000 ly" },
+  { pow: "10²²",  what: "Local galaxy group", unit: "10 million ly" },
+  { pow: "10²⁶",  what: "Observable universe",unit: "93 billion ly" }
+];
+document.getElementById('magnitudeTrack').innerHTML = MAGNITUDES.map(m => `
+  <div class="magnitude-cell">
+    <div class="pow">${m.pow} m</div>
+    <div class="what">${m.what}</div>
+    <div class="unit">${m.unit}</div>
+  </div>
+`).join('');
 </script>
 </body>
 </html>

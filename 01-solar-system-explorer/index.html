@@ -6,7 +6,7 @@
 <title>Atlas of the Solar System — An Interactive Explorer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
     --bg-0: #050714;
@@ -51,20 +51,43 @@
     z-index: 0;
     pointer-events: none;
   }
-  header {
-    position: relative;
-    z-index: 2;
-    padding: 60px 6vw 30px;
-    text-align: center;
-  }
-  .eyebrow {
-    font-size: 0.75rem;
+
+  .section-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
     letter-spacing: 0.4em;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 18px;
   }
-  h1 {
+  .section-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    max-width: 760px;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--ink-dim);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  header {
+    position: relative;
+    z-index: 2;
+    padding: 80px 6vw 30px;
+    text-align: center;
+  }
+  header .section-eyebrow {
+    margin-bottom: 18px;
+  }
+  header h1 {
     font-family: "Cormorant Garamond", serif;
     font-weight: 500;
     font-size: clamp(2.4rem, 5vw, 4.4rem);
@@ -72,18 +95,17 @@
     margin-bottom: 18px;
     letter-spacing: -0.01em;
   }
-  h1 em {
-    font-style: italic;
-    color: var(--accent);
-  }
-  .lede {
+  header h1 em { font-style: italic; color: var(--accent); }
+  header .lede {
     font-size: 1rem;
     line-height: 1.6;
     color: var(--ink-dim);
     max-width: 620px;
     margin: 0 auto;
   }
-  main {
+
+  /* ============ SECTION 1: ANIMATED SYSTEM ============ */
+  .system-block {
     position: relative;
     z-index: 2;
     display: grid;
@@ -94,10 +116,9 @@
     margin: 0 auto;
   }
   @media (max-width: 980px) {
-    main { grid-template-columns: 1fr; }
+    .system-block { grid-template-columns: 1fr; }
   }
 
-  /* SOLAR SYSTEM */
   .system {
     position: relative;
     aspect-ratio: 1 / 1;
@@ -120,6 +141,7 @@
       0 0 80px rgba(255, 126, 33, 0.35),
       0 0 140px rgba(255, 126, 33, 0.15);
     z-index: 5;
+    cursor: pointer;
   }
   .sun::after {
     content: "";
@@ -138,6 +160,14 @@
     border: 1px dashed rgba(255, 255, 255, 0.06);
     border-radius: 50%;
     transform: translate(-50%, -50%);
+  }
+  .asteroid-belt {
+    position: absolute;
+    left: 50%; top: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px dotted rgba(255, 200, 150, 0.15);
+    box-shadow: 0 0 0 4px rgba(255, 200, 150, 0.04) inset;
   }
   .planet-wrap {
     position: absolute;
@@ -170,7 +200,8 @@
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(8px);
-    font-size: 0.7rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
     color: var(--ink-dim);
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -184,7 +215,6 @@
     opacity: 1;
   }
 
-  /* DETAIL PANEL */
   .panel {
     background: var(--panel);
     border: 1px solid var(--line);
@@ -196,6 +226,7 @@
     top: 30px;
   }
   .panel-eyebrow {
+    font-family: "JetBrains Mono", monospace;
     font-size: 0.7rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -225,8 +256,9 @@
     margin-bottom: 24px;
   }
   .stat-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--ink-dim);
     margin-bottom: 6px;
@@ -257,65 +289,31 @@
     margin-right: 8px;
     vertical-align: -20px;
   }
-
-  /* SCALE STRIP */
-  .scale-strip {
-    position: relative;
-    z-index: 2;
-    max-width: 1500px;
-    margin: 0 auto 60px;
-    padding: 40px 6vw;
-  }
-  .scale-strip h3 {
-    font-family: "Cormorant Garamond", serif;
-    font-weight: 500;
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-  }
-  .scale-strip p {
-    font-size: 0.9rem;
-    color: var(--ink-dim);
-    margin-bottom: 32px;
-    max-width: 600px;
-  }
-  .scale-row {
-    display: flex;
-    align-items: flex-end;
-    gap: 24px;
-    padding: 28px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--panel);
-    overflow-x: auto;
-  }
-  .scale-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    min-width: 90px;
-  }
-  .scale-disc {
-    border-radius: 50%;
-    margin-bottom: 14px;
-  }
-  .scale-name {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink-dim);
-  }
-
-  footer {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 30px 6vw 50px;
-    font-size: 0.78rem;
-    color: var(--ink-dim);
+  .moons-row {
+    margin-top: 20px;
+    padding-top: 20px;
     border-top: 1px solid var(--line);
   }
-  footer a { color: var(--accent); text-decoration: none; }
+  .moons-row h4 {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 12px;
+  }
+  .moons-row .moons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .moon-chip {
+    font-size: 0.78rem;
+    padding: 5px 12px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--ink-dim);
+  }
 
   .controls {
     position: absolute;
@@ -330,37 +328,344 @@
     color: var(--ink);
     padding: 8px 14px;
     border-radius: 100px;
-    font-size: 0.72rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
     transition: background 0.2s;
-    font-family: inherit;
   }
   .ctrl:hover { background: rgba(255,255,255,0.12); }
   .ctrl.active { background: var(--accent); color: #000; border-color: var(--accent); }
-
   .paused .planet-wrap { animation-play-state: paused; }
+
+  /* ============ SECTION: COMPARISON CHARTS ============ */
+  .compare-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 60px auto 0;
+    padding: 60px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .chart-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 4px;
+    width: fit-content;
+    margin-bottom: 30px;
+  }
+  .chart-tab {
+    padding: 10px 22px;
+    background: transparent;
+    border: none;
+    color: var(--ink-dim);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .chart-tab.active {
+    background: var(--accent);
+    color: #000;
+  }
+  .chart-stage {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 40px;
+    min-height: 420px;
+  }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 130px;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .bar-row:last-child { border-bottom: none; }
+  .bar-row .planet-label-text {
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .bar-row .bar-track {
+    position: relative;
+    height: 18px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-row .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .bar-row .bar-value {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    text-align: right;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ DISTANCE STRIP ============ */
+  .distance-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 60px 6vw 40px;
+    border-top: 1px solid var(--line);
+  }
+  .distance-canvas {
+    position: relative;
+    height: 220px;
+    margin: 30px 0 20px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .distance-canvas .axis {
+    position: absolute;
+    left: 30px;
+    right: 30px;
+    top: 50%;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+  }
+  .distance-canvas .ticklabel {
+    position: absolute;
+    top: 56%;
+    transform: translateX(-50%);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .distance-canvas .marker {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .distance-canvas .marker:hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    z-index: 10;
+  }
+  .distance-canvas .marker-name {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+  }
+  .distance-canvas .marker-au {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* ============ BASKETBALL CALLOUT ============ */
+  .callout {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 50px 6vw;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+  .callout-stat {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.3;
+    color: var(--ink);
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  .callout-stat .num {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .callout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+  }
+  .callout-cell {
+    text-align: left;
+    padding: 24px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .callout-cell .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .callout-cell .big {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .callout-cell .desc {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+
+  /* ============ MOONS GALLERY ============ */
+  .moons-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 60px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .moons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+  }
+  .moon-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 20px;
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .moon-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+  .moon-card .vis {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    background: radial-gradient(circle at 30% 30%, var(--c1), var(--c2) 60%, var(--c3) 100%);
+    box-shadow: inset 4px -4px 14px rgba(0,0,0,0.4);
+  }
+  .moon-card .name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .moon-card .parent {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .moon-card .blurb {
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* ============ SCALE STRIP ============ */
+  .scale-strip {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto 0;
+    padding: 60px 6vw 80px;
+    border-top: 1px solid var(--line);
+  }
+  .scale-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--panel);
+    overflow-x: auto;
+    margin-top: 30px;
+  }
+  .scale-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 90px;
+  }
+  .scale-disc {
+    border-radius: 50%;
+    margin-bottom: 14px;
+  }
+  .scale-name {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+  }
+
+  footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 30px 6vw 50px;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    border-top: 1px solid var(--line);
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="eyebrow">A Visual Field Guide</div>
+  <div class="section-eyebrow">A Visual Field Guide</div>
   <h1>An Atlas of the <em>Solar System</em></h1>
-  <p class="lede">
-    Eight worlds, one star, and four and a half billion years of orbital choreography.
-    Hover over any planet to see its name. Click to read its story.
-  </p>
+  <p class="lede">Eight worlds, one star, hundreds of moons, and four and a half billion years of orbital choreography. Hover, click, and scroll your way through the neighbourhood.</p>
 </header>
 
-<main>
+<!-- ============ ANIMATED SYSTEM ============ -->
+<div class="system-block">
   <div class="system" id="system">
     <div class="controls">
       <button class="ctrl active" id="toggleMotion">Pause</button>
       <button class="ctrl" id="toggleScale">Realistic Scale</button>
     </div>
-    <div class="sun" title="The Sun"></div>
+    <div class="sun" id="sunNode" title="The Sun"></div>
     <!-- planets injected via JS -->
   </div>
 
@@ -369,198 +674,427 @@
     <h2 id="p-name">Earth</h2>
     <p class="panel-sub" id="p-sub">The third planet — the only one we know hosts life.</p>
     <div class="stats">
-      <div>
-        <div class="stat-label">Distance from Sun</div>
-        <div class="stat-value" id="p-distance">149.6<small>M km</small></div>
-      </div>
-      <div>
-        <div class="stat-label">Diameter</div>
-        <div class="stat-value" id="p-diameter">12,742<small>km</small></div>
-      </div>
-      <div>
-        <div class="stat-label">Day Length</div>
-        <div class="stat-value" id="p-day">24<small>hrs</small></div>
-      </div>
-      <div>
-        <div class="stat-label">Year Length</div>
-        <div class="stat-value" id="p-year">365<small>days</small></div>
-      </div>
-      <div>
-        <div class="stat-label">Moons</div>
-        <div class="stat-value" id="p-moons">1</div>
-      </div>
-      <div>
-        <div class="stat-label">Surface Temp</div>
-        <div class="stat-value" id="p-temp">15<small>°C</small></div>
-      </div>
+      <div><div class="stat-label">Distance from Sun</div><div class="stat-value" id="p-distance">149.6<small>M km</small></div></div>
+      <div><div class="stat-label">Diameter</div><div class="stat-value" id="p-diameter">12,742<small>km</small></div></div>
+      <div><div class="stat-label">Day Length</div><div class="stat-value" id="p-day">24<small>hrs</small></div></div>
+      <div><div class="stat-label">Year Length</div><div class="stat-value" id="p-year">365<small>days</small></div></div>
+      <div><div class="stat-label">Moons</div><div class="stat-value" id="p-moons">1</div></div>
+      <div><div class="stat-label">Surface Temp</div><div class="stat-value" id="p-temp">15<small>°C</small></div></div>
     </div>
     <p class="fact" id="p-fact">Earth's rotation is gradually slowing — about 1.7 milliseconds per century. The day was only six hours long when the Moon first formed.</p>
+    <div class="moons-row" id="p-moons-row">
+      <h4>Notable Moons</h4>
+      <div class="moons" id="p-moons-list"><span class="moon-chip">The Moon</span></div>
+    </div>
   </aside>
-</main>
+</div>
 
+<!-- ============ COMPARISON CHARTS ============ -->
+<section class="compare-section">
+  <div class="section-eyebrow">Comparative Atlas</div>
+  <h2 class="section-title">Eight planets, <em>vastly different</em> on every axis.</h2>
+  <p class="section-sub">Each chart below shows the same nine bodies (eight planets plus the Sun, where relevant). Switch metrics to see why "planet" is more category than description — Mercury and Jupiter share almost nothing.</p>
+
+  <div class="chart-tabs">
+    <button class="chart-tab active" data-metric="mass">Mass</button>
+    <button class="chart-tab" data-metric="diameter">Diameter</button>
+    <button class="chart-tab" data-metric="day">Day length</button>
+    <button class="chart-tab" data-metric="year">Year length</button>
+    <button class="chart-tab" data-metric="gravity">Surface gravity</button>
+    <button class="chart-tab" data-metric="moons">Moons</button>
+  </div>
+
+  <div class="chart-stage" id="chartStage"></div>
+</section>
+
+<!-- ============ DISTANCE FROM SUN ============ -->
+<section class="distance-section">
+  <div class="section-eyebrow">Mostly Empty Space</div>
+  <h2 class="section-title">If the Sun is here, <em>where is everything else?</em></h2>
+  <p class="section-sub">The animated system above squashes everything into one screen — but real distances tell a different story. On a logarithmic scale, the planets cluster towards the inner system; the outer giants live in their own neighbourhood entirely.</p>
+  <div class="distance-canvas" id="distanceCanvas"></div>
+  <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--ink-dim); letter-spacing: 0.15em; text-align: center; margin-top: 14px;">DISTANCE FROM SUN — LOGARITHMIC SCALE</p>
+</section>
+
+<!-- ============ "IF SUN WERE A BASKETBALL" CALLOUT ============ -->
+<section class="callout">
+  <div class="section-eyebrow">A Useful Lie of Scale</div>
+  <p class="callout-stat">If you shrank the Sun to <span class="num">the size of a basketball</span>, then…</p>
+  <div class="callout-grid">
+    <div class="callout-cell">
+      <div class="k">Earth would be</div>
+      <div class="big">2.2 mm</div>
+      <div class="desc">A grain of sand, sitting 26 metres away. Smaller than a pinhead at the end of a basketball court.</div>
+    </div>
+    <div class="callout-cell">
+      <div class="k">Jupiter would be</div>
+      <div class="big">2.5 cm</div>
+      <div class="desc">About the size of a marble. Sitting roughly a football field away — 135 metres from your basketball.</div>
+    </div>
+    <div class="callout-cell">
+      <div class="k">Neptune would be</div>
+      <div class="big">9 mm</div>
+      <div class="desc">A small bead, sitting almost a kilometre away — at the far end of a long park.</div>
+    </div>
+    <div class="callout-cell">
+      <div class="k">Nearest star</div>
+      <div class="big">7,000 km</div>
+      <div class="desc">Proxima Centauri. The next basketball is on the other side of the planet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOONS GALLERY ============ -->
+<section class="moons-section">
+  <div class="section-eyebrow">Worlds Within Worlds</div>
+  <h2 class="section-title">A small selection of the system's <em>most interesting moons.</em></h2>
+  <p class="section-sub">The solar system has more than 290 known moons. A handful of them — Titan, Europa, Ganymede — are arguably more interesting than several of the planets they orbit.</p>
+  <div class="moons-grid" id="moonsGrid"></div>
+</section>
+
+<!-- ============ SCALE STRIP ============ -->
 <section class="scale-strip">
-  <h3>If the Sun were as tall as a doorway…</h3>
-  <p>Planets shown at their true relative diameters. Distances between them, however, are nearly impossible to draw on a screen — Neptune would be a kilometre away.</p>
+  <div class="section-eyebrow">True Relative Sizes</div>
+  <h2 class="section-title">If the planets stood in a row, <em>at scale.</em></h2>
+  <p class="section-sub">Diameter only — distances would require kilometres of paper. Even so, the gas giants dwarf everything. Earth is barely visible.</p>
   <div class="scale-row" id="scaleRow"></div>
 </section>
 
 <footer>
-  Data: NASA Planetary Fact Sheet. Built as a single self-contained HTML page — no frameworks, no dependencies.
+  Data: NASA Planetary Fact Sheet, JPL. Built as a single self-contained HTML page — no frameworks, no dependencies.
 </footer>
 
 <script>
-  const PLANETS = [
-    { name: "Mercury", color: "#9c8b7e", radius: 4,  orbit: 90,  duration: 8,
-      distance: "57.9", diameter: "4,879", day: "1,408", year: "88", moons: "0", temp: "167",
-      sub: "The smallest planet — a sun-scorched, cratered world.",
-      fact: "A year on Mercury (88 Earth days) is shorter than its day (176 Earth days). The Sun appears to rise, stop, and reverse course in its sky." },
-    { name: "Venus", color: "#e6c07b", radius: 7,  orbit: 130, duration: 14,
-      distance: "108.2", diameter: "12,104", day: "5,832", year: "225", moons: "0", temp: "464",
-      sub: "Earth's twin in size — a runaway greenhouse hellscape.",
-      fact: "Venus rotates backwards. If you stood on its surface, the Sun would rise in the west and set in the east — once every 117 Earth days." },
-    { name: "Earth", color: "#5b8def", radius: 7.4,orbit: 175, duration: 22,
-      distance: "149.6", diameter: "12,742", day: "24", year: "365", moons: "1", temp: "15",
-      sub: "The third planet — the only one we know hosts life.",
-      fact: "Earth's rotation is gradually slowing — about 1.7 milliseconds per century. The day was only six hours long when the Moon first formed." },
-    { name: "Mars", color: "#d35a3f", radius: 5.5,orbit: 215, duration: 30,
-      distance: "227.9", diameter: "6,779", day: "25", year: "687", moons: "2", temp: "-65",
-      sub: "The red planet — a frozen desert with the largest volcano in the system.",
-      fact: "Olympus Mons stands 22 km high — almost three times the height of Mount Everest — and covers an area the size of France." },
-    { name: "Jupiter", color: "#d8a679", radius: 22, orbit: 280, duration: 50,
-      distance: "778.6", diameter: "139,820", day: "10", year: "4,333", moons: "95", temp: "-110",
-      sub: "The king of planets — a gas giant heavier than all others combined.",
-      fact: "The Great Red Spot is a storm that has been raging for at least 350 years. It's wide enough to swallow Earth whole — twice." },
-    { name: "Saturn", color: "#e3d3a4", radius: 19, orbit: 355, duration: 75,
-      distance: "1,433.5", diameter: "116,460", day: "11", year: "10,759", moons: "146", temp: "-140",
-      sub: "The ringed jewel — a planet so light it would float on water.",
-      fact: "Saturn's rings span 280,000 km but are only about 10 metres thick on average — proportionally thinner than a sheet of paper." },
-    { name: "Uranus", color: "#9fd9e0", radius: 12, orbit: 415, duration: 110,
-      distance: "2,872.5", diameter: "50,724", day: "17", year: "30,687", moons: "27", temp: "-195",
-      sub: "The tilted ice giant — it orbits the Sun on its side.",
-      fact: "Uranus rolls around the Sun on its side, so each pole spends 42 Earth years in continuous sunlight, then 42 years in darkness." },
-    { name: "Neptune", color: "#3d63d6", radius: 11.5,orbit: 470, duration: 160,
-      distance: "4,495.1", diameter: "49,244", day: "16", year: "60,190", moons: "14", temp: "-200",
-      sub: "The wind-whipped blue giant at the edge of the planetary system.",
-      fact: "Winds on Neptune reach 2,100 km/h — the fastest in the solar system. It's the only planet discovered through mathematics before observation." }
-  ];
+const PLANETS = [
+  { name: "Mercury", color: "#9c8b7e", radius: 4,  orbit: 90,  duration: 8,
+    distance: "57.9", distanceAU: 0.39,
+    diameter: "4,879", diameterKm: 4879,
+    massKg: 3.30e23, gravity: 3.7,
+    day: "1,408", dayHrs: 1408, year: "88", yearDays: 88,
+    moons: 0, moonNames: [], temp: "167",
+    sub: "The smallest planet — a sun-scorched, cratered world.",
+    fact: "A year on Mercury (88 Earth days) is shorter than its day (176 Earth days). The Sun appears to rise, stop, and reverse course in its sky." },
+  { name: "Venus", color: "#e6c07b", radius: 7,  orbit: 130, duration: 14,
+    distance: "108.2", distanceAU: 0.72,
+    diameter: "12,104", diameterKm: 12104,
+    massKg: 4.87e24, gravity: 8.87,
+    day: "5,832", dayHrs: 5832, year: "225", yearDays: 225,
+    moons: 0, moonNames: [], temp: "464",
+    sub: "Earth's twin in size — a runaway greenhouse hellscape.",
+    fact: "Venus rotates backwards. If you stood on its surface, the Sun would rise in the west and set in the east — once every 117 Earth days." },
+  { name: "Earth", color: "#5b8def", radius: 7.4, orbit: 175, duration: 22,
+    distance: "149.6", distanceAU: 1.0,
+    diameter: "12,742", diameterKm: 12742,
+    massKg: 5.97e24, gravity: 9.8,
+    day: "24", dayHrs: 24, year: "365", yearDays: 365,
+    moons: 1, moonNames: ["The Moon"], temp: "15",
+    sub: "The third planet — the only one we know hosts life.",
+    fact: "Earth's rotation is gradually slowing — about 1.7 milliseconds per century. The day was only six hours long when the Moon first formed." },
+  { name: "Mars", color: "#d35a3f", radius: 5.5, orbit: 215, duration: 30,
+    distance: "227.9", distanceAU: 1.52,
+    diameter: "6,779", diameterKm: 6779,
+    massKg: 6.42e23, gravity: 3.71,
+    day: "25", dayHrs: 25, year: "687", yearDays: 687,
+    moons: 2, moonNames: ["Phobos", "Deimos"], temp: "-65",
+    sub: "The red planet — a frozen desert with the largest volcano in the system.",
+    fact: "Olympus Mons stands 22 km high — almost three times the height of Mount Everest — and covers an area the size of France." },
+  { name: "Jupiter", color: "#d8a679", radius: 22, orbit: 280, duration: 50,
+    distance: "778.6", distanceAU: 5.2,
+    diameter: "139,820", diameterKm: 139820,
+    massKg: 1.898e27, gravity: 24.79,
+    day: "10", dayHrs: 10, year: "4,333", yearDays: 4333,
+    moons: 95, moonNames: ["Io", "Europa", "Ganymede", "Callisto"], temp: "-110",
+    sub: "The king of planets — a gas giant heavier than all others combined.",
+    fact: "The Great Red Spot is a storm that has been raging for at least 350 years. It's wide enough to swallow Earth whole — twice." },
+  { name: "Saturn", color: "#e3d3a4", radius: 19, orbit: 355, duration: 75,
+    distance: "1,433.5", distanceAU: 9.58,
+    diameter: "116,460", diameterKm: 116460,
+    massKg: 5.68e26, gravity: 10.44,
+    day: "11", dayHrs: 11, year: "10,759", yearDays: 10759,
+    moons: 146, moonNames: ["Titan", "Enceladus", "Mimas", "Iapetus"], temp: "-140",
+    sub: "The ringed jewel — a planet so light it would float on water.",
+    fact: "Saturn's rings span 280,000 km but are only about 10 metres thick on average — proportionally thinner than a sheet of paper." },
+  { name: "Uranus", color: "#9fd9e0", radius: 12, orbit: 415, duration: 110,
+    distance: "2,872.5", distanceAU: 19.2,
+    diameter: "50,724", diameterKm: 50724,
+    massKg: 8.68e25, gravity: 8.69,
+    day: "17", dayHrs: 17, year: "30,687", yearDays: 30687,
+    moons: 27, moonNames: ["Miranda", "Titania", "Oberon"], temp: "-195",
+    sub: "The tilted ice giant — it orbits the Sun on its side.",
+    fact: "Uranus rolls around the Sun on its side, so each pole spends 42 Earth years in continuous sunlight, then 42 years in darkness." },
+  { name: "Neptune", color: "#3d63d6", radius: 11.5, orbit: 470, duration: 160,
+    distance: "4,495.1", distanceAU: 30.05,
+    diameter: "49,244", diameterKm: 49244,
+    massKg: 1.024e26, gravity: 11.15,
+    day: "16", dayHrs: 16, year: "60,190", yearDays: 60190,
+    moons: 14, moonNames: ["Triton"], temp: "-200",
+    sub: "The wind-whipped blue giant at the edge of the planetary system.",
+    fact: "Winds on Neptune reach 2,100 km/h — the fastest in the solar system. It's the only planet discovered through mathematics before observation." }
+];
 
-  const system = document.getElementById('system');
-  const scaleRow = document.getElementById('scaleRow');
+const SUN = {
+  name: "The Sun",
+  color: "#ffd166",
+  distance: "0", distanceAU: 0,
+  diameter: "1,392,700", diameterKm: 1392700,
+  massKg: 1.989e30,
+  day: "609", dayHrs: 609,
+  year: "—",
+  moons: "8",
+  temp: "5,500",
+  sub: "Our star — a 4.6-billion-year-old ball of plasma at the centre of it all.",
+  fact: "The Sun contains 99.86% of the mass of the entire solar system. About 1.3 million Earths could fit inside it.",
+  gravity: 274,
+  yearDays: 0
+};
 
-  // Build orbits + planets
-  PLANETS.forEach((p, i) => {
-    // orbit ring
-    const ring = document.createElement('div');
-    ring.className = 'orbit';
-    ring.style.width = (p.orbit * 2) + 'px';
-    ring.style.height = (p.orbit * 2) + 'px';
-    system.appendChild(ring);
+const MOONS = [
+  { name: "The Moon",  parent: "Earth",   c1: "#dcdcd6", c2: "#a9a9a3", c3: "#5a5a55", blurb: "Slowly drifting away from Earth at 3.8 cm a year. Without it, our days would be just 6–8 hours long." },
+  { name: "Io",        parent: "Jupiter", c1: "#fff5a6", c2: "#d4b15a", c3: "#7a4d20", blurb: "The most volcanically active body in the solar system — over 400 active volcanoes, with plumes hundreds of km high." },
+  { name: "Europa",    parent: "Jupiter", c1: "#e8d8c0", c2: "#b5a085", c3: "#704d2e", blurb: "Beneath its icy shell sits a saltwater ocean — twice the volume of all of Earth's oceans combined. Possibly habitable." },
+  { name: "Ganymede",  parent: "Jupiter", c1: "#c4b8a3", c2: "#867b66", c3: "#3d342a", blurb: "The largest moon in the solar system. Bigger than Mercury. Has its own magnetic field — the only moon that does." },
+  { name: "Titan",     parent: "Saturn",  c1: "#f5c98e", c2: "#c08550", c3: "#5a3818", blurb: "The only moon with a thick atmosphere. Has lakes and rivers — but of liquid methane, not water. Surface temperature: −179 °C." },
+  { name: "Enceladus", parent: "Saturn",  c1: "#ffffff", c2: "#cfdde6", c3: "#5e7585", blurb: "Brightest object in the solar system — its icy surface reflects almost 100% of sunlight. Geysers shoot water vapour 500 km into space." },
+  { name: "Triton",    parent: "Neptune", c1: "#cfcfd8", c2: "#8a8a96", c3: "#3a3a48", blurb: "Orbits Neptune backwards — almost certainly a captured Kuiper-belt object. Has nitrogen geysers. Slowly being pulled into Neptune." },
+  { name: "Phobos",    parent: "Mars",    c1: "#a09687", c2: "#67604f", c3: "#2c2820", blurb: "Tiny, lumpy, and doomed. Orbits Mars so closely that tidal forces will tear it apart in 30–50 million years." }
+];
 
-    // rotating wrapper
-    const wrap = document.createElement('div');
-    wrap.className = 'planet-wrap';
-    wrap.style.animationDuration = p.duration + 's';
-    wrap.style.transform = `rotate(${i * 47}deg)`;
+const system = document.getElementById('system');
+const scaleRow = document.getElementById('scaleRow');
 
-    const planet = document.createElement('div');
-    planet.className = 'planet';
-    planet.style.width = (p.radius * 2) + 'px';
-    planet.style.height = (p.radius * 2) + 'px';
-    planet.style.left = p.orbit + 'px';
-    planet.style.background = `radial-gradient(circle at 30% 30%, ${lighten(p.color)}, ${p.color} 60%, ${darken(p.color)} 100%)`;
-    planet.style.color = p.color;
-    planet.dataset.idx = i;
-    if (p.name === 'Saturn') {
-      planet.style.boxShadow = `0 0 0 ${p.radius * 0.45}px rgba(227, 211, 164, 0.18), inset 0 0 8px rgba(0,0,0,0.4)`;
-    }
-    wrap.appendChild(planet);
+PLANETS.forEach((p, i) => {
+  const ring = document.createElement('div');
+  ring.className = 'orbit';
+  ring.style.width = (p.orbit * 2) + 'px';
+  ring.style.height = (p.orbit * 2) + 'px';
+  system.appendChild(ring);
 
-    const label = document.createElement('div');
-    label.className = 'planet-label';
-    label.textContent = p.name;
-    label.style.left = p.orbit + 'px';
-    wrap.appendChild(label);
+  const wrap = document.createElement('div');
+  wrap.className = 'planet-wrap';
+  wrap.style.animationDuration = p.duration + 's';
+  wrap.style.transform = `rotate(${i * 47}deg)`;
 
-    system.appendChild(wrap);
+  const planet = document.createElement('div');
+  planet.className = 'planet';
+  planet.style.width = (p.radius * 2) + 'px';
+  planet.style.height = (p.radius * 2) + 'px';
+  planet.style.left = p.orbit + 'px';
+  planet.style.background = `radial-gradient(circle at 30% 30%, ${lighten(p.color)}, ${p.color} 60%, ${darken(p.color)} 100%)`;
+  planet.style.color = p.color;
+  if (p.name === 'Saturn') {
+    planet.style.boxShadow = `0 0 0 ${p.radius * 0.45}px rgba(227, 211, 164, 0.18), inset 0 0 8px rgba(0,0,0,0.4)`;
+  }
+  wrap.appendChild(planet);
 
-    planet.addEventListener('click', () => selectPlanet(i));
+  const label = document.createElement('div');
+  label.className = 'planet-label';
+  label.textContent = p.name;
+  label.style.left = p.orbit + 'px';
+  wrap.appendChild(label);
 
-    // scale strip
-    const item = document.createElement('div');
-    item.className = 'scale-item';
-    const disc = document.createElement('div');
-    disc.className = 'scale-disc';
-    const size = Math.max(8, p.radius * 4);
-    disc.style.width = size + 'px';
-    disc.style.height = size + 'px';
-    disc.style.background = `radial-gradient(circle at 30% 30%, ${lighten(p.color)}, ${p.color} 60%, ${darken(p.color)} 100%)`;
-    item.appendChild(disc);
-    const name = document.createElement('div');
-    name.className = 'scale-name';
-    name.textContent = p.name;
-    item.appendChild(name);
-    scaleRow.appendChild(item);
-  });
+  system.appendChild(wrap);
+  planet.addEventListener('click', () => selectPlanet(i));
 
-  function selectPlanet(i) {
+  // Asteroid belt between Mars & Jupiter
+  if (p.name === 'Mars') {
+    const belt = document.createElement('div');
+    belt.className = 'asteroid-belt';
+    belt.style.width = (p.orbit * 2 + 50) + 'px';
+    belt.style.height = (p.orbit * 2 + 50) + 'px';
+    system.appendChild(belt);
+  }
+
+  // Scale strip
+  const item = document.createElement('div');
+  item.className = 'scale-item';
+  const disc = document.createElement('div');
+  disc.className = 'scale-disc';
+  const size = Math.max(8, p.radius * 4);
+  disc.style.width = size + 'px';
+  disc.style.height = size + 'px';
+  disc.style.background = `radial-gradient(circle at 30% 30%, ${lighten(p.color)}, ${p.color} 60%, ${darken(p.color)} 100%)`;
+  item.appendChild(disc);
+  const name = document.createElement('div');
+  name.className = 'scale-name';
+  name.textContent = p.name;
+  item.appendChild(name);
+  scaleRow.appendChild(item);
+});
+
+document.getElementById('sunNode').addEventListener('click', () => selectSun());
+
+function selectSun() {
+  document.querySelectorAll('.planet').forEach(el => el.classList.remove('active'));
+  document.getElementById('p-eyebrow').textContent = 'The Star';
+  document.getElementById('p-name').textContent = SUN.name;
+  document.getElementById('p-sub').textContent = SUN.sub;
+  setStat('p-distance', SUN.distance, 'km');
+  setStat('p-diameter', SUN.diameter, 'km');
+  setStat('p-day', SUN.day, 'hrs');
+  setStat('p-year', SUN.year, '');
+  setStat('p-moons', SUN.moons, ' planets');
+  setStat('p-temp', SUN.temp, '°C');
+  document.getElementById('p-fact').textContent = SUN.fact;
+  document.getElementById('p-moons-row').style.display = 'none';
+}
+
+function selectPlanet(i) {
+  const p = PLANETS[i];
+  document.querySelectorAll('.planet').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.planet')[i].classList.add('active');
+  document.getElementById('p-eyebrow').textContent = `Planet ${String(i + 1).padStart(2, '0')} of 08`;
+  document.getElementById('p-name').textContent = p.name;
+  document.getElementById('p-sub').textContent = p.sub;
+  setStat('p-distance', p.distance, 'M km');
+  setStat('p-diameter', p.diameter, 'km');
+  setStat('p-day', p.day, 'hrs');
+  setStat('p-year', p.year, 'days');
+  setStat('p-moons', p.moons, '');
+  setStat('p-temp', p.temp, '°C');
+  document.getElementById('p-fact').textContent = p.fact;
+
+  const moonsRow = document.getElementById('p-moons-row');
+  if (p.moons > 0) {
+    moonsRow.style.display = '';
+    const list = document.getElementById('p-moons-list');
+    list.innerHTML = p.moonNames.map(n => `<span class="moon-chip">${n}</span>`).join('') +
+      (p.moons > p.moonNames.length ? `<span class="moon-chip" style="opacity:0.6">+ ${p.moons - p.moonNames.length} more</span>` : '');
+  } else {
+    moonsRow.style.display = 'none';
+  }
+}
+
+function setStat(id, val, unit) {
+  document.getElementById(id).innerHTML = val + (unit ? `<small>${unit}</small>` : '');
+}
+selectPlanet(2);
+
+document.getElementById('toggleMotion').addEventListener('click', e => {
+  system.classList.toggle('paused');
+  e.target.textContent = system.classList.contains('paused') ? 'Resume' : 'Pause';
+});
+document.getElementById('toggleScale').addEventListener('click', e => {
+  e.target.classList.toggle('active');
+  document.querySelectorAll('.planet').forEach((el, i) => {
     const p = PLANETS[i];
-    document.querySelectorAll('.planet').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.planet')[i].classList.add('active');
-    document.getElementById('p-eyebrow').textContent = `Planet ${String(i + 1).padStart(2, '0')} of 08`;
-    document.getElementById('p-name').textContent = p.name;
-    document.getElementById('p-sub').textContent = p.sub;
-    setStat('p-distance', p.distance, 'M km');
-    setStat('p-diameter', p.diameter, 'km');
-    setStat('p-day', p.day, 'hrs');
-    setStat('p-year', p.year, 'days');
-    setStat('p-moons', p.moons, '');
-    setStat('p-temp', p.temp, '°C');
-    document.getElementById('p-fact').textContent = p.fact;
-  }
-  function setStat(id, val, unit) {
-    document.getElementById(id).innerHTML = val + (unit ? `<small>${unit}</small>` : '');
-  }
-
-  // Defaults: select Earth
-  selectPlanet(2);
-
-  // Controls
-  document.getElementById('toggleMotion').addEventListener('click', e => {
-    system.classList.toggle('paused');
-    e.target.textContent = system.classList.contains('paused') ? 'Resume' : 'Pause';
+    if (e.target.classList.contains('active')) {
+      const newR = Math.max(2, Math.log2(p.diameterKm / 1000) * 4);
+      el.style.width = (newR * 2) + 'px';
+      el.style.height = (newR * 2) + 'px';
+    } else {
+      el.style.width = (p.radius * 2) + 'px';
+      el.style.height = (p.radius * 2) + 'px';
+    }
   });
-  document.getElementById('toggleScale').addEventListener('click', e => {
-    e.target.classList.toggle('active');
-    document.querySelectorAll('.planet').forEach((el, i) => {
-      const p = PLANETS[i];
-      if (e.target.classList.contains('active')) {
-        // exaggerate Jupiter/Saturn even more, keep small ones tiny
-        const newR = Math.max(2, Math.log2(parseFloat(p.diameter.replace(/,/g, '')) / 1000) * 4);
-        el.style.width = (newR * 2) + 'px';
-        el.style.height = (newR * 2) + 'px';
-      } else {
-        el.style.width = (p.radius * 2) + 'px';
-        el.style.height = (p.radius * 2) + 'px';
-      }
-    });
-  });
+});
 
-  function lighten(hex) {
-    const { r, g, b } = hexToRgb(hex);
-    return `rgb(${Math.min(255, r + 60)}, ${Math.min(255, g + 60)}, ${Math.min(255, b + 60)})`;
-  }
-  function darken(hex) {
-    const { r, g, b } = hexToRgb(hex);
-    return `rgb(${Math.max(0, r - 60)}, ${Math.max(0, g - 60)}, ${Math.max(0, b - 60)})`;
-  }
-  function hexToRgb(hex) {
-    const h = hex.replace('#', '');
-    return {
-      r: parseInt(h.substring(0, 2), 16),
-      g: parseInt(h.substring(2, 4), 16),
-      b: parseInt(h.substring(4, 6), 16)
-    };
-  }
+function lighten(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  return `rgb(${Math.min(255, r + 60)}, ${Math.min(255, g + 60)}, ${Math.min(255, b + 60)})`;
+}
+function darken(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  return `rgb(${Math.max(0, r - 60)}, ${Math.max(0, g - 60)}, ${Math.max(0, b - 60)})`;
+}
+function hexToRgb(hex) {
+  const h = hex.replace('#', '');
+  return { r: parseInt(h.substring(0, 2), 16), g: parseInt(h.substring(2, 4), 16), b: parseInt(h.substring(4, 6), 16) };
+}
+
+// ============ COMPARISON CHARTS ============
+const METRICS = {
+  mass:      { label: "Mass",            unit: "Earth masses", get: p => p.massKg / 5.97e24, includeSun: true,  fmt: v => v >= 1 ? v.toLocaleString(undefined,{maximumFractionDigits:0}) : v.toFixed(3) },
+  diameter:  { label: "Diameter",        unit: "km",            get: p => p.diameterKm,        includeSun: false, fmt: v => v.toLocaleString() },
+  day:       { label: "Day length",      unit: "Earth hours",   get: p => p.dayHrs,            includeSun: false, fmt: v => v.toLocaleString() },
+  year:      { label: "Year length",     unit: "Earth days",    get: p => p.yearDays,          includeSun: false, fmt: v => v.toLocaleString() },
+  gravity:   { label: "Surface gravity", unit: "m/s²",          get: p => p.gravity,           includeSun: true,  fmt: v => v.toFixed(2) },
+  moons:     { label: "Moons",           unit: "natural satellites", get: p => p.moons,        includeSun: false, fmt: v => v.toLocaleString() }
+};
+
+let activeMetric = 'mass';
+function renderChart() {
+  const m = METRICS[activeMetric];
+  const stage = document.getElementById('chartStage');
+  const list = m.includeSun ? [SUN, ...PLANETS] : PLANETS;
+  const max = Math.max(...list.map(p => m.get(p)));
+  const useLog = m.label === 'Mass' || m.label === 'Year length' || m.label === 'Day length';
+  let html = `<div style="margin-bottom:18px; color: var(--ink-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;">${m.label} · ${useLog ? 'log scale · ' : ''}${m.unit}</div>`;
+  list.forEach(p => {
+    const v = m.get(p);
+    let pct;
+    if (useLog) {
+      pct = v <= 0 ? 0 : (Math.log10(v + 1) / Math.log10(max + 1)) * 100;
+    } else {
+      pct = (v / max) * 100;
+    }
+    pct = Math.max(0.5, pct);
+    html += `
+      <div class="bar-row">
+        <div class="planet-label-text" style="color:${p.color || '#ffd166'}">${p.name}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%; background: linear-gradient(90deg, ${p.color || '#ffd166'}, ${darken(p.color || '#ffd166')});"></div></div>
+        <div class="bar-value">${m.fmt(v)}</div>
+      </div>`;
+  });
+  stage.innerHTML = html;
+}
+document.querySelectorAll('.chart-tab').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.chart-tab').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    activeMetric = b.dataset.metric;
+    renderChart();
+  });
+});
+renderChart();
+
+// ============ DISTANCE CANVAS (logarithmic AU) ============
+function renderDistance() {
+  const canvas = document.getElementById('distanceCanvas');
+  const all = [SUN, ...PLANETS];
+  const minLog = Math.log10(0.3);
+  const maxLog = Math.log10(40);
+  let html = `<div class="axis"></div>`;
+  // Tick labels
+  [0.3, 1, 3, 10, 30].forEach(au => {
+    const x = ((Math.log10(au) - minLog) / (maxLog - minLog)) * 100;
+    html += `<div class="ticklabel" style="left:${x}%">${au} AU</div>`;
+  });
+  all.forEach((p, i) => {
+    let au = p.distanceAU;
+    if (au === 0) {
+      // Sun at far left edge
+      const x = 0;
+      html += `
+        <div class="marker" style="left:30px; width:18px; height:18px; background: radial-gradient(circle at 30% 30%, #fff5cf, #ffd166 40%, #ff7e21); box-shadow: 0 0 12px rgba(255,209,102,0.8);">
+          <div class="marker-name">Sun</div>
+        </div>`;
+      return;
+    }
+    const xPct = ((Math.log10(au) - minLog) / (maxLog - minLog)) * 100;
+    const r = Math.max(4, Math.min(14, p.diameterKm / 12000));
+    html += `
+      <div class="marker" style="left:calc(${xPct}% + 30px); width:${r * 2}px; height:${r * 2}px; background: radial-gradient(circle at 30% 30%, ${lighten(p.color)}, ${p.color}, ${darken(p.color)});" title="${p.name}: ${au} AU">
+        <div class="marker-name">${p.name}</div>
+        <div class="marker-au">${au} AU</div>
+      </div>`;
+  });
+  canvas.innerHTML = html;
+}
+renderDistance();
+
+// ============ MOONS GALLERY ============
+function renderMoons() {
+  const grid = document.getElementById('moonsGrid');
+  grid.innerHTML = MOONS.map(m => `
+    <div class="moon-card">
+      <div class="vis" style="--c1:${m.c1}; --c2:${m.c2}; --c3:${m.c3}"></div>
+      <div class="parent">orbits ${m.parent}</div>
+      <div class="name">${m.name}</div>
+      <div class="blurb">${m.blurb}</div>
+    </div>
+  `).join('');
+}
+renderMoons();
 </script>
 </body>
 </html>
