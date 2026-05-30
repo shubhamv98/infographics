@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interactive Infographics — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #faf7f0;
+    --ink: #1a1a1a;
+    --ink-dim: #6b6b6b;
+    --line: #d8d2c4;
+    --accent: #d97757;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+  }
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+    max-width: 900px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede {
+    font-size: 1.05rem;
+    color: var(--ink-dim);
+    max-width: 680px;
+    margin-bottom: 60px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+  }
+  @media (max-width: 720px) {
+    .card { grid-template-columns: 1fr; }
+    .card .preview { height: 200px; }
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+  .preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    position: relative;
+    overflow: hidden;
+    padding: 30px 24px;
+    text-align: center;
+    line-height: 1.15;
+  }
+  .preview.solar { background: radial-gradient(circle at center, #2a1c00, #050714); }
+  .preview.ocean { background: linear-gradient(180deg, #87ceeb 0%, #001b2e 100%); }
+  .preview.code  { background: linear-gradient(135deg, #f5f1e8, #e8dfc8); color: #1a1a1a; }
+  .preview.phone { background: radial-gradient(circle at 30% 20%, #2a2a2e, #0e0e10); }
+  .preview.scale { background: linear-gradient(135deg, #f4f0e6 0%, #e8dfc8 100%); color: #1a1a1a; }
+  .preview-num {
+    position: absolute;
+    top: 18px; left: 22px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    opacity: 0.6;
+  }
+  .body {
+    padding: 32px 36px;
+  }
+  .tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 10px;
+  }
+  .body h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .body p {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  .arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  footer {
+    margin-top: 80px;
+    padding-top: 30px;
+    border-top: 1px solid var(--line);
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Portfolio · Interactive Infographics</div>
+  <h1>Five single-page <em>visual essays</em>, hand-built with code.</h1>
+  <p class="lede">Each piece below is a self-contained HTML document — no frameworks, no build step, no dependencies beyond Google Fonts. Click in to explore, or download the file and open it locally.</p>
+
+  <div class="grid">
+    <a class="card" href="01-solar-system-explorer/">
+      <div class="preview solar">
+        <div class="preview-num">01 / Atlas</div>
+        <span>An Atlas of the Solar System</span>
+      </div>
+      <div class="body">
+        <div class="tag">Animated atlas · Click-to-explore</div>
+        <h2>An Atlas of the Solar System</h2>
+        <p>Eight worlds in motion around a central sun. Click any planet to read its physical stats and a short story about what makes it strange. Includes a true-scale comparison strip.</p>
+        <span class="arrow">Open infographic →</span>
+      </div>
+    </a>
+
+    <a class="card" href="02-ocean-depths/">
+      <div class="preview ocean">
+        <div class="preview-num">02 / Cutaway</div>
+        <span>How Deep Is the Ocean?</span>
+      </div>
+      <div class="body">
+        <div class="tag">Vertical scroll · Scale narrative</div>
+        <h2>How Deep Is the Ocean?</h2>
+        <p>A scroll-driven descent from the sunlit surface to the Challenger Deep — 11 km below sea level. A live depth ruler tracks your position as you pass scuba divers, sperm whales, the Titanic, and an inverted Mount Everest.</p>
+        <span class="arrow">Open infographic →</span>
+      </div>
+    </a>
+
+    <a class="card" href="03-programming-languages/">
+      <div class="preview code">
+        <div class="preview-num">03 / Network</div>
+        <span>The Family Tree of Programming Languages</span>
+      </div>
+      <div class="body">
+        <div class="tag">Network graph · Timeline</div>
+        <h2>The Family Tree of Programming Languages</h2>
+        <p>Thirty languages from Fortran (1957) to Swift (2014), arranged on a timeline and connected by lines of influence. Filter by paradigm, click a node, follow the threads forward or backward.</p>
+        <span class="arrow">Open infographic →</span>
+      </div>
+    </a>
+
+    <a class="card" href="04-smartphone-anatomy/">
+      <div class="preview phone">
+        <div class="preview-num">04 / Anatomy</div>
+        <span>Anatomy of a Smartphone</span>
+      </div>
+      <div class="body">
+        <div class="tag">Anatomy · Cutaway · Hotspots</div>
+        <h2>Anatomy of a Smartphone</h2>
+        <p>Toggle between exterior and interior cutaway views. Click any of fifteen labelled components — from the OLED display to the Taptic Engine — to read what it does and why it matters.</p>
+        <span class="arrow">Open infographic →</span>
+      </div>
+    </a>
+
+    <a class="card" href="05-on-the-same-scale/">
+      <div class="preview scale">
+        <div class="preview-num">05 / Scale</div>
+        <span>On the Same Scale</span>
+      </div>
+      <div class="body">
+        <div class="tag">Comparative scale atlas</div>
+        <h2>On the Same Scale</h2>
+        <p>Four categories — buildings, living things, ocean depths, and planets — drawn to true relative size. Pick a tab and watch the brain finally process what "828 metres" actually means.</p>
+        <span class="arrow">Open infographic →</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    Built as part of a portfolio submission. Each file is self-contained — view source on any of them to see the full implementation.
+  </footer>
+</div>
+</body>
+</html>

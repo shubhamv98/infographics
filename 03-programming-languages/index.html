@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Family Tree of Programming Languages, 1957–2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f5f1e8;
+    --bg-paper: #ffffff;
+    --ink: #1a1a1a;
+    --ink-dim: #6b6b6b;
+    --line: #d8d2c4;
+
+    --p-procedural: #d97757;
+    --p-oop: #4a90a4;
+    --p-functional: #7a9c5e;
+    --p-scripting: #c89b3c;
+    --p-systems: #5a4a8a;
+    --p-logic: #a64d6c;
+    --p-multi: #2a2a2a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  /* paper texture */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(180,160,120,0.04), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(180,160,120,0.04), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 2;
+    padding: 60px 6vw 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--p-procedural);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    line-height: 1.05;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+    max-width: 900px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--p-procedural);
+  }
+  .lede {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 720px;
+    margin-bottom: 30px;
+  }
+
+  /* FILTERS */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .filter-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-right: 6px;
+  }
+  .chip {
+    border: 1px solid var(--line);
+    background: var(--bg-paper);
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--ink);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chip::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--c, #999);
+  }
+  .chip:hover { border-color: var(--c); }
+  .chip.active {
+    background: var(--c);
+    color: #fff;
+    border-color: var(--c);
+  }
+  .chip.active::before { background: #fff; }
+  .chip[data-p="all"] { --c: #2a2a2a; }
+  .chip[data-p="procedural"] { --c: var(--p-procedural); }
+  .chip[data-p="oop"]        { --c: var(--p-oop); }
+  .chip[data-p="functional"] { --c: var(--p-functional); }
+  .chip[data-p="scripting"]  { --c: var(--p-scripting); }
+  .chip[data-p="systems"]    { --c: var(--p-systems); }
+  .chip[data-p="logic"]      { --c: var(--p-logic); }
+  .chip[data-p="multi"]      { --c: var(--p-multi); }
+
+  /* TREE */
+  .tree-wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 4vw 60px;
+  }
+  .tree-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 1px solid var(--line);
+    background: var(--bg-paper);
+    border-radius: 14px;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.04);
+  }
+  .tree-svg {
+    display: block;
+    min-width: 1200px;
+    width: 100%;
+    height: 700px;
+  }
+  .tree-svg .axis-line {
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+  .tree-svg .decade-tick {
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+  .tree-svg .decade-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    fill: var(--ink-dim);
+    letter-spacing: 0.15em;
+  }
+  .tree-svg .lane-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9.5px;
+    fill: var(--ink-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .tree-svg .lane-bg {
+    fill: rgba(0,0,0,0.015);
+  }
+  .tree-svg .link {
+    fill: none;
+    stroke: var(--ink-dim);
+    stroke-width: 1.2;
+    opacity: 0.25;
+    transition: opacity 0.2s, stroke-width 0.2s;
+  }
+  .tree-svg .link.highlight {
+    opacity: 1;
+    stroke-width: 2.4;
+  }
+  .tree-svg .node circle {
+    cursor: pointer;
+    transition: r 0.2s, stroke-width 0.2s;
+    stroke: var(--bg-paper);
+    stroke-width: 2.5;
+  }
+  .tree-svg .node text {
+    pointer-events: none;
+    font-family: "Inter", sans-serif;
+    font-size: 11.5px;
+    font-weight: 500;
+    fill: var(--ink);
+    transition: opacity 0.2s;
+  }
+  .tree-svg .node:hover circle,
+  .tree-svg .node.selected circle {
+    stroke-width: 4;
+  }
+  .tree-svg .node.dim { opacity: 0.18; }
+  .tree-svg .node.dim text { opacity: 0.4; }
+
+  /* DETAIL */
+  .detail {
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    padding: 0 6vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .detail { grid-template-columns: 1fr; }
+  }
+  .detail-card {
+    border-top: 4px solid var(--c, var(--ink));
+    padding-top: 24px;
+  }
+  .detail-card .meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c);
+    margin-bottom: 10px;
+  }
+  .detail-card h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .detail-card .creator {
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+  .detail-card .blurb {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .detail-side .row {
+    border-top: 1px solid var(--line);
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+  .detail-side .row:last-child { border-bottom: 1px solid var(--line); }
+  .detail-side .row .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .detail-side .row .v {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .detail-side .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    margin: 2px 4px 2px 0;
+    cursor: pointer;
+  }
+  .detail-side .pill:hover {
+    border-color: var(--ink);
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 6vw 60px;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    border-top: 1px solid var(--line);
+    max-width: 1400px;
+    margin: 40px auto 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">A Genealogy in Code · 1957 – 2024</div>
+  <h1>The Family Tree of <em>Programming Languages</em></h1>
+  <p class="lede">Every modern language is a remix. Click a node to see what it borrowed, who built it, and what it inspired. Curves trace direct lines of influence — not every connection, but the ones that mattered most.</p>
+  <div class="filters">
+    <span class="filter-label">Paradigm</span>
+    <button class="chip active" data-p="all">All</button>
+    <button class="chip" data-p="procedural">Procedural</button>
+    <button class="chip" data-p="oop">Object-oriented</button>
+    <button class="chip" data-p="functional">Functional</button>
+    <button class="chip" data-p="scripting">Scripting</button>
+    <button class="chip" data-p="systems">Systems</button>
+    <button class="chip" data-p="logic">Logic</button>
+    <button class="chip" data-p="multi">Multi-paradigm</button>
+  </div>
+</header>
+
+<div class="tree-wrap">
+  <div class="tree-scroll">
+    <svg class="tree-svg" id="tree" viewBox="0 0 1400 700" preserveAspectRatio="xMinYMid meet"></svg>
+  </div>
+</div>
+
+<section class="detail">
+  <div class="detail-card" id="detailCard">
+    <div class="meta" id="d-meta">— Select a language —</div>
+    <h2 id="d-name">Click any node above</h2>
+    <div class="creator" id="d-creator">to learn more about it.</div>
+    <p class="blurb" id="d-blurb">The graph above shows roughly six decades of language evolution. Choose a starting point — Fortran, Lisp, or anything else — and trace its influence forward, or its ancestry backward.</p>
+  </div>
+  <div class="detail-side">
+    <div class="row"><div class="k">Year</div><div class="v" id="d-year">—</div></div>
+    <div class="row"><div class="k">Paradigm</div><div class="v" id="d-paradigm">—</div></div>
+    <div class="row"><div class="k">Influenced by</div><div class="v" id="d-parents">—</div></div>
+    <div class="row"><div class="k">Influenced</div><div class="v" id="d-children">—</div></div>
+  </div>
+</section>
+
+<footer>
+  Built as a single self-contained HTML page. No frameworks. Influence relationships drawn from language design papers and creator interviews. Many simplifications, but the spirit is right.
+</footer>
+
+<script>
+const LANGS = [
+  { id: "fortran",   name: "Fortran",     year: 1957, paradigm: "procedural", creator: "John Backus, IBM",
+    blurb: "The first high-level language to see widespread use. Fortran (Formula Translation) made scientific computing democratic — programmers no longer had to write machine code by hand. Still in use today for numerical work.",
+    parents: [], size: 13 },
+  { id: "lisp",      name: "Lisp",        year: 1958, paradigm: "functional", creator: "John McCarthy, MIT",
+    blurb: "The second-oldest high-level language. Lisp introduced recursion, garbage collection, dynamic typing, and the idea that code is data. AI research was built on it for decades.",
+    parents: [], size: 14 },
+  { id: "algol",     name: "Algol",       year: 1958, paradigm: "procedural", creator: "International committee",
+    blurb: "Less commercially successful than Fortran or COBOL, but Algol's clean syntax — block structure, lexical scoping, recursion — became the template every modern language quietly inherited.",
+    parents: [], size: 14 },
+  { id: "cobol",     name: "COBOL",       year: 1959, paradigm: "procedural", creator: "Grace Hopper et al.",
+    blurb: "Designed for business data processing with English-like syntax. Still runs trillions of dollars of banking transactions. The most underrated language on this graph.",
+    parents: [], size: 11 },
+  { id: "basic",     name: "BASIC",       year: 1964, paradigm: "procedural", creator: "Kemeny & Kurtz, Dartmouth",
+    blurb: "Designed to teach beginners. When personal computers arrived in the late 70s, BASIC came pre-installed on most of them — making it the first programming language for an entire generation.",
+    parents: ["fortran","algol"], size: 10 },
+  { id: "simula",    name: "Simula",      year: 1967, paradigm: "oop", creator: "Dahl & Nygaard",
+    blurb: "Invented objects, classes, and inheritance — the entire foundation of object-oriented programming. Almost every OOP language traces back to Simula.",
+    parents: ["algol"], size: 10 },
+  { id: "pascal",    name: "Pascal",      year: 1970, paradigm: "procedural", creator: "Niklaus Wirth",
+    blurb: "Influential in computer science education through the 1970s and 80s. Strongly typed, structured, and clean. Turbo Pascal made it commercially huge.",
+    parents: ["algol"], size: 10 },
+  { id: "c",         name: "C",           year: 1972, paradigm: "procedural", creator: "Dennis Ritchie, Bell Labs",
+    blurb: "Written to build Unix. C gave programmers fine-grained control over memory while remaining portable. Half the languages that came after it are reactions to its strengths or its sharp edges.",
+    parents: ["algol"], size: 16 },
+  { id: "smalltalk", name: "Smalltalk",   year: 1972, paradigm: "oop", creator: "Alan Kay, Xerox PARC",
+    blurb: "The purest object-oriented language ever made — everything is an object, everything is a message. Inspired the GUI, the mouse, modern IDEs, and most OOP since.",
+    parents: ["simula","lisp"], size: 12 },
+  { id: "prolog",    name: "Prolog",      year: 1972, paradigm: "logic", creator: "Colmerauer & Roussel",
+    blurb: "You don't write algorithms in Prolog — you write facts and rules, and the language figures out the algorithm. The flagship of logic programming.",
+    parents: [], size: 9 },
+  { id: "sql",       name: "SQL",         year: 1974, paradigm: "logic", creator: "Donald Chamberlin, IBM",
+    blurb: "A declarative query language that became the lingua franca of databases. Fifty years on, every backend engineer still writes it.",
+    parents: [], size: 11 },
+  { id: "ml",        name: "ML",          year: 1973, paradigm: "functional", creator: "Robin Milner",
+    blurb: "Introduced static type inference — let the compiler figure out the types so you don't have to. The intellectual root of OCaml, F#, Haskell, Rust's type system, and Swift.",
+    parents: ["lisp"], size: 9 },
+  { id: "cpp",       name: "C++",         year: 1985, paradigm: "oop", creator: "Bjarne Stroustrup",
+    blurb: "C, but with classes. Stroustrup wanted Simula's object model on Unix-class hardware. The result became the language of operating systems, browsers, and games.",
+    parents: ["c","simula"], size: 14 },
+  { id: "objc",      name: "Objective-C", year: 1984, paradigm: "oop", creator: "Brad Cox & Tom Love",
+    blurb: "C plus Smalltalk's messaging syntax. NeXT adopted it; Apple inherited it. For 25 years, it was the language of every iPhone app.",
+    parents: ["c","smalltalk"], size: 9 },
+  { id: "perl",      name: "Perl",        year: 1987, paradigm: "scripting", creator: "Larry Wall",
+    blurb: "The duct tape of the early web. Perl made text processing trivial and gave us regular expressions as a first-class tool. Often ugly, always pragmatic.",
+    parents: ["c"], size: 10 },
+  { id: "haskell",   name: "Haskell",     year: 1990, paradigm: "functional", creator: "Academic committee",
+    blurb: "Pure, lazy, statically typed. Haskell took ML's ideas to their logical conclusion and became the language people use to think about what programming languages should be.",
+    parents: ["ml"], size: 10 },
+  { id: "python",    name: "Python",      year: 1991, paradigm: "multi", creator: "Guido van Rossum",
+    blurb: "A scripting language that grew up. Readable, batteries-included, and so versatile it now dominates data science, AI, automation, and education.",
+    parents: ["c","lisp"], size: 16 },
+  { id: "lua",       name: "Lua",         year: 1993, paradigm: "scripting", creator: "PUC-Rio team",
+    blurb: "Tiny, fast, embeddable. Lua is the scripting language hidden inside everything from World of Warcraft to Adobe Photoshop to Roblox.",
+    parents: ["c"], size: 8 },
+  { id: "r",         name: "R",           year: 1993, paradigm: "functional", creator: "Ihaka & Gentleman",
+    blurb: "Built by statisticians for statisticians. R is the language behind a generation of academic data analysis and the predecessor to today's Python data ecosystem.",
+    parents: ["lisp"], size: 9 },
+  { id: "java",      name: "Java",        year: 1995, paradigm: "oop", creator: "James Gosling, Sun",
+    blurb: "Write once, run anywhere — on a virtual machine. Java's ubiquity in enterprise software is hard to overstate. For 20 years, it was the default first language taught in universities.",
+    parents: ["cpp","smalltalk"], size: 15 },
+  { id: "js",        name: "JavaScript",  year: 1995, paradigm: "multi", creator: "Brendan Eich (10 days)",
+    blurb: "Designed in 10 days at Netscape. Now the only language that runs natively in every browser on Earth. Mocked, then unkillable, then loved.",
+    parents: ["java","lisp"], size: 16 },
+  { id: "php",       name: "PHP",         year: 1995, paradigm: "scripting", creator: "Rasmus Lerdorf",
+    blurb: "Glued the early web together. Wikipedia, Facebook, and roughly 75% of all websites still run on PHP. Constantly criticised, constantly used.",
+    parents: ["c","perl"], size: 10 },
+  { id: "ruby",      name: "Ruby",        year: 1995, paradigm: "oop", creator: "Yukihiro Matsumoto",
+    blurb: "Designed for programmer happiness. When Rails arrived in 2004, Ruby became the language of the modern web startup for nearly a decade.",
+    parents: ["smalltalk","perl"], size: 10 },
+  { id: "csharp",    name: "C#",          year: 2000, paradigm: "oop", creator: "Anders Hejlsberg, Microsoft",
+    blurb: "Microsoft's response to Java. Started as a near-clone, evolved into one of the most thoughtfully designed mainstream languages, especially since async/await.",
+    parents: ["java","cpp"], size: 12 },
+  { id: "scala",     name: "Scala",       year: 2003, paradigm: "functional", creator: "Martin Odersky",
+    blurb: "Functional programming on the JVM, with seamless Java interop. Powered Twitter's backend during its scale years.",
+    parents: ["java","haskell"], size: 9 },
+  { id: "go",        name: "Go",          year: 2009, paradigm: "procedural", creator: "Google (Pike, Thompson, Griesemer)",
+    blurb: "A reaction to C++ complexity. Go is small, opinionated, and built for concurrent systems. Docker and Kubernetes both ride on it.",
+    parents: ["c"], size: 11 },
+  { id: "rust",      name: "Rust",        year: 2010, paradigm: "systems", creator: "Graydon Hoare, Mozilla",
+    blurb: "Memory safety without garbage collection — a thirty-year-old problem solved. Rust is steadily replacing C++ in performance-critical software.",
+    parents: ["cpp","ml","haskell"], size: 12 },
+  { id: "kotlin",    name: "Kotlin",      year: 2011, paradigm: "oop", creator: "JetBrains",
+    blurb: "Java without the rough edges. In 2017, Google made it the official language of Android — and millions of apps moved over.",
+    parents: ["java","scala"], size: 10 },
+  { id: "ts",        name: "TypeScript",  year: 2012, paradigm: "multi", creator: "Anders Hejlsberg, Microsoft",
+    blurb: "JavaScript with optional static types — a deceptively powerful idea. In a decade, TypeScript went from curiosity to default for most large web codebases.",
+    parents: ["js","csharp"], size: 13 },
+  { id: "swift",     name: "Swift",       year: 2014, paradigm: "multi", creator: "Chris Lattner, Apple",
+    blurb: "Apple's modern replacement for Objective-C. Combines C-family familiarity with the safety ideas of Rust and the expressiveness of functional languages.",
+    parents: ["objc","rust"], size: 11 }
+];
+
+const PARADIGMS = {
+  procedural: { color: "var(--p-procedural)", lane: 5 },
+  oop:        { color: "var(--p-oop)",        lane: 2 },
+  functional: { color: "var(--p-functional)", lane: 1 },
+  scripting:  { color: "var(--p-scripting)",  lane: 4 },
+  systems:    { color: "var(--p-systems)",    lane: 6 },
+  logic:      { color: "var(--p-logic)",      lane: 0 },
+  multi:      { color: "var(--p-multi)",      lane: 3 }
+};
+const PARADIGM_LABEL = {
+  procedural: "Procedural",
+  oop: "Object-oriented",
+  functional: "Functional",
+  scripting: "Scripting",
+  systems: "Systems",
+  logic: "Logic / Declarative",
+  multi: "Multi-paradigm"
+};
+
+const W = 1400, H = 700;
+const PAD = { l: 130, r: 50, t: 50, b: 50 };
+const yearMin = 1955, yearMax = 2025;
+const LANES = 7; // 0..6
+const innerW = W - PAD.l - PAD.r;
+const innerH = H - PAD.t - PAD.b;
+const laneH = innerH / LANES;
+
+function xOf(year) { return PAD.l + ((year - yearMin) / (yearMax - yearMin)) * innerW; }
+function yOfLane(lane) { return PAD.t + lane * laneH + laneH / 2; }
+
+// Position each language; if multiple share a year+lane, jitter Y
+const positioned = LANGS.map(l => ({ ...l }));
+const buckets = {};
+positioned.forEach(l => {
+  const lane = PARADIGMS[l.paradigm].lane;
+  const key = lane + ":" + Math.floor(l.year / 4); // group nearby years in same lane
+  buckets[key] = buckets[key] || [];
+  buckets[key].push(l);
+});
+Object.values(buckets).forEach(arr => {
+  arr.forEach((l, i) => {
+    const lane = PARADIGMS[l.paradigm].lane;
+    const offset = (i - (arr.length - 1) / 2) * 22;
+    l._x = xOf(l.year);
+    l._y = yOfLane(lane) + offset;
+    l._color = PARADIGMS[l.paradigm].color;
+  });
+});
+const byId = Object.fromEntries(positioned.map(l => [l.id, l]));
+
+// SVG render
+const svg = document.getElementById("tree");
+let html = "";
+
+// Lane backgrounds + labels
+for (let i = 0; i < LANES; i++) {
+  const paradigm = Object.keys(PARADIGMS).find(p => PARADIGMS[p].lane === i);
+  if (!paradigm) continue;
+  if (i % 2 === 0) {
+    html += `<rect class="lane-bg" x="${PAD.l}" y="${PAD.t + i * laneH}" width="${innerW}" height="${laneH}" />`;
+  }
+  html += `<text class="lane-label" x="${PAD.l - 16}" y="${yOfLane(i) + 4}" text-anchor="end">${PARADIGM_LABEL[paradigm]}</text>`;
+}
+
+// X axis
+html += `<line class="axis-line" x1="${PAD.l}" y1="${H - PAD.b}" x2="${W - PAD.r}" y2="${H - PAD.b}" />`;
+for (let y = 1960; y <= 2020; y += 10) {
+  const x = xOf(y);
+  html += `<line class="decade-tick" x1="${x}" y1="${H - PAD.b}" x2="${x}" y2="${H - PAD.b + 6}" />`;
+  html += `<text class="decade-label" x="${x}" y="${H - PAD.b + 22}" text-anchor="middle">${y}</text>`;
+}
+
+// Links (parent -> child)
+positioned.forEach(child => {
+  child.parents.forEach(pid => {
+    const parent = byId[pid];
+    if (!parent) return;
+    const x1 = parent._x, y1 = parent._y;
+    const x2 = child._x, y2 = child._y;
+    const cx = (x1 + x2) / 2;
+    // smooth bezier
+    const path = `M ${x1} ${y1} C ${cx} ${y1}, ${cx} ${y2}, ${x2} ${y2}`;
+    html += `<path class="link" data-from="${pid}" data-to="${child.id}" d="${path}" />`;
+  });
+});
+
+// Nodes
+positioned.forEach(l => {
+  html += `
+    <g class="node" data-id="${l.id}" data-paradigm="${l.paradigm}" transform="translate(${l._x}, ${l._y})">
+      <circle r="${l.size / 2 + 4}" fill="${l._color}" fill-opacity="0.18" stroke="none"/>
+      <circle r="${l.size / 2}" fill="${l._color}"/>
+      <text x="${l.size / 2 + 7}" y="4">${l.name}</text>
+    </g>`;
+});
+
+svg.innerHTML = html;
+
+// Interaction
+const nodes = svg.querySelectorAll(".node");
+const links = svg.querySelectorAll(".link");
+
+function selectLanguage(id) {
+  const l = byId[id];
+  if (!l) return;
+
+  nodes.forEach(n => n.classList.remove("selected"));
+  links.forEach(p => p.classList.remove("highlight"));
+
+  const node = svg.querySelector(`.node[data-id="${id}"]`);
+  if (node) node.classList.add("selected");
+
+  links.forEach(p => {
+    if (p.dataset.from === id || p.dataset.to === id) p.classList.add("highlight");
+  });
+
+  const card = document.getElementById("detailCard");
+  card.style.setProperty("--c", l._color);
+  document.getElementById("d-meta").textContent = `${l.year} · ${PARADIGM_LABEL[l.paradigm]}`;
+  document.getElementById("d-name").textContent = l.name;
+  document.getElementById("d-creator").textContent = "by " + l.creator;
+  document.getElementById("d-blurb").textContent = l.blurb;
+  document.getElementById("d-year").textContent = l.year;
+  document.getElementById("d-paradigm").textContent = PARADIGM_LABEL[l.paradigm];
+
+  const parents = l.parents.length
+    ? l.parents.map(pid => byId[pid] ? `<span class="pill" data-jump="${pid}">${byId[pid].name}</span>` : "").join("")
+    : "<span style='color:var(--ink-dim)'>None — original design</span>";
+  document.getElementById("d-parents").innerHTML = parents;
+
+  const children = positioned.filter(x => x.parents.includes(l.id));
+  document.getElementById("d-children").innerHTML = children.length
+    ? children.map(c => `<span class="pill" data-jump="${c.id}">${c.name}</span>`).join("")
+    : "<span style='color:var(--ink-dim)'>—</span>";
+
+  document.querySelectorAll(".pill[data-jump]").forEach(p => {
+    p.addEventListener("click", () => selectLanguage(p.dataset.jump));
+  });
+}
+
+nodes.forEach(n => {
+  n.addEventListener("click", () => selectLanguage(n.dataset.id));
+  n.addEventListener("mouseenter", () => {
+    if (!svg.querySelector(".node.selected")) {
+      links.forEach(p => p.classList.remove("highlight"));
+      links.forEach(p => {
+        if (p.dataset.from === n.dataset.id || p.dataset.to === n.dataset.id) p.classList.add("highlight");
+      });
+    }
+  });
+});
+
+// Filters
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    const p = chip.dataset.p;
+    nodes.forEach(n => {
+      if (p === "all" || n.dataset.paradigm === p) n.classList.remove("dim");
+      else n.classList.add("dim");
+    });
+    links.forEach(link => {
+      if (p === "all") {
+        link.style.opacity = "";
+      } else {
+        const from = byId[link.dataset.from], to = byId[link.dataset.to];
+        if ((from && from.paradigm === p) || (to && to.paradigm === p)) {
+          link.style.opacity = 0.5;
+        } else {
+          link.style.opacity = 0.05;
+        }
+      }
+    });
+  });
+});
+
+// Pre-select Python
+selectLanguage("python");
+</script>
+</body>
+</html>

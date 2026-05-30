@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How Deep Is the Ocean? — A Vertical Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #f5f6fa;
+    --ink-dim: rgba(245, 246, 250, 0.6);
+    --accent: #79e0ff;
+    --line: rgba(255, 255, 255, 0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #001b2e;
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ============ INTRO ============ */
+  .intro {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 6vw;
+    background: linear-gradient(180deg, #87ceeb 0%, #4ba3d4 50%, #1d6fa5 100%);
+    color: #00263d;
+    position: relative;
+    overflow: hidden;
+  }
+  .intro::before {
+    content: "";
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 80px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'><path d='M0,40 Q150,0 300,40 T600,40 T900,40 T1200,40 V80 H0 Z' fill='%23001b2e'/></svg>") no-repeat;
+    background-size: 100% 100%;
+  }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #003a5c;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .intro h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: clamp(2.6rem, 6vw, 5.5rem);
+    line-height: 1;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .intro h1 em {
+    font-style: italic;
+    color: #fff;
+    text-shadow: 0 4px 30px rgba(0, 50, 90, 0.4);
+  }
+  .intro p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 620px;
+    color: #002740;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 110px;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #00263d;
+    animation: bob 2s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50% { transform: translateY(8px); opacity: 1; }
+  }
+
+  /* ============ DIVE COLUMN ============ */
+  .dive {
+    position: relative;
+    background: linear-gradient(180deg,
+      #001b2e 0%,
+      #001428 8%,
+      #000c1c 25%,
+      #000610 45%,
+      #000208 70%,
+      #000000 100%);
+    padding-top: 60px;
+    padding-bottom: 200px;
+  }
+
+  .ruler {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 100vh;
+    width: 90px;
+    float: left;
+    margin-left: max(2vw, 20px);
+    border-right: 1px solid var(--line);
+    pointer-events: none;
+  }
+  .ruler-track {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  .ruler-current {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 12px;
+    transform: translateY(-50%);
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+  }
+  .ruler-current .num {
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .ruler-current .unit {
+    font-family: "Inter", sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-top: 4px;
+  }
+  .ruler-label {
+    position: absolute;
+    top: calc(50% + 50px);
+    left: 0;
+    right: 12px;
+    text-align: right;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+
+  .stations {
+    position: relative;
+    margin-left: 110px;
+    padding: 0 6vw 0 40px;
+    max-width: 900px;
+  }
+
+  .station {
+    position: relative;
+    min-height: 70vh;
+    padding: 100px 0;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .station.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .station:first-child { border-top: none; }
+
+  .station-icon {
+    flex-shrink: 0;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+  }
+  .station-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  .station-content { flex: 1; min-width: 0; }
+  .depth-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+  }
+  .station h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .station p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 540px;
+  }
+  .station p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Zone banners */
+  .zone-banner {
+    position: relative;
+    margin: 60px 0 20px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .zone-banner .zone-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .zone-banner h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .zone-banner p {
+    font-size: 0.92rem;
+    color: var(--ink-dim);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  /* End / scale comparison */
+  .finale {
+    position: relative;
+    background: linear-gradient(180deg, #000 0%, #050514 100%);
+    padding: 120px 6vw;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .finale h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    margin-bottom: 30px;
+    line-height: 1.1;
+  }
+  .finale h2 em { font-style: italic; color: var(--accent); }
+  .compare {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 40px;
+    margin-top: 60px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+  }
+  .compare-bar {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+  .compare-bar .bar {
+    width: 60px;
+    background: linear-gradient(180deg, var(--accent), #1a4d6b);
+    margin-bottom: 12px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+  }
+  .compare-bar.land .bar {
+    background: linear-gradient(180deg, #d4a373 0%, #8b5a2b 100%);
+  }
+  .compare-bar .label {
+    font-size: 0.78rem;
+    color: var(--ink);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .compare-bar .num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.2rem;
+    color: var(--ink-dim);
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 6vw 50px;
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    background: #050514;
+  }
+
+  /* Marine life icons - subtle bobbing */
+  .station-icon svg .float {
+    animation: float 4s ease-in-out infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+</style>
+</head>
+<body>
+
+<section class="intro">
+  <div class="eyebrow">A Vertical Journey</div>
+  <h1>How Deep Is the <em>Ocean?</em></h1>
+  <p>Scroll downward. We'll start at the sunlit surface and descend, station by station, all the way to the deepest point on Earth — almost 11 kilometres below sea level.</p>
+  <div class="scroll-hint">↓ Begin Descent</div>
+</section>
+
+<div class="dive">
+  <div class="ruler">
+    <div class="ruler-track">
+      <div class="ruler-current">
+        <div class="num" id="depthNum">0</div>
+        <div class="unit">metres</div>
+      </div>
+      <div class="ruler-label" id="depthLabel">SURFACE</div>
+    </div>
+  </div>
+
+  <div class="stations">
+
+    <div class="zone-banner">
+      <div class="zone-eyebrow">Zone 01 — Epipelagic</div>
+      <h3>The Sunlight Zone</h3>
+      <p>0 to 200 metres. Nearly all the ocean's photosynthesis happens here. It's also where 90% of marine species we recognise live.</p>
+    </div>
+
+    <div class="station" data-depth="10" data-label="Reef">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M30 60 Q35 40 50 50 Q65 40 70 60 L65 65 Q50 60 35 65 Z" fill="#79e0ff" opacity="0.9"/>
+            <path d="M70 50 L78 45 L78 55 Z" fill="#79e0ff"/>
+            <circle cx="38" cy="52" r="2" fill="#001b2e"/>
+          </g>
+          <path d="M10 80 Q25 75 40 80 T80 80 T100 80" stroke="#79e0ff" stroke-width="1" fill="none" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−10 m</span>
+        <h2>Coral reefs and snorkelers</h2>
+        <p>Most of the world's coral reefs sit between 1 and 30 metres deep. Sunlight still penetrates strongly — reds and oranges in your photos start to wash out around <strong>10 metres</strong> as red wavelengths get absorbed first.</p>
+      </div>
+    </div>
+
+    <div class="station" data-depth="40" data-label="Recreational dive limit">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <circle cx="50" cy="35" r="10" fill="none" stroke="#79e0ff" stroke-width="2"/>
+            <path d="M50 45 L50 70 M50 50 L40 60 M50 50 L60 60 M50 70 L43 85 M50 70 L57 85" stroke="#79e0ff" stroke-width="2" stroke-linecap="round"/>
+            <rect x="58" y="42" width="6" height="14" rx="2" fill="#79e0ff" opacity="0.6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−40 m</span>
+        <h2>The recreational scuba limit</h2>
+        <p>Below this, nitrogen narcosis ("the rapture of the deep") starts to impair judgment. Without specialised gas mixes and training, <strong>40 metres</strong> is where amateur divers stop.</p>
+      </div>
+    </div>
+
+    <div class="station" data-depth="100" data-label="End of sunlight zone">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M20 50 Q30 30 50 35 Q70 30 80 50 Q70 70 50 65 Q30 70 20 50 Z" fill="#79e0ff" opacity="0.7"/>
+            <path d="M80 50 L88 42 L92 50 L88 58 Z" fill="#79e0ff"/>
+            <circle cx="32" cy="48" r="2" fill="#001b2e"/>
+            <path d="M40 55 L60 55" stroke="#001b2e" stroke-width="1.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−100 m</span>
+        <h2>Tuna country</h2>
+        <p>Bluefin tuna, marlin, and most large pelagic fish hunt here. Light begins to fade rapidly — only about 1% of surface light reaches <strong>100 metres</strong>.</p>
+      </div>
+    </div>
+
+    <div class="zone-banner" style="margin-top: 80px;">
+      <div class="zone-eyebrow">Zone 02 — Mesopelagic</div>
+      <h3>The Twilight Zone</h3>
+      <p>200 to 1,000 metres. Photosynthesis stops. Many creatures here make their own light through bioluminescence — the only light most of them ever see.</p>
+    </div>
+
+    <div class="station" data-depth="332" data-label="Deepest free dive">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <circle cx="50" cy="30" r="8" fill="#79e0ff"/>
+            <path d="M50 38 L50 65 M50 45 L38 55 M50 45 L62 55 M50 65 L42 80 M50 65 L58 80" stroke="#79e0ff" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M30 22 Q50 12 70 22" stroke="#79e0ff" stroke-width="1" fill="none" opacity="0.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−332 m</span>
+        <h2>The deepest free dive in history</h2>
+        <p>In 2012, Herbert Nitsch descended to <strong>253 metres</strong> on a single breath. The all-time no-limits record stands at 214 m for a return dive, but Nitsch reached 253 m one-way before blackout. The Burj Khalifa, for context, is 828 m tall.</p>
+      </div>
+    </div>
+
+    <div class="station" data-depth="600" data-label="Sperm whale hunting ground">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M15 50 Q25 35 50 38 Q80 35 90 48 L88 52 Q80 65 50 62 Q25 65 15 50 Z" fill="#79e0ff" opacity="0.8"/>
+            <path d="M15 50 L8 45 L10 55 Z" fill="#79e0ff"/>
+            <circle cx="80" cy="46" r="1.8" fill="#001b2e"/>
+            <path d="M70 55 Q73 60 76 55" stroke="#001b2e" stroke-width="1" fill="none"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−600 m</span>
+        <h2>Sperm whales hunt giant squid</h2>
+        <p>Sperm whales routinely dive to <strong>600 metres</strong>, and the deepest recorded dive reached 2,250 m. Their massive heads contain the largest brain on Earth — and a sonar system loud enough to stun their prey.</p>
+      </div>
+    </div>
+
+    <div class="station" data-depth="828" data-label="Burj Khalifa, inverted">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M48 10 L52 10 L52 30 L58 30 L58 50 L62 50 L62 70 L66 70 L66 90 L34 90 L34 70 L38 70 L38 50 L42 50 L42 30 L48 30 Z" fill="#d4a373" opacity="0.9"/>
+            <path d="M50 5 L50 12" stroke="#d4a373" stroke-width="2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−828 m</span>
+        <h2>If you flipped the Burj Khalifa upside down</h2>
+        <p>The world's tallest building is <strong>828 metres</strong> tall. Drop it tip-down into the sea and its base would still be hundreds of metres above the abyss below. We've barely begun.</p>
+      </div>
+    </div>
+
+    <div class="zone-banner" style="margin-top: 80px;">
+      <div class="zone-eyebrow">Zone 03 — Bathypelagic</div>
+      <h3>The Midnight Zone</h3>
+      <p>1,000 to 4,000 metres. No sunlight whatsoever. Pressure crushes at over 100 atmospheres. Most creatures here are black, transparent, or red — colours that vanish in deep water.</p>
+    </div>
+
+    <div class="station" data-depth="1000" data-label="Anglerfish territory">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M20 55 Q30 35 55 40 Q75 38 80 50 Q78 60 55 60 Q30 65 20 55 Z" fill="#79e0ff" opacity="0.6"/>
+            <path d="M80 50 L92 42 L92 58 Z" fill="#79e0ff" opacity="0.6"/>
+            <circle cx="65" cy="50" r="2" fill="#001b2e"/>
+            <path d="M55 45 L40 50 L55 50 L42 55 L55 53" stroke="#001b2e" stroke-width="1" fill="none"/>
+            <path d="M50 35 Q50 25 55 22" stroke="#79e0ff" stroke-width="1.5" fill="none"/>
+            <circle cx="55" cy="22" r="3" fill="#fff5cf"/>
+            <circle cx="55" cy="22" r="6" fill="#fff5cf" opacity="0.3"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−1,000 m</span>
+        <h2>Anglerfish and the bioluminescent dark</h2>
+        <p>The anglerfish dangles a glowing lure to attract prey in absolute darkness. Males of some species are 10× smaller than females — they bite and fuse permanently, surviving as a parasitic appendage.</p>
+      </div>
+    </div>
+
+    <div class="station" data-depth="3800" data-label="Titanic wreck">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M10 60 L90 60 L85 70 L15 70 Z" fill="#d4a373" opacity="0.6"/>
+            <rect x="35" y="48" width="30" height="12" fill="#d4a373" opacity="0.7"/>
+            <rect x="40" y="38" width="6" height="10" fill="#d4a373"/>
+            <rect x="50" y="35" width="6" height="13" fill="#d4a373"/>
+            <rect x="60" y="38" width="6" height="10" fill="#d4a373"/>
+            <path d="M5 75 Q20 78 40 75 T80 76 T100 75" stroke="#79e0ff" stroke-width="0.5" opacity="0.3"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−3,800 m</span>
+        <h2>The Titanic rests here</h2>
+        <p>The wreck of RMS Titanic sits at <strong>3,800 metres</strong> on the floor of the North Atlantic. The pressure is 380 atmospheres — equivalent to a small car balanced on every square inch. The ship is slowly being eaten by iron-loving bacteria.</p>
+      </div>
+    </div>
+
+    <div class="zone-banner" style="margin-top: 80px;">
+      <div class="zone-eyebrow">Zone 04 — Abyssopelagic</div>
+      <h3>The Abyssal Zone</h3>
+      <p>4,000 to 6,000 metres. The average depth of the world's oceans. Vast plains of soft sediment stretch for thousands of kilometres, dotted with hydrothermal vents.</p>
+    </div>
+
+    <div class="station" data-depth="4000" data-label="Abyssal plain — average ocean depth">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M0 70 Q25 65 50 70 T100 70 L100 100 L0 100 Z" fill="#79e0ff" opacity="0.2"/>
+            <ellipse cx="30" cy="68" rx="4" ry="2" fill="#79e0ff" opacity="0.6"/>
+            <ellipse cx="65" cy="70" rx="6" ry="2" fill="#79e0ff" opacity="0.5"/>
+            <ellipse cx="85" cy="69" rx="3" ry="1.5" fill="#79e0ff" opacity="0.7"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−4,000 m</span>
+        <h2>The average ocean floor</h2>
+        <p>Average depth of all the world's oceans is roughly <strong>3,700 metres</strong>. Abyssal plains are the flattest places on the planet — flatter than any prairie, sometimes for 1,000 km without a single rise.</p>
+      </div>
+    </div>
+
+    <div class="station" data-depth="6000" data-label="Abyss / Hadal boundary">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M20 50 Q35 35 50 40 Q70 38 78 55 Q70 65 50 62 Q35 65 20 50 Z" fill="none" stroke="#79e0ff" stroke-width="1" opacity="0.7"/>
+            <path d="M78 55 L88 50 L88 62 Z" fill="none" stroke="#79e0ff" stroke-width="1"/>
+            <circle cx="65" cy="50" r="2" fill="#79e0ff"/>
+            <path d="M30 50 L25 50 M40 45 L35 42 M40 55 L35 58" stroke="#79e0ff" stroke-width="0.8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−6,000 m</span>
+        <h2>Ghostly amphipods and translucent fish</h2>
+        <p>Below 6,000 metres, life becomes alien. Most fish are translucent or pale pink. The deepest fish ever recorded — a snailfish — was filmed at 8,336 m.</p>
+      </div>
+    </div>
+
+    <div class="zone-banner" style="margin-top: 80px;">
+      <div class="zone-eyebrow">Zone 05 — Hadalpelagic</div>
+      <h3>The Hadal Zone</h3>
+      <p>Below 6,000 metres. Named after Hades. Found only in the deepest ocean trenches. Pressure here can exceed 1,000 atmospheres — equivalent to 50 fully-loaded jumbo jets stacked on your head.</p>
+    </div>
+
+    <div class="station" data-depth="8848" data-label="Mount Everest, inverted">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <path d="M10 20 L50 80 L90 20 L75 35 L65 25 L50 45 L35 25 L25 35 Z" fill="#d4a373" opacity="0.7"/>
+            <path d="M40 70 L50 80 L60 70 L55 65 L50 70 L45 65 Z" fill="#fff" opacity="0.6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−8,848 m</span>
+        <h2>Mount Everest could fit, peak-down — and still not touch bottom</h2>
+        <p>Drop the world's tallest mountain into the Mariana Trench, summit pointing down, and its base would still be more than <strong>2 kilometres above</strong> the deepest point. The trench is genuinely difficult to comprehend.</p>
+      </div>
+    </div>
+
+    <div class="station" data-depth="10935" data-label="Challenger Deep — bottom of the world">
+      <div class="station-icon">
+        <svg viewBox="0 0 100 100" fill="none">
+          <g class="float">
+            <circle cx="50" cy="50" r="20" fill="none" stroke="#79e0ff" stroke-width="2"/>
+            <circle cx="50" cy="50" r="14" fill="#79e0ff" opacity="0.2"/>
+            <rect x="44" y="48" width="12" height="6" rx="1" fill="#79e0ff"/>
+            <path d="M30 50 L20 45 M70 50 L80 45" stroke="#79e0ff" stroke-width="1.5"/>
+            <circle cx="50" cy="50" r="28" fill="none" stroke="#79e0ff" stroke-width="0.5" opacity="0.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="station-content">
+        <span class="depth-tag">−10,935 m</span>
+        <h2>Challenger Deep. The bottom.</h2>
+        <p>The deepest known point in any ocean. Only a handful of humans have ever reached it — including James Cameron in 2012, alone, in a submersible called the Deepsea Challenger. The pressure here is <strong>1,086 times</strong> sea-level atmospheric pressure. And yet — there is still life. Microbes, amphipods, even small fish.</p>
+      </div>
+    </div>
+
+  </div>
+  <div style="clear: both;"></div>
+</div>
+
+<section class="finale">
+  <h2>Earth's deepest point is <em>further down</em> than its highest point is up.</h2>
+  <p style="color: var(--ink-dim); max-width: 580px; margin: 0 auto; line-height: 1.6;">A side-by-side, drawn to the same vertical scale.</p>
+  <div class="compare">
+    <div class="compare-bar land">
+      <div class="bar" style="height: 296px;"></div>
+      <div class="label">Mt. Everest</div>
+      <div class="num">8,848 m</div>
+    </div>
+    <div class="compare-bar land">
+      <div class="bar" style="height: 28px;"></div>
+      <div class="label">Burj Khalifa</div>
+      <div class="num">828 m</div>
+    </div>
+    <div style="width: 4px; align-self: stretch; background: rgba(255,255,255,0.3);"></div>
+    <div class="compare-bar">
+      <div class="bar" style="height: 127px;"></div>
+      <div class="label">Titanic Wreck</div>
+      <div class="num">3,800 m</div>
+    </div>
+    <div class="compare-bar">
+      <div class="bar" style="height: 365px;"></div>
+      <div class="label">Challenger Deep</div>
+      <div class="num">10,935 m</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built as a single self-contained HTML page. Data: NOAA, JAMSTEC, Smithsonian Ocean. No frameworks, no dependencies.
+</footer>
+
+<script>
+  const stations = document.querySelectorAll('.station');
+  const depthNum = document.getElementById('depthNum');
+  const depthLabel = document.getElementById('depthLabel');
+  let current = { depth: 0, label: 'SURFACE' };
+
+  // Reveal stations as they come in
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.2 });
+  stations.forEach(s => io.observe(s));
+
+  // Track depth ruler based on which station is most centred
+  function updateRuler() {
+    let closest = null;
+    let closestDist = Infinity;
+    stations.forEach(s => {
+      const r = s.getBoundingClientRect();
+      const center = (r.top + r.bottom) / 2;
+      const viewCenter = window.innerHeight / 2;
+      const dist = Math.abs(center - viewCenter);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = s;
+      }
+    });
+    if (closest) {
+      const target = parseInt(closest.dataset.depth, 10);
+      const label = closest.dataset.label || '';
+      animateDepth(target, label);
+    }
+  }
+  function animateDepth(target, label) {
+    if (current.depth === target) return;
+    const start = current.depth;
+    const dur = 600;
+    const t0 = performance.now();
+    function tick(t) {
+      const k = Math.min(1, (t - t0) / dur);
+      const ease = 1 - Math.pow(1 - k, 3);
+      const v = Math.round(start + (target - start) * ease);
+      depthNum.textContent = v.toLocaleString();
+      if (k < 1) requestAnimationFrame(tick);
+      else { current.depth = target; }
+    }
+    requestAnimationFrame(tick);
+    depthLabel.textContent = label;
+    current.label = label;
+  }
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => { updateRuler(); ticking = false; });
+      ticking = true;
+    }
+  });
+  updateRuler();
+</script>
+</body>
+</html>

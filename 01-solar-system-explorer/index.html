@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Atlas of the Solar System — An Interactive Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-0: #050714;
+    --bg-1: #0a0e24;
+    --ink: #e8eaf2;
+    --ink-dim: #8a90a8;
+    --accent: #ffd166;
+    --line: rgba(255, 255, 255, 0.08);
+    --panel: rgba(255, 255, 255, 0.04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg-0);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 80% 10%, #fff, transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,.7), transparent),
+      radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,.5), transparent),
+      radial-gradient(1px 1px at 90% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 10% 50%, rgba(255,255,255,.6), transparent),
+      radial-gradient(1px 1px at 50% 20%, rgba(255,255,255,.8), transparent),
+      radial-gradient(2px 2px at 75% 40%, #fff, transparent),
+      radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,.4), transparent),
+      radial-gradient(1px 1px at 5% 90%, #fff, transparent);
+    background-size: 100% 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, var(--bg-0) 90%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  header {
+    position: relative;
+    z-index: 2;
+    padding: 60px 6vw 30px;
+    text-align: center;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    line-height: 1.05;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .lede {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  main {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 40px;
+    padding: 40px 6vw 80px;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+  @media (max-width: 980px) {
+    main { grid-template-columns: 1fr; }
+  }
+
+  /* SOLAR SYSTEM */
+  .system {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    background:
+      radial-gradient(circle at center, rgba(255, 209, 102, 0.06), transparent 60%),
+      var(--bg-1);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .sun {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at 35% 35%, #fff5cf 0%, #ffd166 35%, #ff7e21 75%, #b03200 100%);
+    box-shadow:
+      0 0 30px rgba(255, 209, 102, 0.6),
+      0 0 80px rgba(255, 126, 33, 0.35),
+      0 0 140px rgba(255, 126, 33, 0.15);
+    z-index: 5;
+  }
+  .sun::after {
+    content: "";
+    position: absolute; inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 209, 102, 0.4), transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.15); opacity: 0.9; }
+  }
+  .orbit {
+    position: absolute;
+    left: 50%; top: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .planet-wrap {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform-origin: 0 0;
+    animation-name: orbit;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  @keyframes orbit {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .planet {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .planet:hover {
+    transform: translate(-50%, -50%) scale(1.4);
+    box-shadow: 0 0 20px currentColor;
+  }
+  .planet.active {
+    box-shadow: 0 0 0 3px var(--accent), 0 0 30px var(--accent);
+  }
+  .planet-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .planet:hover + .planet-label,
+  .planet.active + .planet-label {
+    opacity: 1;
+  }
+
+  /* DETAIL PANEL */
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 36px 32px;
+    backdrop-filter: blur(10px);
+    align-self: start;
+    position: sticky;
+    top: 30px;
+  }
+  .panel-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .panel h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 2.6rem;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .panel-sub {
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 24px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .stat-value {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  .stat-value small {
+    font-family: "Inter", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--ink-dim);
+    margin-left: 4px;
+  }
+  .fact {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .fact::before {
+    content: "“";
+    font-family: "Cormorant Garamond", serif;
+    font-size: 3rem;
+    line-height: 0;
+    color: var(--accent);
+    margin-right: 8px;
+    vertical-align: -20px;
+  }
+
+  /* SCALE STRIP */
+  .scale-strip {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto 60px;
+    padding: 40px 6vw;
+  }
+  .scale-strip h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  .scale-strip p {
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+    margin-bottom: 32px;
+    max-width: 600px;
+  }
+  .scale-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--panel);
+    overflow-x: auto;
+  }
+  .scale-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 90px;
+  }
+  .scale-disc {
+    border-radius: 50%;
+    margin-bottom: 14px;
+  }
+  .scale-name {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+  }
+
+  footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 30px 6vw 50px;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    border-top: 1px solid var(--line);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  .controls {
+    position: absolute;
+    top: 16px; right: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 6;
+  }
+  .ctrl {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 8px 14px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+  .ctrl:hover { background: rgba(255,255,255,0.12); }
+  .ctrl.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+  .paused .planet-wrap { animation-play-state: paused; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">A Visual Field Guide</div>
+  <h1>An Atlas of the <em>Solar System</em></h1>
+  <p class="lede">
+    Eight worlds, one star, and four and a half billion years of orbital choreography.
+    Hover over any planet to see its name. Click to read its story.
+  </p>
+</header>
+
+<main>
+  <div class="system" id="system">
+    <div class="controls">
+      <button class="ctrl active" id="toggleMotion">Pause</button>
+      <button class="ctrl" id="toggleScale">Realistic Scale</button>
+    </div>
+    <div class="sun" title="The Sun"></div>
+    <!-- planets injected via JS -->
+  </div>
+
+  <aside class="panel" id="panel">
+    <div class="panel-eyebrow" id="p-eyebrow">Selected Body</div>
+    <h2 id="p-name">Earth</h2>
+    <p class="panel-sub" id="p-sub">The third planet — the only one we know hosts life.</p>
+    <div class="stats">
+      <div>
+        <div class="stat-label">Distance from Sun</div>
+        <div class="stat-value" id="p-distance">149.6<small>M km</small></div>
+      </div>
+      <div>
+        <div class="stat-label">Diameter</div>
+        <div class="stat-value" id="p-diameter">12,742<small>km</small></div>
+      </div>
+      <div>
+        <div class="stat-label">Day Length</div>
+        <div class="stat-value" id="p-day">24<small>hrs</small></div>
+      </div>
+      <div>
+        <div class="stat-label">Year Length</div>
+        <div class="stat-value" id="p-year">365<small>days</small></div>
+      </div>
+      <div>
+        <div class="stat-label">Moons</div>
+        <div class="stat-value" id="p-moons">1</div>
+      </div>
+      <div>
+        <div class="stat-label">Surface Temp</div>
+        <div class="stat-value" id="p-temp">15<small>°C</small></div>
+      </div>
+    </div>
+    <p class="fact" id="p-fact">Earth's rotation is gradually slowing — about 1.7 milliseconds per century. The day was only six hours long when the Moon first formed.</p>
+  </aside>
+</main>
+
+<section class="scale-strip">
+  <h3>If the Sun were as tall as a doorway…</h3>
+  <p>Planets shown at their true relative diameters. Distances between them, however, are nearly impossible to draw on a screen — Neptune would be a kilometre away.</p>
+  <div class="scale-row" id="scaleRow"></div>
+</section>
+
+<footer>
+  Data: NASA Planetary Fact Sheet. Built as a single self-contained HTML page — no frameworks, no dependencies.
+</footer>
+
+<script>
+  const PLANETS = [
+    { name: "Mercury", color: "#9c8b7e", radius: 4,  orbit: 90,  duration: 8,
+      distance: "57.9", diameter: "4,879", day: "1,408", year: "88", moons: "0", temp: "167",
+      sub: "The smallest planet — a sun-scorched, cratered world.",
+      fact: "A year on Mercury (88 Earth days) is shorter than its day (176 Earth days). The Sun appears to rise, stop, and reverse course in its sky." },
+    { name: "Venus", color: "#e6c07b", radius: 7,  orbit: 130, duration: 14,
+      distance: "108.2", diameter: "12,104", day: "5,832", year: "225", moons: "0", temp: "464",
+      sub: "Earth's twin in size — a runaway greenhouse hellscape.",
+      fact: "Venus rotates backwards. If you stood on its surface, the Sun would rise in the west and set in the east — once every 117 Earth days." },
+    { name: "Earth", color: "#5b8def", radius: 7.4,orbit: 175, duration: 22,
+      distance: "149.6", diameter: "12,742", day: "24", year: "365", moons: "1", temp: "15",
+      sub: "The third planet — the only one we know hosts life.",
+      fact: "Earth's rotation is gradually slowing — about 1.7 milliseconds per century. The day was only six hours long when the Moon first formed." },
+    { name: "Mars", color: "#d35a3f", radius: 5.5,orbit: 215, duration: 30,
+      distance: "227.9", diameter: "6,779", day: "25", year: "687", moons: "2", temp: "-65",
+      sub: "The red planet — a frozen desert with the largest volcano in the system.",
+      fact: "Olympus Mons stands 22 km high — almost three times the height of Mount Everest — and covers an area the size of France." },
+    { name: "Jupiter", color: "#d8a679", radius: 22, orbit: 280, duration: 50,
+      distance: "778.6", diameter: "139,820", day: "10", year: "4,333", moons: "95", temp: "-110",
+      sub: "The king of planets — a gas giant heavier than all others combined.",
+      fact: "The Great Red Spot is a storm that has been raging for at least 350 years. It's wide enough to swallow Earth whole — twice." },
+    { name: "Saturn", color: "#e3d3a4", radius: 19, orbit: 355, duration: 75,
+      distance: "1,433.5", diameter: "116,460", day: "11", year: "10,759", moons: "146", temp: "-140",
+      sub: "The ringed jewel — a planet so light it would float on water.",
+      fact: "Saturn's rings span 280,000 km but are only about 10 metres thick on average — proportionally thinner than a sheet of paper." },
+    { name: "Uranus", color: "#9fd9e0", radius: 12, orbit: 415, duration: 110,
+      distance: "2,872.5", diameter: "50,724", day: "17", year: "30,687", moons: "27", temp: "-195",
+      sub: "The tilted ice giant — it orbits the Sun on its side.",
+      fact: "Uranus rolls around the Sun on its side, so each pole spends 42 Earth years in continuous sunlight, then 42 years in darkness." },
+    { name: "Neptune", color: "#3d63d6", radius: 11.5,orbit: 470, duration: 160,
+      distance: "4,495.1", diameter: "49,244", day: "16", year: "60,190", moons: "14", temp: "-200",
+      sub: "The wind-whipped blue giant at the edge of the planetary system.",
+      fact: "Winds on Neptune reach 2,100 km/h — the fastest in the solar system. It's the only planet discovered through mathematics before observation." }
+  ];
+
+  const system = document.getElementById('system');
+  const scaleRow = document.getElementById('scaleRow');
+
+  // Build orbits + planets
+  PLANETS.forEach((p, i) => {
+    // orbit ring
+    const ring = document.createElement('div');
+    ring.className = 'orbit';
+    ring.style.width = (p.orbit * 2) + 'px';
+    ring.style.height = (p.orbit * 2) + 'px';
+    system.appendChild(ring);
+
+    // rotating wrapper
+    const wrap = document.createElement('div');
+    wrap.className = 'planet-wrap';
+    wrap.style.animationDuration = p.duration + 's';
+    wrap.style.transform = `rotate(${i * 47}deg)`;
+
+    const planet = document.createElement('div');
+    planet.className = 'planet';
+    planet.style.width = (p.radius * 2) + 'px';
+    planet.style.height = (p.radius * 2) + 'px';
+    planet.style.left = p.orbit + 'px';
+    planet.style.background = `radial-gradient(circle at 30% 30%, ${lighten(p.color)}, ${p.color} 60%, ${darken(p.color)} 100%)`;
+    planet.style.color = p.color;
+    planet.dataset.idx = i;
+    if (p.name === 'Saturn') {
+      planet.style.boxShadow = `0 0 0 ${p.radius * 0.45}px rgba(227, 211, 164, 0.18), inset 0 0 8px rgba(0,0,0,0.4)`;
+    }
+    wrap.appendChild(planet);
+
+    const label = document.createElement('div');
+    label.className = 'planet-label';
+    label.textContent = p.name;
+    label.style.left = p.orbit + 'px';
+    wrap.appendChild(label);
+
+    system.appendChild(wrap);
+
+    planet.addEventListener('click', () => selectPlanet(i));
+
+    // scale strip
+    const item = document.createElement('div');
+    item.className = 'scale-item';
+    const disc = document.createElement('div');
+    disc.className = 'scale-disc';
+    const size = Math.max(8, p.radius * 4);
+    disc.style.width = size + 'px';
+    disc.style.height = size + 'px';
+    disc.style.background = `radial-gradient(circle at 30% 30%, ${lighten(p.color)}, ${p.color} 60%, ${darken(p.color)} 100%)`;
+    item.appendChild(disc);
+    const name = document.createElement('div');
+    name.className = 'scale-name';
+    name.textContent = p.name;
+    item.appendChild(name);
+    scaleRow.appendChild(item);
+  });
+
+  function selectPlanet(i) {
+    const p = PLANETS[i];
+    document.querySelectorAll('.planet').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.planet')[i].classList.add('active');
+    document.getElementById('p-eyebrow').textContent = `Planet ${String(i + 1).padStart(2, '0')} of 08`;
+    document.getElementById('p-name').textContent = p.name;
+    document.getElementById('p-sub').textContent = p.sub;
+    setStat('p-distance', p.distance, 'M km');
+    setStat('p-diameter', p.diameter, 'km');
+    setStat('p-day', p.day, 'hrs');
+    setStat('p-year', p.year, 'days');
+    setStat('p-moons', p.moons, '');
+    setStat('p-temp', p.temp, '°C');
+    document.getElementById('p-fact').textContent = p.fact;
+  }
+  function setStat(id, val, unit) {
+    document.getElementById(id).innerHTML = val + (unit ? `<small>${unit}</small>` : '');
+  }
+
+  // Defaults: select Earth
+  selectPlanet(2);
+
+  // Controls
+  document.getElementById('toggleMotion').addEventListener('click', e => {
+    system.classList.toggle('paused');
+    e.target.textContent = system.classList.contains('paused') ? 'Resume' : 'Pause';
+  });
+  document.getElementById('toggleScale').addEventListener('click', e => {
+    e.target.classList.toggle('active');
+    document.querySelectorAll('.planet').forEach((el, i) => {
+      const p = PLANETS[i];
+      if (e.target.classList.contains('active')) {
+        // exaggerate Jupiter/Saturn even more, keep small ones tiny
+        const newR = Math.max(2, Math.log2(parseFloat(p.diameter.replace(/,/g, '')) / 1000) * 4);
+        el.style.width = (newR * 2) + 'px';
+        el.style.height = (newR * 2) + 'px';
+      } else {
+        el.style.width = (p.radius * 2) + 'px';
+        el.style.height = (p.radius * 2) + 'px';
+      }
+    });
+  });
+
+  function lighten(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    return `rgb(${Math.min(255, r + 60)}, ${Math.min(255, g + 60)}, ${Math.min(255, b + 60)})`;
+  }
+  function darken(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    return `rgb(${Math.max(0, r - 60)}, ${Math.max(0, g - 60)}, ${Math.max(0, b - 60)})`;
+  }
+  function hexToRgb(hex) {
+    const h = hex.replace('#', '');
+    return {
+      r: parseInt(h.substring(0, 2), 16),
+      g: parseInt(h.substring(2, 4), 16),
+      b: parseInt(h.substring(4, 6), 16)
+    };
+  }
+</script>
+</body>
+</html>

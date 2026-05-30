@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>On the Same Scale — How Big Things Really Are</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f4f0e6;
+    --bg-paper: #fbf8ef;
+    --ink: #1c1c1c;
+    --ink-dim: #6e6e6e;
+    --accent: #c44536;
+    --line: #d4ccba;
+    --shape: #2c2c2c;
+    --shape-hi: #c44536;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 70px 6vw 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+    max-width: 1000px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 700px;
+  }
+
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 50px 0 16px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0;
+  }
+  .tab {
+    background: none;
+    border: none;
+    padding: 14px 22px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    cursor: pointer;
+    position: relative;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .tab::after {
+    content: "";
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .tab.active::after { transform: scaleX(1); }
+
+  .stage-wrap {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 6vw 40px;
+  }
+  .scene-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 30px 0 16px;
+  }
+  .scene-meta .title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.6rem;
+    font-style: italic;
+  }
+  .scene-meta .units {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .stage {
+    position: relative;
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    padding: 30px 30px 60px;
+    box-shadow: 0 1px 0 #fff inset, 0 4px 30px rgba(0, 0, 0, 0.04);
+  }
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  svg.canvas {
+    display: block;
+    width: 100%;
+    height: 580px;
+    position: relative;
+    z-index: 1;
+  }
+  svg.canvas .baseline {
+    stroke: var(--ink);
+    stroke-width: 1.5;
+  }
+  svg.canvas .gridline {
+    stroke: rgba(0,0,0,0.08);
+    stroke-width: 0.5;
+    stroke-dasharray: 2 4;
+  }
+  svg.canvas .gridlabel {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    fill: var(--ink-dim);
+    letter-spacing: 0.15em;
+  }
+  svg.canvas .item {
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  svg.canvas .item .silhouette {
+    fill: var(--shape);
+    transition: fill 0.2s;
+  }
+  svg.canvas .item:hover .silhouette,
+  svg.canvas .item.active .silhouette {
+    fill: var(--shape-hi);
+  }
+  svg.canvas .item .name {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    fill: var(--ink);
+    text-anchor: middle;
+  }
+  svg.canvas .item .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    fill: var(--ink-dim);
+    letter-spacing: 0.1em;
+    text-anchor: middle;
+  }
+  svg.canvas .item.active .name,
+  svg.canvas .item.active .num {
+    fill: var(--accent);
+  }
+
+  .detail-strip {
+    margin-top: 30px;
+    padding: 28px 32px;
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 30px;
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .detail-strip { grid-template-columns: 1fr; gap: 16px; }
+  }
+  .detail-strip .name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .detail-strip .meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .detail-strip .height {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    color: var(--ink-dim);
+  }
+  .detail-strip .blurb {
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  /* RECAP — the "Million Lines of Code" style summary at end */
+  .recap {
+    max-width: 1300px;
+    margin: 60px auto 40px;
+    padding: 0 6vw;
+  }
+  .recap h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    max-width: 800px;
+  }
+  .recap h2 em { font-style: italic; color: var(--accent); }
+  .recap .sub {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+  }
+  .everything {
+    background: var(--bg-paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 30px 20px 50px;
+    overflow-x: auto;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+  }
+  .everything svg {
+    min-width: 1100px;
+    width: 100%;
+    height: 480px;
+    display: block;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 6vw 50px;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    border-top: 1px solid var(--line);
+    max-width: 1300px;
+    margin: 60px auto 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">A Visual Atlas of Scale</div>
+  <h1>On the Same <em>Scale.</em></h1>
+  <p class="lede">Numbers don't help. Saying "the Burj Khalifa is 828 metres" tells you very little. Drawing it next to a person, a blue whale, and the Eiffel Tower — at the same scale — is how the brain actually understands size. Pick a category and see for yourself.</p>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-cat="land">Things on Land</button>
+    <button class="tab" data-cat="alive">Living Things</button>
+    <button class="tab" data-cat="depth">Beneath the Surface</button>
+    <button class="tab" data-cat="space">Out in Space</button>
+  </div>
+</header>
+
+<div class="stage-wrap">
+  <div class="scene-meta">
+    <div class="title" id="sceneTitle">Things on Land — drawn to scale</div>
+    <div class="units" id="sceneUnits">Vertical scale: 0 → 900 m</div>
+  </div>
+
+  <div class="stage">
+    <div class="grid-bg"></div>
+    <svg class="canvas" id="canvas" viewBox="0 0 1200 580" preserveAspectRatio="xMidYMax meet"></svg>
+  </div>
+
+  <div class="detail-strip">
+    <div>
+      <div class="meta" id="d-meta">Selected</div>
+      <div class="name" id="d-name">Burj Khalifa</div>
+      <div class="height" id="d-height">828 metres</div>
+    </div>
+    <p class="blurb" id="d-blurb">The tallest building in the world. Construction took six years and 12,000 workers. To prevent the structure from swaying in the wind, the upper sections taper into a needle-like spire designed to "confuse" the wind into not forming a stable vortex.</p>
+  </div>
+</div>
+
+<section class="recap">
+  <h2>Now everything together — <em>a final overview.</em></h2>
+  <p class="sub">The full set of things shown above, all on a single canvas. A reminder that scale is the most slippery thing the human brain has to deal with.</p>
+  <div class="everything">
+    <svg id="everything" viewBox="0 0 1200 480" preserveAspectRatio="xMidYMax meet"></svg>
+  </div>
+</section>
+
+<footer>
+  Built as a single self-contained HTML page. No frameworks. Heights from public records, NASA fact sheets, and Smithsonian archives. Silhouettes drawn from scratch.
+</footer>
+
+<script>
+// Each silhouette is an SVG path on a 100x100 canvas, designed so y=100 is ground.
+// The renderer scales it to (item.height / categoryMax) of available height.
+
+const SHAPES = {
+  human: "M50,30 a8,8 0 1,0 0,-0.1 z M42,40 L58,40 L58,60 L65,75 L65,95 L60,100 L55,80 L52,100 L48,100 L45,80 L40,100 L35,100 L35,75 L42,60 Z",
+  giraffe: "M55,18 a4,4 0 1,0 0,-0.1 z M55,22 L57,22 L57,30 L65,30 L65,75 L70,80 L70,100 L65,100 L65,82 L60,82 L60,100 L55,100 L55,82 L48,82 L48,100 L43,100 L43,82 L38,82 L38,100 L33,100 L33,80 L38,75 L38,55 L48,30 L55,30 Z",
+  bluewhale: "M5,55 Q15,40 40,42 Q70,38 90,52 Q95,55 92,60 Q70,72 40,68 Q20,68 8,60 Z M88,52 L96,46 L96,60 Z M28,55 L24,52 L20,58 Z",
+  bus: "M10,60 L90,60 L90,95 L82,95 A4,4 0 1,1 74,95 L26,95 A4,4 0 1,1 18,95 L10,95 Z M14,65 L40,65 L40,82 L14,82 Z M44,65 L86,65 L86,82 L44,82 Z",
+  liberty: "M50,15 L48,8 L52,8 L50,15 M44,15 L46,18 L48,15 L52,15 L54,18 L56,15 L54,22 L46,22 Z M48,22 L52,22 L52,30 L48,30 Z M40,30 L60,30 L62,35 L38,35 Z M42,35 L58,35 L58,55 L42,55 Z M40,55 L60,55 L65,80 L35,80 Z M30,80 L70,80 L70,95 L30,95 Z",
+  eiffel: "M50,8 L52,8 L52,18 L50,18 Z M48,18 L52,18 L54,28 L46,28 Z M44,28 L56,28 L60,55 L40,55 Z M36,55 L64,55 L70,82 L30,82 Z M22,82 L78,82 L82,95 L18,95 Z",
+  empire: "M48,5 L52,5 L52,15 L50,15 Z M45,15 L55,15 L55,30 L45,30 Z M42,30 L58,30 L58,55 L42,55 Z M38,55 L62,55 L62,75 L38,75 Z M32,75 L68,75 L68,95 L32,95 Z",
+  burj: "M50,3 L51,3 L51,15 L50,15 Z M48,15 L52,15 L52,28 L48,28 Z M45,28 L55,28 L55,45 L45,45 Z M40,45 L60,45 L60,65 L40,65 Z M34,65 L66,65 L66,82 L34,82 Z M26,82 L74,82 L74,95 L26,95 Z",
+  tower: "M48,10 L52,10 L52,30 L48,30 Z M44,30 L56,30 L60,55 L40,55 Z M38,55 L62,55 L65,80 L35,80 Z M30,80 L70,80 L70,95 L30,95 Z",
+
+  ant: "M40,82 a3,3 0 1,0 0,-0.1 z M50,80 a4,4 0 1,0 0,-0.1 z M60,82 a3,3 0 1,0 0,-0.1 z",
+  cat: "M30,55 L25,40 L33,52 L42,52 L48,40 L52,40 L58,52 L67,52 L75,40 L70,55 L75,80 Q50,90 25,80 Z",
+  human2: "M50,30 a8,8 0 1,0 0,-0.1 z M42,40 L58,40 L58,60 L65,75 L65,95 L60,100 L55,80 L52,100 L48,100 L45,80 L40,100 L35,100 L35,75 L42,60 Z",
+  horse: "M22,40 L30,32 L40,30 L42,38 L75,38 L78,32 L82,40 L80,60 L75,80 L70,80 L72,60 L40,60 L42,80 L37,80 L33,60 L25,55 Z",
+  elephant: "M10,40 L18,30 L40,28 L70,30 L82,40 L88,55 L86,80 L78,80 L80,60 L66,60 L70,80 L62,80 L58,60 L42,60 L40,80 L32,80 L34,60 L20,60 L18,80 L12,80 L8,55 Z",
+  trex: "M75,18 L82,16 L80,28 L70,32 L66,42 L72,55 L78,75 L72,80 L66,55 L52,55 L48,75 L42,75 L38,55 L30,52 L22,68 L18,68 L20,52 L18,40 L26,38 L36,42 L52,42 L62,32 L62,22 Z",
+
+  earthcompass: 6371,
+  // Distances/depths (meters)
+  poolDepth: 4,
+  scubaLimit: 40,
+  diveRecord: 332,
+  burjFlip: 828,
+  titanic: 3800,
+  marianas: 10935,
+
+  // Planets (radius in km — but we'll use diameter for scale)
+  planet: "M50,50 m-45,0 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0",
+  cloud: "M20,60 Q15,45 30,45 Q35,35 50,40 Q70,35 75,50 Q90,52 85,65 Q70,72 50,68 Q30,72 15,65 Z",
+};
+
+const DATA = {
+  land: {
+    title: "Things on Land — drawn to scale",
+    unitLabel: "Vertical scale: 0 → 900 m",
+    max: 900, // metres
+    items: [
+      { id: "human", name: "Adult human",  height: 1.7,   shape: "human",   blurb: "Average global adult height. Roughly the only thing on this chart that the human brain can intuitively grasp without needing a comparison." },
+      { id: "bus",   name: "Double-decker bus", height: 4.4, shape: "bus", blurb: "About the height of a London Routemaster. Useful as a unit for British journalists describing things larger than themselves." },
+      { id: "giraffe", name: "Giraffe", height: 5.5, shape: "giraffe", blurb: "The tallest land animal alive. Its heart weighs 11 kg to push blood up that long neck — at a pressure double that of a human." },
+      { id: "tower", name: "Pisa Tower", height: 56, shape: "tower", blurb: "The famous lean is 4°. Engineers stabilised the foundation in the 1990s; without that intervention, it would have collapsed within decades." },
+      { id: "liberty", name: "Statue of Liberty", height: 93, shape: "liberty", blurb: "Including the pedestal. The statue alone is 46 m. The torch was redesigned in 1986 with 24-carat gold leaf." },
+      { id: "empire", name: "Empire State Building", height: 381, shape: "empire", blurb: "Held the title of world's tallest from 1931 to 1971 — the longest run by any building. Built in just 410 days." },
+      { id: "eiffel", name: "Eiffel Tower", height: 330, shape: "eiffel", blurb: "Originally meant to stand for only 20 years. Saved by becoming a radio transmission tower — function trumping protest." },
+      { id: "burj",  name: "Burj Khalifa", height: 828, shape: "burj", blurb: "Tallest building in the world. The needle-like spire is shaped to 'confuse' the wind into not forming stable vortices that would shake the structure." }
+    ]
+  },
+  alive: {
+    title: "Living Things — drawn to scale",
+    unitLabel: "Vertical scale: 0 → 30 m",
+    max: 30,
+    items: [
+      { id: "ant", name: "Ant", height: 0.005, shape: "ant", blurb: "Some ants can lift 50 times their own body weight — roughly equivalent to a human deadlifting four cars." },
+      { id: "cat", name: "Domestic cat", height: 0.25, shape: "cat", blurb: "Standing height. A cat's spine is so flexible — 30 vertebrae compared to a human's 24 — that it can rotate 180° in mid-air to land on its feet." },
+      { id: "human2", name: "Adult human", height: 1.7, shape: "human2", blurb: "For reference. Modern humans evolved roughly 300,000 years ago — a heartbeat in evolutionary time." },
+      { id: "horse", name: "Horse", height: 1.6, shape: "horse", blurb: "Shoulder height. The tallest horse ever recorded was a Shire named Sampson, at 2.2 metres at the shoulder." },
+      { id: "elephant", name: "African elephant", height: 4, shape: "elephant", blurb: "The largest living land animal. Its trunk has roughly 40,000 muscles — by comparison, the entire human body has about 600." },
+      { id: "trex", name: "Tyrannosaurus rex", height: 6, shape: "trex", blurb: "Hip height. T. rex lived around 66 million years ago. Bizarrely, it lived closer in time to us than to Stegosaurus." },
+      { id: "bluewhale", name: "Blue whale", height: 30, shape: "bluewhale", blurb: "The largest animal that has ever lived — larger than any dinosaur. Its tongue alone weighs as much as an adult elephant." }
+    ]
+  },
+  depth: {
+    title: "Beneath the Surface — depth scale",
+    unitLabel: "Vertical scale: 0 → 11,000 m (downward)",
+    max: 11000,
+    invert: true,
+    items: [
+      { id: "pool", name: "Olympic pool", height: 2, shape: "tower", blurb: "Standard depth for an Olympic swimming pool — surprisingly shallow compared to its 50-metre length." },
+      { id: "scuba", name: "Recreational scuba limit", height: 40, shape: "human", blurb: "Below this, nitrogen narcosis impairs judgment. 40 metres is where amateur divers stop." },
+      { id: "freedive", name: "Deepest free dive", height: 332, shape: "human", blurb: "Herbert Nitsch reached this depth in 2012 on a single breath. The pressure at this depth is over 30 times that at the surface." },
+      { id: "burjflip", name: "Burj Khalifa, flipped", height: 828, shape: "burj", blurb: "If you upended the world's tallest building tip-down into the sea, its base would still sit hundreds of metres above the deep abyss." },
+      { id: "titanic", name: "RMS Titanic", height: 3800, shape: "tower", blurb: "The wreck rests on the floor of the North Atlantic. The pressure here is 380 atmospheres — equivalent to a small car balanced on every square inch." },
+      { id: "marianas", name: "Challenger Deep", height: 10935, shape: "tower", blurb: "The deepest known point on Earth. Pressure: 1,086 atmospheres. Only a handful of humans have ever reached it." }
+    ]
+  },
+  space: {
+    title: "Out in Space — diameter scale",
+    unitLabel: "Horizontal: each body's true diameter relative to others",
+    max: 1392700, // Sun diameter, km
+    horizontal: true,
+    items: [
+      { id: "moon",    name: "Moon",    height: 3474,    shape: "planet", color: "#9a9a9a", blurb: "Earth's only natural satellite. Slowly drifting away from us at 3.8 cm per year." },
+      { id: "mercury", name: "Mercury", height: 4879,    shape: "planet", color: "#9c8b7e", blurb: "Smallest planet. A year on Mercury is shorter than its day." },
+      { id: "mars",    name: "Mars",    height: 6779,    shape: "planet", color: "#d35a3f", blurb: "Home to Olympus Mons, the tallest known volcano in the solar system — 22 km high." },
+      { id: "earth",   name: "Earth",   height: 12742,   shape: "planet", color: "#5b8def", blurb: "The only place in the universe currently known to host life. Average density: 5.51 g/cm³ — denser than any other planet." },
+      { id: "neptune", name: "Neptune", height: 49244,   shape: "planet", color: "#3d63d6", blurb: "Winds here reach 2,100 km/h — fastest in the solar system. The only planet first found through mathematics." },
+      { id: "jupiter", name: "Jupiter", height: 139820,  shape: "planet", color: "#d8a679", blurb: "More massive than all other planets combined. The Great Red Spot has been raging for at least 350 years." },
+      { id: "sun",     name: "The Sun", height: 1392700, shape: "planet", color: "#ffd166", blurb: "Contains 99.86% of the solar system's mass. About 1.3 million Earths could fit inside it." }
+    ]
+  }
+};
+
+const canvas = document.getElementById('canvas');
+const W = 1200, H = 580;
+const PAD = { l: 40, r: 40, t: 30, b: 80 };
+
+let activeCat = "land";
+let activeId = "burj";
+
+function fmt(n, isDepth) {
+  if (n >= 1000) return (n/1000).toFixed(n >= 10000 ? 0 : 2).replace(/\.00$/, '') + " km";
+  if (n >= 1) return n.toLocaleString() + " m";
+  return (n * 100).toFixed(0) + " cm";
+}
+function fmtSpace(km) {
+  return km.toLocaleString() + " km";
+}
+
+function render() {
+  const cat = DATA[activeCat];
+  document.getElementById('sceneTitle').textContent = cat.title;
+  document.getElementById('sceneUnits').textContent = cat.unitLabel;
+
+  const innerW = W - PAD.l - PAD.r;
+  const innerH = H - PAD.t - PAD.b;
+  const baseY = H - PAD.b;
+  let html = "";
+
+  if (cat.horizontal) {
+    // Horizontal scale: items as discs, radii proportional, baseline along center
+    const cx = baseY - innerH / 2;
+    const maxDia = cat.max;
+    let xCursor = PAD.l + 60;
+    cat.items.forEach((it) => {
+      const r = (it.height / maxDia) * (innerH / 2) * 0.95;
+      // Constrain min for visibility
+      const rDraw = Math.max(2.5, r);
+      // For very small ones, place them near the start; large at the end
+      const xPos = xCursor + rDraw + 20;
+      xCursor = xPos + rDraw + 20;
+      html += `
+        <g class="item ${it.id===activeId?'active':''}" data-id="${it.id}" transform="translate(${xPos}, ${cx})">
+          <circle r="${rDraw}" class="silhouette" fill="${it.color || 'var(--shape)'}" />
+          <text class="name" y="${rDraw + 24}">${it.name}</text>
+          <text class="num" y="${rDraw + 40}">${fmtSpace(it.height)}</text>
+        </g>`;
+    });
+    // baseline through middle
+    html += `<line class="baseline" x1="${PAD.l}" y1="${cx + innerH/2}" x2="${W - PAD.r}" y2="${cx + innerH/2}" />`;
+    // Active default if not in this category
+    if (!cat.items.find(i => i.id === activeId)) activeId = cat.items[cat.items.length - 1].id;
+
+  } else {
+    // Vertical scale: things stand on baseline (or hang from top if invert)
+    const max = cat.max;
+    const itemSlot = innerW / cat.items.length;
+    cat.items.forEach((it, idx) => {
+      const drawH = Math.max(8, (it.height / max) * innerH);
+      const cx = PAD.l + itemSlot * idx + itemSlot / 2;
+      const yTop = cat.invert ? PAD.t : baseY - drawH;
+      const yBottom = cat.invert ? PAD.t + drawH : baseY;
+      const shape = SHAPES[it.shape] || SHAPES.tower;
+      // place silhouette inside a 100x100 viewbox scaled to slot width / drawH
+      const slotW = Math.min(itemSlot * 0.8, 110);
+      // for very tall things, allow width override
+      const sx = cx - slotW / 2;
+      const sy = cat.invert ? PAD.t : baseY - drawH;
+      html += `
+        <g class="item ${it.id===activeId?'active':''}" data-id="${it.id}">
+          <g transform="translate(${sx}, ${sy}) scale(${slotW/100}, ${drawH/100})">
+            <path class="silhouette" d="${shape}"/>
+          </g>
+          <text class="name" x="${cx}" y="${cat.invert ? yBottom + 24 : baseY + 22}">${it.name}</text>
+          <text class="num" x="${cx}" y="${cat.invert ? yBottom + 40 : baseY + 38}">${fmt(it.height, cat.invert)}</text>
+        </g>`;
+    });
+    // baseline
+    html += `<line class="baseline" x1="${PAD.l}" y1="${baseY}" x2="${W - PAD.r}" y2="${baseY}" />`;
+    if (!cat.items.find(i => i.id === activeId)) activeId = cat.items[cat.items.length - 1].id;
+
+    // gridlines (in metres) - only for vertical
+    const gridSteps = max < 50 ? 5 : (max < 1000 ? 100 : (max < 10000 ? 1000 : 2000));
+    for (let v = gridSteps; v < max; v += gridSteps) {
+      const y = cat.invert ? PAD.t + (v/max)*innerH : baseY - (v/max)*innerH;
+      html += `<line class="gridline" x1="${PAD.l}" y1="${y}" x2="${W - PAD.r}" y2="${y}" />`;
+      html += `<text class="gridlabel" x="${W - PAD.r - 6}" y="${y - 4}" text-anchor="end">${v.toLocaleString()} m</text>`;
+    }
+  }
+
+  canvas.innerHTML = html;
+  canvas.querySelectorAll('.item').forEach(el => {
+    el.addEventListener('click', () => {
+      activeId = el.dataset.id;
+      render();
+      updateDetail();
+    });
+  });
+  updateDetail();
+}
+
+function updateDetail() {
+  const cat = DATA[activeCat];
+  const it = cat.items.find(i => i.id === activeId) || cat.items[0];
+  if (!it) return;
+  document.getElementById('d-meta').textContent = cat.title.split(" — ")[0];
+  document.getElementById('d-name').textContent = it.name;
+  document.getElementById('d-height').textContent = cat.horizontal
+    ? fmtSpace(it.height) + " across"
+    : fmt(it.height) + (cat.invert ? " below the surface" : " tall");
+  document.getElementById('d-blurb').textContent = it.blurb;
+}
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    activeCat = t.dataset.cat;
+    activeId = DATA[activeCat].items[DATA[activeCat].items.length - 1].id;
+    render();
+  });
+});
+
+render();
+
+// ============ "Everything" recap chart ============
+const ev = document.getElementById('everything');
+function renderEverything() {
+  const W2 = 1200, H2 = 480;
+  const PAD2 = { l: 60, r: 60, t: 40, b: 60 };
+  const innerW = W2 - PAD2.l - PAD2.r;
+  const innerH = H2 - PAD2.t - PAD2.b;
+  const baseY = H2 - PAD2.b;
+  // Pick a curated set across categories, log-scale heights
+  const set = [
+    { name: "Ant",     m: 0.005, shape: SHAPES.ant },
+    { name: "Cat",     m: 0.25,  shape: SHAPES.cat },
+    { name: "Human",   m: 1.7,   shape: SHAPES.human },
+    { name: "Bus",     m: 4.4,   shape: SHAPES.bus },
+    { name: "T. rex",  m: 6,     shape: SHAPES.trex },
+    { name: "Whale",   m: 30,    shape: SHAPES.bluewhale },
+    { name: "Pisa",    m: 56,    shape: SHAPES.tower },
+    { name: "Liberty", m: 93,    shape: SHAPES.liberty },
+    { name: "Eiffel",  m: 330,   shape: SHAPES.eiffel },
+    { name: "Empire",  m: 381,   shape: SHAPES.empire },
+    { name: "Burj",    m: 828,   shape: SHAPES.burj }
+  ];
+  const max = 828;
+  const slot = innerW / set.length;
+  let html = "";
+  set.forEach((it, i) => {
+    const h = Math.max(8, (it.m / max) * innerH);
+    const cx = PAD2.l + slot * i + slot / 2;
+    const sw = Math.min(slot * 0.85, 100);
+    const sx = cx - sw / 2;
+    const sy = baseY - h;
+    html += `
+      <g>
+        <g transform="translate(${sx}, ${sy}) scale(${sw/100}, ${h/100})">
+          <path d="${it.shape}" fill="#2c2c2c"/>
+        </g>
+        <text x="${cx}" y="${baseY + 18}" text-anchor="middle" font-family="Inter" font-size="10" font-weight="500" fill="#1c1c1c">${it.name}</text>
+        <text x="${cx}" y="${baseY + 32}" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#6e6e6e" letter-spacing="1">${it.m < 1 ? (it.m*100).toFixed(0)+'cm' : it.m+'m'}</text>
+      </g>`;
+  });
+  html += `<line x1="${PAD2.l}" y1="${baseY}" x2="${W2 - PAD2.r}" y2="${baseY}" stroke="#1c1c1c" stroke-width="1.5"/>`;
+  ev.innerHTML = html;
+}
+renderEverything();
+</script>
+</body>
+</html>
