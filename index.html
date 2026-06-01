@@ -179,6 +179,48 @@
     font-size: 0.8rem;
     color: var(--ink-dim);
   }
+
+  /* ============================================
+     RESPONSIVE BREAKPOINTS
+     ============================================ */
+  @media (max-width: 980px) {
+    .wrap { padding: 60px 5vw; }
+    .summary { gap: 14px; padding: 22px 0; }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 50px 5vw; }
+    h1 { font-size: 2rem; }
+    .lede { font-size: 0.95rem; margin-bottom: 28px; }
+    .summary {
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 20px 0;
+    }
+    .summary .cell .v { font-size: 1.6rem; }
+    .summary .cell .k { font-size: 0.6rem; }
+    .grid { gap: 22px; margin-top: 28px; }
+    .card { grid-template-columns: 1fr; }
+    .card .preview { height: 180px; padding: 22px 18px; font-size: 1.2rem; }
+    .preview-num { top: 12px; left: 16px; font-size: 0.62rem; }
+    .body { padding: 24px 22px; }
+    .body h2 { font-size: 1.5rem; }
+    .body p { font-size: 0.88rem; }
+    .body .features span { font-size: 0.62rem; padding: 2px 8px; }
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 40px 4vw; }
+    .eyebrow { font-size: 0.62rem; letter-spacing: 0.25em; }
+    h1 { font-size: 1.7rem; line-height: 1.1; }
+    .lede { font-size: 0.88rem; }
+    .summary { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .summary .cell .v { font-size: 1.3rem; }
+    .summary .cell .k { font-size: 0.55rem; letter-spacing: 0.15em; }
+    .body { padding: 22px 18px; }
+    .body h2 { font-size: 1.35rem; }
+    .body p { font-size: 0.85rem; }
+    .arrow { font-size: 0.78rem; }
+    footer { font-size: 0.75rem; }
+  }
 </style>
 </head>
 <body>

@@ -746,6 +746,127 @@
     max-width: 1400px;
     margin: 0 auto;
   }
+
+  /* ============================================
+     RESPONSIVE BREAKPOINTS
+     ============================================ */
+
+  /* TABLET (≤980px) */
+  @media (max-width: 980px) {
+    header { padding: 50px 5vw 30px; }
+    .tree-wrap { padding: 16px 4vw 50px; }
+    .detail { padding: 0 5vw; gap: 30px; }
+    .hello-section, .pop-section, .built-section,
+    .domains-section, .creators-section, .types-section,
+    .salary-section, .algo-section {
+      padding: 70px 5vw;
+    }
+  }
+
+  /* SMALL TABLET (≤768px) */
+  @media (max-width: 768px) {
+    .filters { gap: 6px; }
+    .chip { padding: 6px 12px; font-size: 0.72rem; }
+    .filter-label { font-size: 0.65rem; }
+    .tree-svg { height: 540px; }
+    .detail { grid-template-columns: 1fr; gap: 24px; }
+    .detail-card h2 { font-size: 2.4rem; }
+    .detail-side .row {
+      grid-template-columns: 110px 1fr;
+      gap: 14px;
+      padding: 12px 0;
+    }
+    /* Hello world */
+    .hello-grid { grid-template-columns: 1fr; }
+    .lang-pick {
+      max-height: 240px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 12px;
+    }
+    .lang-btn { padding: 8px 12px; font-size: 0.78rem; flex: 0 0 auto; }
+    .lang-btn .yr { display: none; }
+    pre.code-block { font-size: 0.78rem; padding: 22px 18px; min-height: 180px; }
+    /* Popularity */
+    .pop-svg { height: 380px; }
+    /* Type spectrum */
+    .types-stage { padding: 30px 16px; }
+    .types-svg { height: 420px; }
+    /* Salary */
+    .salary-row {
+      grid-template-columns: 100px 1fr 80px;
+      gap: 12px;
+    }
+    .salary-row .lname { font-size: 0.82rem; }
+    .salary-row .svalue { font-size: 0.95rem; }
+    .salary-row .strack { height: 22px; }
+    /* Algo grid */
+    .algo-grid { grid-template-columns: 1fr; }
+    /* Built list */
+    .built-row { padding: 18px 22px; gap: 14px; }
+    /* Domains */
+    .domains-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .domain-card .head { padding: 20px 22px 12px; }
+    .domain-card .langs { padding: 14px 22px 20px; }
+    /* Creators */
+    .creators-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .creator-card { padding: 22px 20px; }
+    .creator-card .photo { width: 50px; height: 50px; font-size: 1.2rem; }
+    .creator-card .name { font-size: 1.2rem; }
+    .creator-card .quote { font-size: 0.8rem; }
+  }
+
+  /* PHONE (≤480px) */
+  @media (max-width: 480px) {
+    header { padding: 40px 4vw 24px; }
+    .section-eyebrow, .filter-label { font-size: 0.6rem; letter-spacing: 0.25em; }
+    h1 { font-size: 2rem !important; }
+    .lede { font-size: 0.92rem; }
+    .section-title { font-size: 1.45rem !important; }
+    .section-sub { font-size: 0.85rem; margin-bottom: 30px; }
+    .tree-svg { height: 460px; min-width: 900px; }
+    .filters { padding-top: 16px; }
+    .chip { padding: 5px 10px; font-size: 0.68rem; }
+    .detail { padding: 0 4vw; }
+    .detail-card h2 { font-size: 2rem; }
+    .detail-card .blurb { font-size: 0.92rem; }
+    .hello-section, .pop-section, .built-section,
+    .domains-section, .creators-section, .types-section,
+    .salary-section, .algo-section {
+      padding: 50px 4vw;
+    }
+    .lang-pick { max-height: 180px; }
+    .code-header { padding: 12px 16px; }
+    .code-header .filename { font-size: 0.7rem; }
+    .code-header .lang { font-size: 0.6rem; }
+    pre.code-block { font-size: 0.72rem; padding: 18px 14px; min-height: 140px; }
+    .pop-svg { height: 320px; min-width: 700px; }
+    .types-stage { padding: 20px 12px; }
+    .types-svg { height: 360px; min-width: 600px; }
+    /* Salary collapses to vertical */
+    .salary-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 10px 0;
+    }
+    .salary-row .strack { height: 18px; }
+    .salary-row .svalue { text-align: left; font-size: 0.9rem; }
+    /* Built list — stack */
+    .built-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 16px 18px;
+    }
+    .built-lang { font-size: 1.2rem; }
+    .built-software { font-size: 0.85rem; }
+    /* Domains */
+    .domains-grid { grid-template-columns: 1fr; }
+    /* Creators */
+    .creators-grid { grid-template-columns: 1fr; }
+    /* Algo cards */
+    .algo-card pre { font-size: 0.7rem; padding: 14px; }
+  }
 </style>
 </head>
 <body>

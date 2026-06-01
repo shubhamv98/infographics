@@ -866,6 +866,142 @@
     color: var(--ink-dim);
     background: #050514;
   }
+
+  /* ============================================
+     RESPONSIVE BREAKPOINTS
+     ============================================ */
+
+  /* TABLET (≤980px) */
+  @media (max-width: 980px) {
+    .stats-section, .zones-section, .submersibles, .biolum,
+    .vents-section, .wrecks-section, .currents-section, .vs, .finale {
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+    .compare { gap: 24px; }
+  }
+
+  /* SMALL TABLET (≤768px) */
+  @media (max-width: 768px) {
+    .intro { padding: 40px 5vw; min-height: 90vh; }
+    .intro h1 { font-size: 2.4rem; }
+    .intro p { font-size: 0.95rem; }
+    .scroll-hint { bottom: 90px; font-size: 0.6rem; }
+    .stats-section, .zones-section, .submersibles, .biolum,
+    .vents-section, .wrecks-section, .currents-section, .vs {
+      padding: 60px 5vw;
+    }
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card { padding: 22px 18px; }
+    .stat-card .v { font-size: 2rem; }
+    /* Zone bar — stack the columns */
+    .zone-strip {
+      grid-template-columns: 100px 1fr 90px;
+      gap: 12px;
+      padding: 16px 18px;
+    }
+    .zone-strip .name { font-size: 1.1rem; }
+    .zone-strip .swatch { height: 18px; }
+    .zone-strip .swatch::after { font-size: 0.55rem; right: 6px; }
+    /* Dive — ruler smaller, stations stacked */
+    .ruler { width: 70px; margin-left: 12px; }
+    .ruler-current .num { font-size: 1.8rem; }
+    .ruler-current .unit { font-size: 0.55rem; letter-spacing: 0.2em; }
+    .ruler-label { font-size: 0.55rem; top: calc(50% + 38px); }
+    .ruler-pressure { top: calc(50% + 60px); font-size: 0.55rem; }
+    .stations { margin-left: 86px; padding: 0 4vw 0 16px; }
+    .station {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 60px 0;
+      min-height: auto;
+    }
+    .station-icon { width: 90px; height: 90px; }
+    .station h3 { font-size: 1.4rem; }
+    .station p { font-size: 0.9rem; }
+    .zone-banner h3 { font-size: 1.6rem; }
+    /* Submersibles */
+    .sub-track { padding-left: 22px; }
+    .sub-event::before { left: -28px; }
+    .sub-event .title { font-size: 1.2rem; }
+    .biolum-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+    .biolum-card { padding: 22px 16px; }
+    .biolum-card .glow { width: 56px; height: 56px; }
+    /* Hydrothermal vents */
+    .vents-grid { gap: 24px; }
+    /* Shipwrecks */
+    .wreck-row {
+      grid-template-columns: 50px 1fr;
+      gap: 14px;
+      padding: 18px 20px;
+    }
+    .wreck-row .wreck-detail,
+    .wreck-row .wreck-depth {
+      grid-column: 1 / -1;
+      padding-left: 0;
+      text-align: left;
+    }
+    .wreck-row .wreck-depth { display: flex; gap: 12px; align-items: baseline; }
+    /* Currents map */
+    .currents-svg { height: 320px; }
+    .currents-legend {
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    /* Finale */
+    .finale { padding: 80px 5vw; }
+    .compare {
+      gap: 16px;
+      align-items: flex-end;
+    }
+    .compare-bar .bar { width: 38px; }
+    .compare-bar .label { font-size: 0.7rem; }
+    .compare-bar .num { font-size: 0.95rem; }
+    /* Ocean vs atm cards */
+    .vs-card { padding: 26px 22px; }
+    .vs-card h3 { font-size: 1.5rem; }
+    .vs-card .row { font-size: 0.82rem; padding: 10px 0; }
+  }
+
+  /* PHONE (≤480px) */
+  @media (max-width: 480px) {
+    .eyebrow, .section-eyebrow { font-size: 0.6rem; letter-spacing: 0.28em; }
+    .intro { padding: 30px 4vw; }
+    .intro h1 { font-size: 2rem; }
+    .stats-section, .zones-section, .submersibles, .biolum,
+    .vents-section, .wrecks-section, .currents-section, .vs {
+      padding: 50px 4vw;
+    }
+    .section-title { font-size: 1.4rem !important; }
+    .section-sub { font-size: 0.85rem; margin-bottom: 30px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 12px; }
+    .zone-strip {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      text-align: left;
+    }
+    .zone-strip .swatch::after { display: none; }
+    .zone-strip .depth { text-align: left; }
+    .ruler { width: 56px; margin-left: 8px; }
+    .ruler-current .num { font-size: 1.4rem; }
+    .stations { margin-left: 66px; padding: 0 4vw 0 12px; }
+    .station-icon { width: 70px; height: 70px; }
+    .station h3 { font-size: 1.2rem; }
+    .station p { font-size: 0.85rem; }
+    .compare {
+      flex-direction: row;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .compare-bar .bar { width: 28px; }
+    .compare-bar .label { font-size: 0.62rem; }
+    .compare-bar .num { font-size: 0.75rem; }
+    /* Reduce vent SVG complexity slightly */
+    .vent-art { aspect-ratio: 4/5; }
+  }
 </style>
 </head>
 <body>

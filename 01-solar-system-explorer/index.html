@@ -1071,6 +1071,136 @@
     color: var(--ink-dim);
     border-top: 1px solid var(--line);
   }
+
+  /* ============================================
+     RESPONSIVE BREAKPOINTS
+     ============================================ */
+
+  /* TABLET (≤980px) — system stacks above panel */
+  @media (max-width: 980px) {
+    .system-block {
+      grid-template-columns: 1fr;
+      padding: 30px 5vw 60px;
+      gap: 30px;
+    }
+    .panel {
+      position: static;
+      padding: 28px 24px;
+    }
+    .panel h2 { font-size: 2.2rem; }
+    .compare-section, .distance-section, .callout, .moons-section,
+    .missions-section, .formation-section, .facts-section,
+    .habit-section, .voyager-section, .asteroid-section, .scale-strip {
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+    .chart-stage { padding: 28px 22px; }
+    .stats { gap: 16px 18px; }
+  }
+
+  /* SMALL TABLET (≤768px) */
+  @media (max-width: 768px) {
+    header { padding: 50px 5vw 24px; }
+    .system { aspect-ratio: 1 / 1; min-height: 380px; }
+    .controls {
+      top: 10px; right: 10px;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ctrl { padding: 6px 10px; font-size: 0.6rem; }
+    .stats {
+      grid-template-columns: 1fr 1fr;
+      padding: 18px 0;
+    }
+    .stat-value { font-size: 1.25rem; }
+    .compare-section, .distance-section, .callout, .moons-section,
+    .missions-section, .formation-section, .facts-section,
+    .habit-section, .voyager-section, .asteroid-section, .scale-strip {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    .chart-tabs { flex-wrap: wrap; }
+    .chart-tab { padding: 8px 14px; font-size: 0.65rem; }
+    .bar-row {
+      grid-template-columns: 80px 1fr 90px;
+      gap: 10px;
+    }
+    .bar-row .planet-label-text { font-size: 0.78rem; }
+    .bar-row .bar-value { font-size: 0.7rem; }
+    .distance-canvas { height: 180px; }
+    .distance-canvas .marker-au { font-size: 0.55rem; top: 14px; }
+    .distance-canvas .marker-name { top: -18px; font-size: 0.55rem; }
+    .callout-grid { grid-template-columns: 1fr; gap: 16px; }
+    .moons-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+    .moon-card { padding: 18px 14px; }
+    .moon-card .vis { width: 56px; height: 56px; }
+    .missions-grid, .asteroid-grid, .facts-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .mission-card, .ast-card, .fact-card { padding: 22px 18px; }
+    .formation-track { padding-left: 24px; }
+    .formation-event::before { left: -30px; }
+    .voyager-card { padding: 26px 22px; }
+    .voyager-card h3 { font-size: 1.6rem; }
+    .voyager-card .live-stat { padding: 14px 0; }
+    .voyager-card .live-stat .v { font-size: 1.2rem; }
+    .habit-svg { min-width: 0; }
+    .scale-row {
+      gap: 14px;
+      padding: 20px 16px;
+    }
+    .scale-item { min-width: 70px; }
+  }
+
+  /* PHONE (≤480px) — most compact */
+  @media (max-width: 480px) {
+    header { padding: 40px 5vw 18px; }
+    .eyebrow, .section-eyebrow { font-size: 0.62rem; letter-spacing: 0.3em; }
+    h1 { font-size: 2rem !important; }
+    .lede { font-size: 0.92rem; }
+    .system-block { padding: 20px 4vw 50px; }
+    .system { min-height: 320px; }
+    .sun { width: 42px; height: 42px; }
+    .panel { padding: 24px 20px; }
+    .panel h2 { font-size: 1.8rem; }
+    .stats {
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .stat-label { font-size: 0.58rem; }
+    .stat-value { font-size: 1.1rem; }
+    .stat-value small { font-size: 0.65rem; }
+    .fact { font-size: 0.85rem; }
+    .compare-section, .distance-section, .callout, .moons-section,
+    .missions-section, .formation-section, .facts-section,
+    .habit-section, .voyager-section, .asteroid-section, .scale-strip {
+      padding: 40px 4vw;
+    }
+    .section-title { font-size: 1.5rem !important; }
+    .section-sub { font-size: 0.85rem; }
+    .chart-stage { padding: 20px 14px; min-height: 320px; }
+    .bar-row {
+      grid-template-columns: 70px 1fr 70px;
+      gap: 8px;
+      padding: 8px 0;
+    }
+    .callout-stat { font-size: 1.2rem !important; }
+    .callout-cell .big { font-size: 1.6rem; }
+    .formation-event .title { font-size: 1.2rem; }
+    .formation-event .what, .mission-card .what,
+    .ast-card .effect, .voyager-card .blurb { font-size: 0.82rem; }
+    .fact-card .fact-text { font-size: 1rem; }
+    .vent-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .scale-row { padding: 16px 12px; gap: 10px; overflow-x: auto; }
+    .scale-item { min-width: 60px; }
+    .scale-disc { transform: scale(0.85); }
+    .ctrl { font-size: 0.55rem; padding: 5px 8px; }
+    .controls { flex-direction: row; flex-wrap: wrap; }
+    .planet-label { font-size: 0.55rem; }
+    /* Disable comet on tiny screens to reduce visual noise */
+    .comet { display: none; }
+  }
 </style>
 </head>
 <body>
