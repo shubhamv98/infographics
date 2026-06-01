@@ -1023,6 +1023,417 @@
     font-style: italic;
   }
 
+  /* ============ STAR TYPES ============ */
+  .stars-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .stars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+  }
+  .star-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 26px 22px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .star-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .star-vis {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    background: radial-gradient(circle at 35% 35%, var(--cl, #fff), var(--cm, #ffd166) 50%, var(--cd, #b03200) 100%);
+    box-shadow: 0 0 24px var(--cm, rgba(255, 209, 102, 0.4)),
+                0 0 48px var(--cm, rgba(255, 209, 102, 0.2));
+    animation: starPulse 3.5s ease-in-out infinite;
+  }
+  @keyframes starPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  .star-card .stype {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+  .star-card .ssize {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .star-card .sdesc {
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+    line-height: 1.55;
+    text-align: left;
+  }
+
+  /* ============ CONSTELLATIONS ============ */
+  .constellations-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .const-stage {
+    background: radial-gradient(ellipse at center, #0a0e24 0%, #050714 100%);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 30px;
+    margin-top: 30px;
+    overflow: hidden;
+  }
+  .const-svg {
+    display: block;
+    width: 100%;
+    height: 480px;
+    min-width: 700px;
+  }
+  .const-svg .const-line {
+    stroke: rgba(255, 209, 102, 0.4);
+    stroke-width: 1.4;
+    fill: none;
+    transition: stroke 0.3s, stroke-width 0.3s;
+  }
+  .const-svg .const-line.hi { stroke: var(--accent); stroke-width: 2.2; }
+  .const-svg .const-star {
+    fill: #fff;
+    transition: r 0.3s;
+    cursor: pointer;
+  }
+  .const-svg .const-star.bright { fill: var(--accent); }
+  .const-svg .const-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 14px;
+    fill: rgba(255, 209, 102, 0.7);
+    pointer-events: none;
+  }
+  .const-svg .star-name {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.5px;
+    fill: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+  }
+
+  /* ============ ECLIPSES ============ */
+  .eclipses-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .eclipse-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 30px;
+  }
+  .eclipse-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 32px 28px;
+  }
+  .eclipse-card .vis {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .eclipse-card .role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .eclipse-card h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  .eclipse-card p {
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .eclipse-card p strong { color: var(--ink); }
+
+  /* ============ MILKY WAY MAP ============ */
+  .galaxy-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .galaxy-stage {
+    background: radial-gradient(ellipse at center, #1a0a30 0%, #050714 70%);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 30px;
+    margin-top: 30px;
+    overflow: hidden;
+    position: relative;
+  }
+  .galaxy-svg {
+    display: block;
+    width: 100%;
+    height: 540px;
+    min-width: 700px;
+  }
+  .galaxy-svg .arm { fill: rgba(255, 209, 102, 0.08); }
+  .galaxy-svg .core { fill: rgba(255, 200, 100, 0.3); }
+  .galaxy-svg .star-cluster { fill: rgba(255, 255, 255, 0.6); }
+  .galaxy-svg .you-marker { fill: var(--accent); }
+  .galaxy-svg .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    fill: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .galaxy-svg .arm-name {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    fill: rgba(255, 209, 102, 0.7);
+  }
+  .galaxy-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 30px;
+  }
+  .galaxy-stat {
+    padding: 22px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+  }
+  .galaxy-stat .v {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .galaxy-stat .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .galaxy-stat .desc {
+    font-size: 0.8rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ============ ATMOSPHERES & SURFACES ============ */
+  .atmos-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .atmos-table {
+    margin-top: 30px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .atmos-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+    transition: background 0.2s;
+  }
+  .atmos-row:hover { background: rgba(255, 209, 102, 0.04); }
+  .atmos-row:last-child { border-bottom: none; }
+  .atmos-row.head {
+    background: rgba(255, 255, 255, 0.03);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .atmos-row .pname {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .atmos-row .pdot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .atmos-row .cell { font-size: 0.85rem; color: var(--ink); }
+  .atmos-row .cell .sub { color: var(--ink-dim); font-size: 0.7rem; display: block; margin-top: 2px; }
+
+  /* ============ TELESCOPES ============ */
+  .telescopes-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .telescopes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+  }
+  .scope-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 24px;
+    border-top: 3px solid var(--accent);
+    transition: transform 0.2s;
+  }
+  .scope-card:hover { transform: translateY(-3px); }
+  .scope-card .yr {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .scope-card h4 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    line-height: 1.15;
+  }
+  .scope-card .where {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 14px;
+  }
+  .scope-card .desc {
+    font-size: 0.85rem;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .scope-card .key {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ EARTH SATELLITES ============ */
+  .sats-section {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 80px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .sats-orbit-stage {
+    background: radial-gradient(circle at center, #001428 0%, #000610 100%);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-top: 30px;
+    aspect-ratio: 16/10;
+    position: relative;
+    overflow: hidden;
+    max-height: 540px;
+  }
+  .sats-svg { width: 100%; height: 100%; display: block; }
+  .sats-svg .orbit-ring { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; stroke-dasharray: 4 4; }
+  .sats-svg .earth-core {
+    fill: url(#earthGrad);
+  }
+  .sats-svg .sat-dot { transition: r 0.2s; cursor: pointer; }
+  .sats-svg .sat-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9.5px;
+    fill: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .sats-svg .ring-label {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 11px;
+    fill: rgba(121, 224, 255, 0.7);
+  }
+
+  .sats-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .sats-stat {
+    padding: 18px 16px;
+    background: rgba(121, 224, 255, 0.06);
+    border: 1px solid rgba(121, 224, 255, 0.18);
+    border-radius: 8px;
+  }
+  .sats-stat .v {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.7rem;
+    color: #79e0ff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .sats-stat .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
   /* ============ SCALE STRIP ============ */
   .scale-strip {
     position: relative;
@@ -1153,6 +1564,55 @@
     .scale-item { min-width: 70px; }
   }
 
+  /* SMALL TABLET (≤768px) */
+  @media (max-width: 768px) {
+    /* New advanced sections — tablet */
+    .stars-section, .constellations-section, .eclipses-section,
+    .galaxy-section, .atmos-section, .telescopes-section, .sats-section {
+      padding: 60px 5vw;
+    }
+    .stars-grid, .telescopes-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .star-card, .scope-card { padding: 22px 18px; }
+    .star-vis { width: 64px; height: 64px; }
+    .const-stage { padding: 22px 14px; }
+    .const-svg { height: 380px; min-width: 760px; }
+    .eclipse-grid { grid-template-columns: 1fr; gap: 18px; }
+    .eclipse-card { padding: 26px 22px; }
+    .eclipse-card .vis { height: 160px; }
+    .eclipse-card .vis svg { width: 160px; height: 160px; }
+    .galaxy-stage { padding: 22px 14px; }
+    .galaxy-svg { height: 420px; min-width: 760px; }
+    .galaxy-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .galaxy-stat { padding: 18px 16px; }
+    .galaxy-stat .v { font-size: 1.5rem; }
+    /* Atmospheres table — collapse to cards */
+    .atmos-row {
+      grid-template-columns: 130px 1fr;
+      gap: 10px 14px;
+      padding: 14px 18px;
+    }
+    .atmos-row.head { display: none; }
+    .atmos-row .cell { font-size: 0.78rem; }
+    .atmos-row .cell::before {
+      content: attr(data-label);
+      display: block;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 2px;
+    }
+    /* Satellites diagram */
+    .sats-orbit-stage { aspect-ratio: 1/1; max-height: 460px; }
+    .sats-svg .sat-label { font-size: 8px; }
+    .sats-svg .ring-label { font-size: 9px; }
+    .sats-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+  }
+
   /* PHONE (≤480px) — most compact */
   @media (max-width: 480px) {
     header { padding: 40px 5vw 18px; }
@@ -1200,6 +1660,24 @@
     .planet-label { font-size: 0.55rem; }
     /* Disable comet on tiny screens to reduce visual noise */
     .comet { display: none; }
+    /* Advanced sections */
+    .stars-section, .constellations-section, .eclipses-section,
+    .galaxy-section, .atmos-section, .telescopes-section, .sats-section {
+      padding: 40px 4vw;
+    }
+    .stars-grid, .telescopes-grid { grid-template-columns: 1fr; }
+    .const-svg { height: 320px; min-width: 700px; }
+    .galaxy-svg { height: 360px; min-width: 700px; }
+    .galaxy-stats, .sats-stats { grid-template-columns: 1fr; }
+    .atmos-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .atmos-row .pname { font-size: 1.05rem; }
+    .sats-orbit-stage { max-height: 380px; }
+    .sats-svg .sat-label { font-size: 7.5px; }
+    .eclipse-card .vis { height: 140px; }
+    .eclipse-card .vis svg { width: 140px; height: 140px; }
   }
 </style>
 </head>
@@ -1580,6 +2058,275 @@
       <p class="effect">Reshapes the biosphere. Most large land animals die. Species recovery takes millions of years.</p>
       <div class="historical">Chicxulub, 66 million years ago: ended the age of non-avian dinosaurs. Crater 180 km wide, off the Yucatán.</div>
     </div>
+  </div>
+</section>
+
+<!-- ============ STAR TYPES ============ -->
+<section class="stars-section">
+  <div class="section-eyebrow">A Field Guide to Stars</div>
+  <h2 class="section-title">The Sun is one type. <em>There are many.</em></h2>
+  <p class="section-sub">Stars are classified by size, surface temperature, and the stage of their lives. Most are smaller and cooler than the Sun. The really massive ones live fast and die spectacularly — sometimes leaving behind objects so dense that physics gets weird.</p>
+  <div class="stars-grid" id="starsGrid"></div>
+</section>
+
+<!-- ============ CONSTELLATIONS ============ -->
+<section class="constellations-section">
+  <div class="section-eyebrow">Patterns in the Sky</div>
+  <h2 class="section-title">88 official constellations — <em>some you can probably name.</em></h2>
+  <p class="section-sub">Constellations are mostly an accident of perspective: stars that appear close together from Earth but are often hundreds of light-years apart in three dimensions. Below, eight famous patterns drawn from real star coordinates. Hover any line to highlight the shape.</p>
+  <div class="const-stage">
+    <svg class="const-svg" id="constSvg" viewBox="0 0 1200 480" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+</section>
+
+<!-- ============ ECLIPSES ============ -->
+<section class="eclipses-section">
+  <div class="section-eyebrow">When Bodies Align</div>
+  <h2 class="section-title">Two kinds of eclipse — <em>and one cosmic coincidence.</em></h2>
+  <p class="section-sub">By an extraordinary fluke of geometry, the Sun is roughly 400 times wider than the Moon — and also about 400 times further away. From Earth, they appear nearly identical in size. That's why total solar eclipses look the way they do, and why this perfect ratio won't last forever (the Moon is drifting away).</p>
+  <div class="eclipse-grid">
+    <div class="eclipse-card">
+      <div class="vis">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <defs>
+            <radialGradient id="sunRay" cx="0.5" cy="0.5">
+              <stop offset="0%" stop-color="#fff5cf"/>
+              <stop offset="35%" stop-color="#ffd166"/>
+              <stop offset="100%" stop-color="#ff7e21" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="90" fill="url(#sunRay)" opacity="0.7"/>
+          <circle cx="100" cy="100" r="60" fill="#000"/>
+          <circle cx="100" cy="100" r="62" fill="none" stroke="#ffd166" stroke-width="1.5" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="role">Solar Eclipse</div>
+      <h3>Moon hides the Sun</h3>
+      <p>When the new Moon passes between Earth and Sun. <strong>Total eclipses</strong> last only a few minutes and are visible from a narrow path 100–200 km wide. The faint glow around the Moon is the Sun's corona — visible only during totality.</p>
+      <p style="font-size: 0.82rem; color: var(--ink-dim);"><strong style="color:var(--accent)">Average frequency:</strong> 2–5 solar eclipses per year somewhere on Earth, but only one total eclipse visible from any given spot every ~375 years.</p>
+    </div>
+
+    <div class="eclipse-card">
+      <div class="vis">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <defs>
+            <radialGradient id="redMoon" cx="0.5" cy="0.5">
+              <stop offset="0%" stop-color="#a04030"/>
+              <stop offset="60%" stop-color="#601810"/>
+              <stop offset="100%" stop-color="#1a0a08"/>
+            </radialGradient>
+            <radialGradient id="shadow" cx="0.5" cy="0.5">
+              <stop offset="0%" stop-color="#1a0a08" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#1a0a08" stop-opacity="0.5"/>
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="120" fill="url(#shadow)"/>
+          <circle cx="100" cy="100" r="55" fill="url(#redMoon)"/>
+          <circle cx="86" cy="92" r="6" fill="#3a1e18" opacity="0.7"/>
+          <circle cx="115" cy="105" r="10" fill="#3a1e18" opacity="0.6"/>
+          <circle cx="100" cy="118" r="5" fill="#3a1e18" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="role">Lunar Eclipse</div>
+      <h3>Earth's shadow swallows the Moon</h3>
+      <p>When the full Moon passes through Earth's shadow. The Moon turns deep red — sunlight bent through Earth's atmosphere reaches it, with blue light scattered out. <strong>Same physics as a sunset</strong>, just projected onto the Moon.</p>
+      <p style="font-size: 0.82rem; color: var(--ink-dim);"><strong style="color:var(--accent)">Visible to half the planet</strong> (anywhere on Earth's night side). Each lunar eclipse can last over 3 hours from start to finish.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MILKY WAY MAP ============ -->
+<section class="galaxy-section">
+  <div class="section-eyebrow">Where We Live</div>
+  <h2 class="section-title">Our address — <em>somewhere on the Orion Spur.</em></h2>
+  <p class="section-sub">The Sun is one of about 200 billion stars in the Milky Way. We sit roughly 26,000 light-years from the galactic centre, on a minor offshoot of one of the spiral arms. The map below is drawn looking down on the galactic disc, with our position marked.</p>
+  <div class="galaxy-stage">
+    <svg class="galaxy-svg" id="galaxySvg" viewBox="0 0 1200 540" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+  <div class="galaxy-stats">
+    <div class="galaxy-stat">
+      <div class="k">Galaxy diameter</div>
+      <div class="v">100,000 ly</div>
+      <div class="desc">Light takes 100,000 years to cross the Milky Way from edge to edge.</div>
+    </div>
+    <div class="galaxy-stat">
+      <div class="k">Number of stars</div>
+      <div class="v">~200 billion</div>
+      <div class="desc">Plus, recent estimates suggest at least one planet for every star — so roughly a trillion planets.</div>
+    </div>
+    <div class="galaxy-stat">
+      <div class="k">Our distance from centre</div>
+      <div class="v">26,000 ly</div>
+      <div class="desc">Halfway out from the core. We're far enough from the chaos at the centre that life can persist.</div>
+    </div>
+    <div class="galaxy-stat">
+      <div class="k">Sun's orbital speed</div>
+      <div class="v">828,000 km/h</div>
+      <div class="desc">Around the galactic centre. Even so, one orbit takes 230 million years — about 20 times since dinosaurs went extinct.</div>
+    </div>
+    <div class="galaxy-stat">
+      <div class="k">Central black hole</div>
+      <div class="v">Sgr A*</div>
+      <div class="desc">Sagittarius A* — a supermassive black hole 4.3 million times the Sun's mass. First photographed in 2022.</div>
+    </div>
+    <div class="galaxy-stat">
+      <div class="k">Nearest galaxy (large)</div>
+      <div class="v">Andromeda</div>
+      <div class="desc">2.5 million light-years away. On collision course with the Milky Way — they'll merge in about 4.5 billion years.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ATMOSPHERES & SURFACES ============ -->
+<section class="atmos-section">
+  <div class="section-eyebrow">Climates and Substances</div>
+  <h2 class="section-title">What's the weather and ground like — <em>on every other planet?</em></h2>
+  <p class="section-sub">Every world has its own atmospheric chemistry, surface materials, and water situation. Most are extreme. Three of them have liquid surface water at some point in their history. Only one still does.</p>
+  <div class="atmos-table">
+    <div class="atmos-row head">
+      <div>Planet</div>
+      <div>Atmosphere</div>
+      <div>Surface / Materials</div>
+      <div>Water</div>
+      <div>Climate notes</div>
+    </div>
+    <div class="atmos-row">
+      <div class="pname"><span class="pdot" style="background:#9c8b7e"></span>Mercury</div>
+      <div class="cell">Almost none<span class="sub">Trace H, He from solar wind</span></div>
+      <div class="cell">Cratered rock + iron core<span class="sub">Iron, silicate</span></div>
+      <div class="cell">Ice in polar craters<span class="sub">Permanently shadowed</span></div>
+      <div class="cell">+430 °C day to −180 °C night<span class="sub">No heat retention</span></div>
+    </div>
+    <div class="atmos-row">
+      <div class="pname"><span class="pdot" style="background:#e6c07b"></span>Venus</div>
+      <div class="cell">96% CO₂, sulphuric acid clouds<span class="sub">92× Earth's pressure</span></div>
+      <div class="cell">Volcanic basalt, lava plains<span class="sub">Iron, silicate, sulphur</span></div>
+      <div class="cell">None<span class="sub">Boiled away ~750M years ago</span></div>
+      <div class="cell">+464 °C constant<span class="sub">Runaway greenhouse</span></div>
+    </div>
+    <div class="atmos-row">
+      <div class="pname"><span class="pdot" style="background:#5b8def"></span>Earth</div>
+      <div class="cell">78% N₂, 21% O₂<span class="sub">+ water, CO₂, argon</span></div>
+      <div class="cell">Silicate rock, soil, oceans<span class="sub">71% surface is water</span></div>
+      <div class="cell">1.3 billion km³ liquid<span class="sub">All three states stable</span></div>
+      <div class="cell">−89 to +56 °C<span class="sub">Warming ~0.18 °C/decade</span></div>
+    </div>
+    <div class="atmos-row">
+      <div class="pname"><span class="pdot" style="background:#d35a3f"></span>Mars</div>
+      <div class="cell">95% CO₂, very thin<span class="sub">0.6% Earth's pressure</span></div>
+      <div class="cell">Iron oxide (rust) regolith<span class="sub">Hematite, basalt, clay</span></div>
+      <div class="cell">Polar ice caps + subsurface<span class="sub">Brief seasonal liquid brines</span></div>
+      <div class="cell">−140 to +20 °C<span class="sub">Global dust storms</span></div>
+    </div>
+    <div class="atmos-row">
+      <div class="pname"><span class="pdot" style="background:#d8a679"></span>Jupiter</div>
+      <div class="cell">90% H₂, 10% He<span class="sub">+ traces of methane, ammonia</span></div>
+      <div class="cell">No solid surface<span class="sub">Liquid metallic hydrogen below</span></div>
+      <div class="cell">Trace water in upper clouds<span class="sub">Bands of ammonia ice crystals</span></div>
+      <div class="cell">−145 °C cloud tops<span class="sub">2,100 km/h jet streams</span></div>
+    </div>
+    <div class="atmos-row">
+      <div class="pname"><span class="pdot" style="background:#e3d3a4"></span>Saturn</div>
+      <div class="cell">96% H₂, 3% He<span class="sub">+ ammonia, methane</span></div>
+      <div class="cell">No solid surface<span class="sub">Rings of water ice + rock</span></div>
+      <div class="cell">Mostly H₂O ice in rings<span class="sub">Some moons have oceans</span></div>
+      <div class="cell">−178 °C average<span class="sub">Hexagonal polar storm</span></div>
+    </div>
+    <div class="atmos-row">
+      <div class="pname"><span class="pdot" style="background:#9fd9e0"></span>Uranus</div>
+      <div class="cell">83% H₂, 15% He, methane<span class="sub">Methane gives it its blue</span></div>
+      <div class="cell">No solid surface<span class="sub">Ice giant — water, methane, ammonia ice</span></div>
+      <div class="cell">Vast 'icy' interior<span class="sub">Diamond rain in deep layers</span></div>
+      <div class="cell">−224 °C<span class="sub">Coldest planet, despite Neptune being further</span></div>
+    </div>
+    <div class="atmos-row">
+      <div class="pname"><span class="pdot" style="background:#3d63d6"></span>Neptune</div>
+      <div class="cell">80% H₂, 19% He, methane<span class="sub">Heat from internal source</span></div>
+      <div class="cell">No solid surface<span class="sub">Slushy water, methane, ammonia</span></div>
+      <div class="cell">Rocky-ice mantle<span class="sub">Diamond rain</span></div>
+      <div class="cell">−214 °C<span class="sub">Fastest winds in solar system</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TELESCOPES ============ -->
+<section class="telescopes-section">
+  <div class="section-eyebrow">How We Look</div>
+  <h2 class="section-title">Eight instruments that <em>changed what we know.</em></h2>
+  <p class="section-sub">From Galileo's hand-cranked refractor in 1609 to a 6-tonne mirror parked 1.5 million km from Earth — telescopes are how we got everything else on this page.</p>
+  <div class="telescopes-grid">
+    <div class="scope-card">
+      <div class="yr">1609</div>
+      <h4>Galileo's refractor</h4>
+      <div class="where">Padua, Italy</div>
+      <p class="desc">A wooden tube, 20× magnification. Galileo used it to discover the four largest moons of Jupiter — first proof that not everything orbits Earth. Got him in trouble with the Inquisition.</p>
+      <div class="key">37 mm aperture</div>
+    </div>
+    <div class="scope-card">
+      <div class="yr">1845</div>
+      <h4>Leviathan of Parsonstown</h4>
+      <div class="where">Birr, Ireland</div>
+      <p class="desc">Largest telescope on Earth for 75 years. The first instrument to resolve the spiral structure of distant galaxies — though they were thought to be nebulae within our own.</p>
+      <div class="key">1.83 m mirror</div>
+    </div>
+    <div class="scope-card">
+      <div class="yr">1917</div>
+      <h4>Hooker Telescope</h4>
+      <div class="where">Mt. Wilson, USA</div>
+      <p class="desc">Edwin Hubble used it to prove other galaxies exist beyond ours, then to discover that the universe is expanding. One of the most consequential telescopes ever built.</p>
+      <div class="key">2.5 m mirror</div>
+    </div>
+    <div class="scope-card">
+      <div class="yr">1990</div>
+      <h4>Hubble Space Telescope</h4>
+      <div class="where">Low Earth Orbit · 540 km up</div>
+      <p class="desc">Above the atmosphere, finally. Took the deepest images of the universe ever — the Hubble Deep Field — proving there are hundreds of billions of galaxies.</p>
+      <div class="key">2.4 m mirror</div>
+    </div>
+    <div class="scope-card">
+      <div class="yr">1999</div>
+      <h4>VLT (Very Large Telescope)</h4>
+      <div class="where">Paranal, Chile</div>
+      <p class="desc">Four 8.2 m telescopes that can be combined optically into a 'virtual' 16 m mirror. Took the first direct image of an exoplanet.</p>
+      <div class="key">4 × 8.2 m mirrors</div>
+    </div>
+    <div class="scope-card">
+      <div class="yr">2013</div>
+      <h4>ALMA</h4>
+      <div class="where">Atacama, Chile · 5,000 m</div>
+      <p class="desc">An array of 66 radio dishes at extreme altitude. Imaged a planet forming from dust around a young star — a direct snapshot of solar-system formation.</p>
+      <div class="key">66 dishes · 16 km baseline</div>
+    </div>
+    <div class="scope-card">
+      <div class="yr">2021</div>
+      <h4>James Webb (JWST)</h4>
+      <div class="where">L2 Lagrange point · 1.5M km from Earth</div>
+      <p class="desc">An infrared space telescope with a folding gold-coated mirror. Sees the universe's first galaxies — light that has been travelling for 13.5 billion years.</p>
+      <div class="key">6.5 m segmented mirror</div>
+    </div>
+    <div class="scope-card">
+      <div class="yr">~2028</div>
+      <h4>ELT (under construction)</h4>
+      <div class="where">Cerro Armazones, Chile</div>
+      <p class="desc">The Extremely Large Telescope. When it opens, will be 5× more powerful than any current telescope. Designed to directly image Earth-like planets around other stars.</p>
+      <div class="key">39.3 m mirror · 798 segments</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EARTH SATELLITES ============ -->
+<section class="sats-section">
+  <div class="section-eyebrow">A Crowded Backyard</div>
+  <h2 class="section-title">More than <em>10,000 active satellites</em> orbit Earth right now.</h2>
+  <p class="section-sub">Each at a specific altitude, doing a specific job — communications, GPS, weather, surveillance, or science. The diagram below shows the four main orbit zones, drawn roughly to scale, with notable examples at each altitude.</p>
+  <div class="sats-orbit-stage">
+    <svg class="sats-svg" id="satsSvg" viewBox="0 0 1100 540" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+  <div class="sats-stats">
+    <div class="sats-stat"><div class="v">~10,200</div><div class="k">Active satellites in orbit</div></div>
+    <div class="sats-stat"><div class="v">~6,300</div><div class="k">Of those are Starlink alone</div></div>
+    <div class="sats-stat"><div class="v">36,000+</div><div class="k">Tracked debris pieces</div></div>
+    <div class="sats-stat"><div class="v">100M+</div><div class="k">Untracked smaller pieces</div></div>
   </div>
 </section>
 
@@ -2014,6 +2761,300 @@ renderMoons();
   }
   update();
   setInterval(update, 1000);
+})();
+
+// ============ STAR TYPES ============
+const STARS = [
+  { type: "Brown Dwarf", size: "Sub-stellar", cl: "#a04030", cm: "#601810", cd: "#1a0a08",
+    desc: "A 'failed star' — too small to start fusing hydrogen. Glows faintly from gravitational contraction. Less than 8% the Sun's mass." },
+  { type: "Red Dwarf", size: "Smallest true stars", cl: "#ff8060", cm: "#c04030", cd: "#601810",
+    desc: "About 70% of all stars in the galaxy. Burn hydrogen so slowly they can live for trillions of years — longer than the universe has currently existed." },
+  { type: "The Sun (G-type)", size: "Average yellow dwarf", cl: "#fff5cf", cm: "#ffd166", cd: "#a04020",
+    desc: "What we orbit. About 4.6 billion years old, halfway through its life. Currently fuses 600 million tons of hydrogen into helium every second." },
+  { type: "Blue Giant", size: "10–100× the Sun", cl: "#a8c8ff", cm: "#5070d0", cd: "#1a3070",
+    desc: "Massive, hot, and short-lived. Burn through their fuel in a few million years, then explode as supernovae. Source of most heavy elements in the universe." },
+  { type: "Red Giant", size: "Sun in 5 billion years", cl: "#ffb070", cm: "#d06030", cd: "#601810",
+    desc: "What an aging Sun-like star becomes when its core hydrogen runs out. Swells to engulf nearby planets. Earth's likely fate." },
+  { type: "White Dwarf", size: "Earth-sized core", cl: "#e8f0ff", cm: "#a8b8d0", cd: "#404860",
+    desc: "What's left when a Sun-like star sheds its outer layers. A teaspoon of white-dwarf matter weighs around 1 ton. Slowly cools over billions of years." },
+  { type: "Neutron Star", size: "20 km diameter", cl: "#fff", cm: "#80a8ff", cd: "#1a2870",
+    desc: "What's left after a supernova. So dense that a sugar-cube-sized piece would weigh 100 million tons on Earth. Spins hundreds of times per second." },
+  { type: "Pulsar", size: "Spinning neutron star", cl: "#fff", cm: "#a080ff", cd: "#3020a0",
+    desc: "A neutron star with a beam of radiation that sweeps through space as it spins — like a cosmic lighthouse. Some flash thousands of times a second." },
+  { type: "Black Hole", size: "Singularity", cl: "#601060", cm: "#200428", cd: "#000",
+    desc: "When a star massive enough collapses, gravity becomes so intense not even light escapes. Stellar-mass: 3-100 Suns. Supermassive (galaxy centres): millions to billions of Suns." }
+];
+document.getElementById('starsGrid').innerHTML = STARS.map(s => `
+  <div class="star-card">
+    <div class="star-vis" style="--cl:${s.cl}; --cm:${s.cm}; --cd:${s.cd}"></div>
+    <div class="stype">${s.type}</div>
+    <div class="ssize">${s.size}</div>
+    <div class="sdesc">${s.desc}</div>
+  </div>
+`).join('');
+
+// ============ CONSTELLATIONS ============
+(function renderConstellations() {
+  const W = 1200, H = 480;
+  // Constellations defined as { name, stars: [[x,y,name?,bright?]], lines: [[i,j],...] }
+  const CONSTS = [
+    {
+      name: "Orion",
+      stars: [
+        [180, 60, "Betelgeuse", true],
+        [255, 80, "Bellatrix"],
+        [200, 130], [220, 145, "Mintaka"], [230, 160, "Alnilam"], [240, 175, "Alnitak"],
+        [180, 240, "Saiph"], [275, 220, "Rigel", true]
+      ],
+      lines: [[0,1],[0,2],[1,2],[2,3],[3,4],[4,5],[5,6],[5,7],[2,7]]
+    },
+    {
+      name: "Ursa Major (Big Dipper)",
+      stars: [
+        [430, 90, "Dubhe"], [490, 110, "Merak"], [530, 130, "Phecda"],
+        [580, 150, "Megrez"], [635, 130, "Alioth"], [690, 110, "Mizar"], [740, 90, "Alkaid", true]
+      ],
+      lines: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]]
+    },
+    {
+      name: "Cassiopeia",
+      stars: [
+        [840, 90, "Caph"], [890, 130, "Schedar"], [940, 100, "Gamma Cas"],
+        [990, 140, "Ruchbah"], [1040, 110, "Segin"]
+      ],
+      lines: [[0,1],[1,2],[2,3],[3,4]]
+    },
+    {
+      name: "Leo",
+      stars: [
+        [80, 320, "Regulus", true], [120, 340], [150, 320], [180, 300, "Algieba"],
+        [200, 350], [240, 380, "Denebola"]
+      ],
+      lines: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,1]]
+    },
+    {
+      name: "Scorpius",
+      stars: [
+        [340, 280], [370, 310, "Antares", true], [400, 340], [440, 360],
+        [480, 390], [510, 420], [540, 405], [560, 380], [580, 350]
+      ],
+      lines: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8]]
+    },
+    {
+      name: "Cygnus (Northern Cross)",
+      stars: [
+        [680, 280, "Deneb", true], [720, 320], [760, 360, "Sadr"],
+        [690, 360], [830, 360], [800, 410, "Albireo"]
+      ],
+      lines: [[0,1],[1,2],[2,3],[2,4],[2,5]]
+    },
+    {
+      name: "Lyra",
+      stars: [
+        [880, 250, "Vega", true], [910, 290], [940, 320], [890, 340], [870, 300]
+      ],
+      lines: [[0,1],[1,2],[2,3],[3,4],[4,1]]
+    },
+    {
+      name: "Crux (Southern Cross)",
+      stars: [
+        [1010, 320, "Acrux", true], [1050, 360, "Mimosa"], [1010, 410, "Gacrux"], [970, 360, "Delta Crucis"]
+      ],
+      lines: [[0,2],[1,3]]
+    }
+  ];
+
+  let html = "";
+  // Background stars
+  const seed = (n) => {
+    let x = Math.sin(n * 12.9898) * 43758.5453;
+    return x - Math.floor(x);
+  };
+  for (let i = 0; i < 80; i++) {
+    const x = seed(i) * W;
+    const y = seed(i * 2 + 1) * H;
+    const r = seed(i * 3 + 2) * 1.4 + 0.3;
+    html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="rgba(255,255,255,0.4)"/>`;
+  }
+
+  CONSTS.forEach((c, ci) => {
+    // lines
+    c.lines.forEach(([a, b]) => {
+      const sa = c.stars[a], sb = c.stars[b];
+      html += `<line class="const-line" data-c="${ci}" x1="${sa[0]}" y1="${sa[1]}" x2="${sb[0]}" y2="${sb[1]}"/>`;
+    });
+    // stars
+    c.stars.forEach(s => {
+      const r = s[3] ? 4 : 2.5;
+      const cls = s[3] ? "const-star bright" : "const-star";
+      html += `<circle class="${cls}" cx="${s[0]}" cy="${s[1]}" r="${r}"/>`;
+      if (s[2]) {
+        html += `<text class="star-name" x="${s[0] + 7}" y="${s[1] + 3}">${s[2]}</text>`;
+      }
+    });
+    // name
+    const cx = c.stars.reduce((a, s) => a + s[0], 0) / c.stars.length;
+    const cy = Math.min(...c.stars.map(s => s[1])) - 14;
+    html += `<text class="const-name" x="${cx}" y="${cy}" text-anchor="middle">${c.name}</text>`;
+  });
+
+  document.getElementById('constSvg').innerHTML = html;
+
+  // Hover handlers — highlight whole constellation
+  document.querySelectorAll('.const-line').forEach(line => {
+    line.addEventListener('mouseenter', () => {
+      const cId = line.dataset.c;
+      document.querySelectorAll(`.const-line[data-c="${cId}"]`).forEach(l => l.classList.add('hi'));
+    });
+    line.addEventListener('mouseleave', () => {
+      document.querySelectorAll('.const-line.hi').forEach(l => l.classList.remove('hi'));
+    });
+  });
+})();
+
+// ============ MILKY WAY MAP ============
+(function renderGalaxy() {
+  const W = 1200, H = 540;
+  const cx = W/2, cy = H/2;
+  let html = "";
+
+  // Faint background stars
+  const seed = (n) => { let x = Math.sin(n * 9.879) * 43758.5453; return x - Math.floor(x); };
+  for (let i = 0; i < 60; i++) {
+    const x = seed(i) * W;
+    const y = seed(i * 2.7 + 1) * H;
+    const r = seed(i * 3 + 2) * 1.2 + 0.3;
+    html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="rgba(255,255,255,0.2)"/>`;
+  }
+
+  // Spiral arms — 4 arms drawn as logarithmic spirals using cluster of dots
+  const armColors = ["#ffe8a8", "#ffcfa0", "#fff4d0", "#ffd8a8"];
+  const armNames = ["Perseus Arm", "Norma Arm", "Sagittarius Arm", "Scutum-Centaurus Arm"];
+  for (let arm = 0; arm < 4; arm++) {
+    const phaseShift = (arm * Math.PI) / 2;
+    for (let t = 0.05; t < 1.0; t += 0.012) {
+      const r = 30 + t * 240;
+      const theta = phaseShift + t * Math.PI * 2.0;
+      // Multiple stars at each step (make arm thick)
+      for (let n = 0; n < 6; n++) {
+        const jitter = seed(arm * 1000 + t * 1000 + n) * 24 - 12;
+        const px = cx + (r + jitter) * Math.cos(theta);
+        const py = cy + (r + jitter) * Math.sin(theta) * 0.45; // squash to ellipse
+        const radius = 0.6 + seed(arm * 2000 + n + t * 100) * 1.4;
+        const alpha = 0.35 + seed(arm * 3000 + n) * 0.4;
+        html += `<circle class="star-cluster" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${radius.toFixed(2)}" fill="${armColors[arm]}" opacity="${alpha.toFixed(2)}"/>`;
+      }
+    }
+  }
+
+  // Bright core (bulge)
+  html += `<ellipse cx="${cx}" cy="${cy}" rx="80" ry="36" fill="#ffe8a0" opacity="0.45"/>`;
+  html += `<ellipse cx="${cx}" cy="${cy}" rx="50" ry="22" fill="#fff5cf" opacity="0.7"/>`;
+  html += `<ellipse cx="${cx}" cy="${cy}" rx="22" ry="10" fill="#fff" opacity="0.95"/>`;
+
+  // Sgr A* (black hole) marker
+  html += `<circle cx="${cx}" cy="${cy}" r="3" fill="#000" stroke="#a080ff" stroke-width="1.2"/>`;
+  html += `<text class="label" x="${cx + 10}" y="${cy + 4}" fill="#a080ff">Sgr A* black hole</text>`;
+
+  // The Sun's position: on Orion Spur, ~26,000 ly from centre (about 60% out)
+  const sunR = 150;
+  const sunTheta = Math.PI * 0.65;
+  const sunX = cx + sunR * Math.cos(sunTheta);
+  const sunY = cy + sunR * Math.sin(sunTheta) * 0.45;
+  html += `<circle class="you-marker" cx="${sunX}" cy="${sunY}" r="14" fill="rgba(255, 209, 102, 0.18)"/>`;
+  html += `<circle class="you-marker" cx="${sunX}" cy="${sunY}" r="6" fill="rgba(255, 209, 102, 0.4)"/>`;
+  html += `<circle class="you-marker" cx="${sunX}" cy="${sunY}" r="2.5" fill="#ffd166"/>`;
+  html += `<line x1="${sunX + 18}" y1="${sunY - 14}" x2="${sunX + 90}" y2="${sunY - 60}" stroke="rgba(255,209,102,0.5)" stroke-width="1"/>`;
+  html += `<text class="label" x="${sunX + 92}" y="${sunY - 56}" fill="#ffd166">YOU ARE HERE</text>`;
+  html += `<text class="label" x="${sunX + 92}" y="${sunY - 42}" fill="rgba(255,255,255,0.6)" style="font-size:9px">26,000 ly from core</text>`;
+
+  // Arm name labels
+  html += `<text class="arm-name" x="${cx + 220}" y="${cy - 60}">Perseus Arm</text>`;
+  html += `<text class="arm-name" x="${cx - 240}" y="${cy + 80}">Sagittarius Arm</text>`;
+  html += `<text class="arm-name" x="${cx + 100}" y="${cy + 110}">Scutum–Centaurus</text>`;
+  html += `<text class="arm-name" x="${cx - 280}" y="${cy - 30}">Norma Arm</text>`;
+
+  // Scale bar
+  html += `<line x1="60" y1="${H-40}" x2="170" y2="${H-40}" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>`;
+  html += `<text class="label" x="115" y="${H-22}" text-anchor="middle">~ 20,000 light-years</text>`;
+
+  // Diameter labels
+  html += `<text class="label" x="${W-60}" y="40" text-anchor="end">Galaxy diameter: 100,000 ly</text>`;
+
+  document.getElementById('galaxySvg').innerHTML = html;
+})();
+
+// ============ EARTH SATELLITES ============
+(function renderSats() {
+  const W = 1100, H = 540;
+  const cx = W/2, cy = H/2;
+  let html = "";
+
+  // Definitions
+  html += `<defs>
+    <radialGradient id="earthGrad" cx="0.5" cy="0.5">
+      <stop offset="0%" stop-color="#5b8def"/>
+      <stop offset="60%" stop-color="#2a4080"/>
+      <stop offset="100%" stop-color="#0a1830"/>
+    </radialGradient>
+  </defs>`;
+
+  // Earth
+  const earthR = 50;
+  html += `<circle class="earth-core" cx="${cx}" cy="${cy}" r="${earthR}"/>`;
+  // Continents stylized
+  html += `<path d="M${cx-30},${cy-10} Q${cx-20},${cy-20} ${cx-5},${cy-12} L${cx+10},${cy-5} Q${cx+5},${cy+5} ${cx-15},${cy+8} Z" fill="rgba(100, 160, 90, 0.5)"/>`;
+  html += `<path d="M${cx+15},${cy+5} Q${cx+25},${cy+10} ${cx+30},${cy+20} L${cx+15},${cy+25} Z" fill="rgba(100, 160, 90, 0.5)"/>`;
+
+  // Orbit zones (radii)
+  const zones = [
+    { r: earthR + 60,  name: "LEO · 200–2,000 km",     col: "#79e0ff" },
+    { r: earthR + 130, name: "MEO · 2,000–35,000 km",  col: "#79b0ff" },
+    { r: earthR + 200, name: "GEO · 35,786 km",        col: "#a080ff" },
+    { r: earthR + 240, name: "Beyond · Moon, L2",       col: "#ffd166" }
+  ];
+  zones.forEach((z, i) => {
+    html += `<ellipse class="orbit-ring" cx="${cx}" cy="${cy}" rx="${z.r}" ry="${z.r * 0.55}"/>`;
+    html += `<text class="ring-label" x="${cx + z.r + 8}" y="${cy + 4}" fill="${z.col}">${z.name}</text>`;
+  });
+
+  // Satellites positioned on rings
+  const sats = [
+    // LEO
+    { ringIdx: 0, angle: 200, name: "ISS", col: "#79e0ff", note: "International Space Station · 408 km" },
+    { ringIdx: 0, angle: 260, name: "Hubble", col: "#79e0ff", note: "Space Telescope · 540 km" },
+    { ringIdx: 0, angle: 320, name: "Starlink", col: "#79e0ff", note: "Constellation · 550 km · 6,300 satellites" },
+    { ringIdx: 0, angle: 100, name: "Tiangong", col: "#79e0ff", note: "China space station · 380 km" },
+    { ringIdx: 0, angle: 30,  name: "Earth-obs", col: "#79e0ff", note: "Sentinel, Landsat etc. · ~700 km" },
+    // MEO
+    { ringIdx: 1, angle: 220, name: "GPS", col: "#79b0ff", note: "31 satellites · 20,200 km" },
+    { ringIdx: 1, angle: 60,  name: "Galileo", col: "#79b0ff", note: "EU navigation · 23,222 km" },
+    { ringIdx: 1, angle: 140, name: "GLONASS", col: "#79b0ff", note: "Russian nav · 19,100 km" },
+    // GEO
+    { ringIdx: 2, angle: 90,  name: "DirecTV", col: "#a080ff", note: "Broadcast · 35,786 km" },
+    { ringIdx: 2, angle: 270, name: "GOES", col: "#a080ff", note: "Weather satellite · 35,786 km" },
+    { ringIdx: 2, angle: 0,   name: "Inmarsat", col: "#a080ff", note: "Comms · 35,786 km" },
+    // Beyond
+    { ringIdx: 3, angle: 45,  name: "JWST", col: "#ffd166", note: "L2 · 1.5 million km" },
+    { ringIdx: 3, angle: 215, name: "Moon", col: "#ffd166", note: "384,400 km · only natural satellite" }
+  ];
+
+  sats.forEach(s => {
+    const z = zones[s.ringIdx];
+    const a = (s.angle * Math.PI) / 180;
+    const x = cx + z.r * Math.cos(a);
+    const y = cy + z.r * 0.55 * Math.sin(a);
+    html += `<circle class="sat-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="${s.col}"/>`;
+    // Label offset based on quadrant
+    const dx = Math.cos(a) > 0 ? 10 : -10;
+    const anchor = Math.cos(a) > 0 ? "start" : "end";
+    html += `<text class="sat-label" x="${(x + dx).toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="${anchor}" fill="${s.col}">${s.name}</text>`;
+  });
+
+  // Center "Earth" label
+  html += `<text class="sat-label" x="${cx}" y="${cy + earthR + 18}" text-anchor="middle" fill="rgba(255,255,255,0.6)" style="font-size:11px">EARTH</text>`;
+
+  document.getElementById('satsSvg').innerHTML = html;
 })();
 </script>
 </body>
